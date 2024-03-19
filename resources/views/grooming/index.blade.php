@@ -51,21 +51,16 @@
                 @foreach ($grooming as $data)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
+                <td>{{$data->user->name}}</td>
+                <td>{{$data->user->name}}</td>
+                <td>{{$data->tgl_lg}}</td>
+                <td>{{$data->status_lg}}</td>
                 <td>
-                    @if ($data->image_data == null)
-                    <i>Empty</i>
-                    @else
-                    <img src="{{asset('images/data/'.$data->image_data)}}" alt="Foto data" style="height: 75px; width:75px; border-radius:5%">
-                    @endif
-                </td>
-                <td>{{$data->nama_data}}</td>
-                <td>{{$data->ket_data}}</td>
-                <td>
-                    <a href="{{route('data.edit', $data->id_data)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$data->id_data}}">Hapus</button>
+                    <a href="{{route('laporan-grooming.edit', $data->id_lg)}}" class="btn btn-info">Edit</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$data->id_lg}}">Hapus</button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal{{$data->id_data}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal{{$data->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -79,7 +74,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form action="{{route('data.destroy',$data->id_data)}}" method="POST">
+                            <form action="{{route('laporan-grooming.destroy',$data->id_lg)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
