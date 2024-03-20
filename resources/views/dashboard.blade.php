@@ -7,7 +7,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
-    <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+    <h4 class="mb-3 mb-md-0">Selamat Datang, {{request()->user()->name}}</h4>
   </div>
   <div class="d-flex align-items-center flex-wrap text-nowrap">
     <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
@@ -204,7 +204,7 @@
         <div class="monthly-sales-chart-wrapper">
           <canvas id="monthly-sales-chart"></canvas>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
   <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
@@ -421,7 +421,7 @@
             </tbody>
           </table>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </div> <!-- row -->

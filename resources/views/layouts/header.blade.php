@@ -66,7 +66,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <p>Leonardo Payne</p>
                   <p class="sub-text text-muted">2 min ago</p>
-                </div>	
+                </div>
                 <p class="sub-text text-muted">Project status</p>
               </div>
             </a>
@@ -78,7 +78,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <p>Carl Henson</p>
                   <p class="sub-text text-muted">30 min ago</p>
-                </div>	
+                </div>
                 <p class="sub-text text-muted">Client meeting</p>
               </div>
             </a>
@@ -88,9 +88,9 @@
               </div>
               <div class="content">
                 <div class="d-flex justify-content-between align-items-center">
-                  <p>Jensen Combs</p>												
+                  <p>Jensen Combs</p>
                   <p class="sub-text text-muted">1 hrs ago</p>
-                </div>	
+                </div>
                 <p class="sub-text text-muted">Project updates</p>
               </div>
             </a>
@@ -190,16 +190,24 @@
       </li>
       <li class="nav-item dropdown nav-profile">
         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="{{ url('https://via.placeholder.com/30x30') }}" alt="profile">
+            @if (request()->user()->image == null)
+                <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+            @else
+                <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+            @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="profileDropdown">
           <div class="dropdown-header d-flex flex-column align-items-center">
             <div class="figure mb-3">
-              <img src="{{ url('https://via.placeholder.com/80x80') }}" alt="">
+                @if (request()->user()->image == null)
+                    <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+                @else
+                    <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+                @endif
             </div>
             <div class="info text-center">
-              <p class="name font-weight-bold mb-0">Amiah Burton</p>
-              <p class="email text-muted mb-3">amiahburton@gmail.com</p>
+              <p class="name font-weight-bold mb-0">{{request()->user()->name}}</p>
+              <p class="email text-muted mb-3">{{request()->user()->email}}</p>
             </div>
           </div>
           <div class="dropdown-body">
