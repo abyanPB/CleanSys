@@ -46,7 +46,7 @@ class SopController extends Controller
             'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
         ]);
 
-        $imageName = $request->nama_sop . '.' . $request->image_sop->extension();
+        $imageName = $request->image_sop->getClientOriginalName();
         $request->image_sop->move(public_path('images/sop/'), $imageName);
 
         $q = Sop::where('image_sop','=',$request->image_sop)->count();

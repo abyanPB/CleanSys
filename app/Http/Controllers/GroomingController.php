@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\LaporanGrooming;
+use App\Models\TanggapanGrooming;
 use App\Models\Area;
 use App\Models\Sop;
 use App\Models\User;
@@ -16,9 +18,12 @@ class GroomingController extends Controller
      */
     public function index()
     {
-        $grooming = LaporanGrooming::all();
+        $tanggapan_grooming = TanggapanGrooming::all();
+        // $tanggapan_grooming = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
+        //     $query->where('status_lg', '=', 'hasil');
+        // })->get();
         $title = 'Laporan Grooming Provice Group';
-        return view('grooming.index', compact('grooming', 'title'));
+        return view('grooming.index', compact('tanggapan_grooming' , 'title'));
     }
 
     /**
@@ -51,7 +56,7 @@ class GroomingController extends Controller
             'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
         ]);
 
-        $imageName = $request->image_lg . '.' . $request->image_lg->extension();
+        $imageName = $request->image_lg->getClientOriginalName();
         $request->image_lg->move(public_path('images/laporan_grooming/'), $imageName);
 
         // $q = Sop::where('image_lg','=',$request->image_lg)->count();
@@ -86,7 +91,11 @@ class GroomingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sops = Sop::all();
+        $areas = Area::all();
+        $lg = LaporanGrooming::findOrFail($id);
+        $title = 'Ubah Data Laporan Grooming Provice Group';
+        return view('grooming.edit', compact('lg', 'title', 'areas', 'sops'));
     }
 
     /**
@@ -102,6 +111,12 @@ class GroomingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $lg = LaporanGrooming::findOrFail($id);
+        $path = 'images/laporan_grooming/';
+
+        File::delete(public_path($path . $lg['image_lg']));
+        $lg->delete();
+
+        return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
     }
 }

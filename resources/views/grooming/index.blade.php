@@ -36,10 +36,10 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Cleaner</th>
+                <th>Nama Petugas</th>
                 <th>Nama Supervisor</th>
-                <th>Tanggal Masuk</th>
-                <th>Tanggal Ditanggapi</th>
+                <th>Waktu Laporan</th>
+                <th>Waktu Ditanggapi</th>
                 <th>Status</th>
                 <th>Aksi</th>
               </tr>
@@ -48,23 +48,62 @@
                 @php
                     $no=1;
                 @endphp
-                @foreach ($grooming as $data)
+                @foreach ($tanggapan_grooming as $data)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$data->user->name}}</td>
-                <td>{{$data->user->name}}</td>
-                <td>{{$data->tgl_lg}}</td>
-                <td>{{$data->status_lg}}</td>
+                <td>{{$data->laporanGrooming->user->name}}</td>
+                <td>{{ $data->user->level == 'spv' ? $data->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
+                <td>{{$data->laporanGrooming->tgl_lg}}</td>
+                <td>{{$data->tgl_tg}}</td>
+                <td>{{$data->laporanGrooming->status_lg}}</td>
                 <td>
-                    <a href="{{route('laporan-grooming.edit', $data->id_lg)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$data->id_lg}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal{{$data->id_lg}}">Detail</button>
+                    <a href="{{route('laporan-grooming.edit', $data->id_lg)}}" class="btn btn-secondary">Edit</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal{{$data->id_lg}}">Hapus</button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal{{$data->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    {{-- Modal Detail --}}
+                    <div class="modal fade" id="detailModal{{$data->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                            <h5 class="modal-title" id="detailModalLabel">Detail Laporan Grooming</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            Nama Petugas : {{$data->laporanGrooming->user->name}}
+                            <hr>
+                            Area Kerja : {{$data->laporanGrooming->area->nama_area}}
+                            <hr>
+                            Sop Kerja : {{$data->laporanGrooming->sop->nama_sop}}
+                            <hr>
+                            Nama Supervisor : {{ $data->user->level == 'spv' ? $data->user->name : 'Tidak Ada Penanggung Jawab' }}
+                            <hr>
+                            Isi Tanggapan : {{$data->tanggapan_grooming}}
+                            <hr>
+                            Waktu Masuk : {{$data->laporanGrooming->tgl_lg}}
+                            <hr>
+                            Waktu Ditanggapi : {{$data->tgl_tg}}
+                            <hr>
+                            Status : {{$data->laporanGrooming->status_lg}}
+                            <hr>
+                            Foto :
+                            <img src="{{asset('images/laporan_grooming/'.$data->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 100%; height: auto;">
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Hapus -->
+                    <div class="modal fade" id="hapusModal{{$data->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="hapusModalLabel">Konfirmasi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -83,7 +122,6 @@
                         </div>
                         </div>
                     </div>
-
                 </td>
               </tr>
               @endforeach
