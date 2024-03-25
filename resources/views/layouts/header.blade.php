@@ -185,7 +185,7 @@
             @if (request()->user()->image == null)
                 <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
             @else
-                <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+                <img src="{{asset('images/pengguna/'.request()->user()->image)}}" alt="Foto Pengguna">
             @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="profileDropdown">

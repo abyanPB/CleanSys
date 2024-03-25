@@ -18,12 +18,12 @@ class GroomingController extends Controller
      */
     public function index()
     {
-        $tanggapan_grooming = TanggapanGrooming::all();
-        // $tanggapan_grooming = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
+        $laporan_grooming = TanggapanGrooming::all();
+        // $laporan_grooming = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
         //     $query->where('status_lg', '=', 'hasil');
         // })->get();
         $title = 'Laporan Grooming Provice Group';
-        return view('grooming.index', compact('tanggapan_grooming' , 'title'));
+        return view('grooming.index', compact('laporan_grooming' , 'title'));
     }
 
     /**
@@ -103,7 +103,36 @@ class GroomingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $lg = LaporanGrooming::findOrFail($id);
+
+        $request->validate([
+            'id_area' =>'required',
+            'id_sop' =>'required',
+            'status_lg' =>'required',
+            'image_lg' => $request->hasFile('image_lg') ? 'required|image|mimes:jpeg,png,jpg,gif' : '',
+        ],[
+            'id_area.required' => 'Area kerja tidak boleh kosong',
+            'id_sop.required' => 'SOP kerja tidak boleh kosong',
+            'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
+            'image_lg.required' => 'Foto pekerjaan tidak boleh kosong',
+            'image_lg.image' => 'File harus berupa gambar',
+            'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
+        ]);
+
+        $lg->id_area = $request->id_area;
+        $lg->id_sop = $request->id_sop;
+        $lg->status_lg = $request->status_lg;
+
+        if($request->hasFile('image_lg')){
+            File::delete(public_path('images/laporan_grooming/'. $lg->image_lg));
+            $imageName = $request->image_lg->getClientOriginalName();
+            $request->image_lg->move(public_path('images/laporan_grooming/'), $imageName);
+            $lg->image_lg = $imageName;
+        };
+
+        $lg->save();
+
+        return redirect()->route('laporan-grooming.index')->with('success', 'Berhasil Ubah Laporan Grooming');
     }
 
     /**
@@ -119,4 +148,13 @@ class GroomingController extends Controller
 
         return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
     }
+
+    // public function showTanggapanGrooming(Request $request)
+    // {
+    //     $id = $request->id_lg;
+    //     $lg = LaporanGrooming::findOrFail($id);
+    //     $tanggapan_grooming = TanggapanGrooming::where('id_lg', '=', $id)->get();
+    //     $title = 'Tanggapan Grooming Provice Group';
+    //     return view('grooming.tanggapan_grooming', compact('lg', 'tanggapan_grooming', 'title'));
+    // }
 }

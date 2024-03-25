@@ -60,32 +60,10 @@
                 <td>{{$sop->ket_sop}}</td>
                 <td>
                     <a href="{{route('sop.edit', $sop->id_sop)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$sop->id_sop}}">Hapus</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusSOP{{$sop->id_sop}}">Hapus</button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            Apakah anda yakin ingin menghapus data ini?
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form action="{{route('sop.destroy',$sop->id_sop)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+                    @include('modals')
 
                 </td>
               </tr>

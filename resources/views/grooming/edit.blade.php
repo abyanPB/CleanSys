@@ -66,7 +66,7 @@
                 <label>Foto Pekerjaan</label>
                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">
                 <div class="input-group col-xs-12">
-                  <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">
+                  <input type="text" class="form-control file-upload-info" disabled="" value="{{$lg->image_lg}}" placeholder="Masukan Foto">
                   <span class="input-group-append">
                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                   </span>
