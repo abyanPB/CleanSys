@@ -21,7 +21,7 @@ class ProfileController extends Controller
     {
         $users = User::all();
         $title = 'Pengguna Provice Group';
-        return view('profile.index', compact('users', 'title'));
+        return view('admin.profile.index', compact('users', 'title'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ProfileController extends Controller
     public function create()
     {
         $title = 'Tambah Data Pengguna Provice Group';
-        return view('profile.create',compact('title'));
+        return view('admin.profile.create',compact('title'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ProfileController extends Controller
     {
         $user = User::find($request->id_users);
         $title = 'Ubah Data Pengguna Provice Group';
-        return view('profile.edit', compact('user', 'title'));
+        return view('admin.profile.edit', compact('user', 'title'));
     }
 
     /**

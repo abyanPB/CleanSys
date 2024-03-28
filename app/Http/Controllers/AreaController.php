@@ -91,7 +91,7 @@ class AreaController extends Controller
             'nama_area' => $request->nama_area,
             'desc_area' => $request->desc_area,
         ]);
-        
+
         return redirect()->route('area.index')->with('success', 'Berhasil Ubah Area Kerja');
     }
 

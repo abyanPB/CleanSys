@@ -9,39 +9,95 @@
       <span></span>
     </div>
   </div>
-  <div class="sidebar-body">
-    <ul class="nav">
-      <li class="nav-item nav-category">Utama</li>
-        <a href="{{ route('dashboard') }}" class="nav-link @if(request()->routeIs('dashboard')) active_class @endif">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item nav-category">Laporan</li>
-        <a href="{{ route('laporan-grooming.index') }}" class="nav-link @if(request()->routeIs('laporan-grooming.index')) active_class @endif">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">Grooming</span>
-        </a>
-        <a href="{{ url('/dashboard') }}" class="nav-link">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">PJKP</span>
-        </a>
-      </li>
-      <li class="nav-item nav-category">Kelola</li>
-      <a href="{{ route('user.index') }}" class="nav-link @if(request()->routeIs('user.index')) active_class @endif">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">Pengguna</span>
-        </a>
-        <a href="{{ route('area.index') }}" class="nav-link @if(request()->routeIs('area.index')) active_class @endif">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">Area Kerja</span>
-        </a>
-        <a href="{{ route('sop.index') }}" class="nav-link @if(request()->routeIs('sop.index')) active_class @endif">
-          <i class="link-icon" data-feather="box"></i>
-          <span class="link-title">SOP</span>
-        </a>
-      </li>
-  </div>
+  @if (Auth::user()->level == 'admin')
+    <div class="sidebar-body">
+        <ul class="nav">
+        <li class="nav-item nav-category">Utama</li>
+            <a href="{{ route('dashboard') }}" class="nav-link @if(request()->routeIs('dashboard')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Laporan</li>
+            <a href="{{ route('laporan-grooming.index') }}" class="nav-link @if(request()->routeIs('laporan-grooming.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Grooming</span>
+            </a>
+            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">PJKP</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Kelola</li>
+        <a href="{{ route('user.index') }}" class="nav-link @if(request()->routeIs('user.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Pengguna</span>
+            </a>
+            <a href="{{ route('area.index') }}" class="nav-link @if(request()->routeIs('area.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Area Kerja</span>
+            </a>
+            <a href="{{ route('sop.index') }}" class="nav-link @if(request()->routeIs('sop.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">SOP</span>
+            </a>
+        </li>
+    </div>
+  @elseif (Auth::user()->level == 'spv')
+    <div class="sidebar-body">
+        <ul class="nav">
+        <li class="nav-item nav-category">Utama</li>
+            <a href="{{ route('dashboard') }}" class="nav-link @if(request()->routeIs('dashboard')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Laporan</li>
+            <a href="{{ route('showTanggapanGrooming') }}" class="nav-link @if(request()->routeIs('showTanggapanGrooming')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Grooming</span>
+            </a>
+            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">PJKP</span>
+            </a>
+        </li>
+    </div>
+  @elseif (Auth::user()->level == 'cleaner')
+    <div class="sidebar-body">
+        <ul class="nav">
+        <li class="nav-item nav-category">Utama</li>
+            <a href="{{ route('dashboard') }}" class="nav-link @if(request()->routeIs('dashboard')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Laporan</li>
+            <a href="{{ route('laporan-grooming.index') }}" class="nav-link @if(request()->routeIs('laporan-grooming.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Grooming</span>
+            </a>
+            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">PJKP</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Kelola</li>
+        <a href="{{ route('user.index') }}" class="nav-link @if(request()->routeIs('user.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Pengguna</span>
+            </a>
+            <a href="{{ route('area.index') }}" class="nav-link @if(request()->routeIs('area.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Area Kerja</span>
+            </a>
+            <a href="{{ route('sop.index') }}" class="nav-link @if(request()->routeIs('sop.index')) active_class @endif">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">SOP</span>
+            </a>
+        </li>
+    </div>
+  @endif
 </nav>
 <nav class="settings-sidebar">
   <div class="sidebar-body">

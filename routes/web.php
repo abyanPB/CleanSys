@@ -22,59 +22,66 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
     Route::get('/user', [ProfileController::class, 'index'])->name('user.index');
     Route::get('/user/create', [ProfileController::class, 'create'])->name('user.create');
     Route::post('/user/create', [ProfileController::class, 'store'])->name('user.store');
     Route::get('/user/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
-    // Route::patch('/user', [ProfileController::class, 'update'])->name('user.update');
     Route::put('/user/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
     Route::delete('/user/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
 
+    // Routes for supervisor
+    Route::middleware(['spv'])->prefix('supervisor')->group(function () {
+        Route::get('/Laporan-Grooming', [GroomingController::class, 'showTanggapanGroomingSupervisor'])->name('showTanggapanGrooming');
+        Route::post('/Laporan-Grooming', [GroomingController::class, 'inputTanggapanGroomingSupervisor'])->name('inputTanggapanGrooming');
+    });
 
-    Route::resource('Sop', sopController::class)->names([
-        'index' => 'sop.index',
-        'create' => 'sop.create',
-        'store' => 'sop.store',
-        'show' => 'sop.show',
-        'edit' => 'sop.edit',
-        'update' => 'sop.update',
-        'destroy' => 'sop.destroy',
-    ]);
+    // Routes for admin
+    Route::middleware(['admin'])->prefix('admin')->group(function () {
+        Route::resource('Sop', sopController::class)->names([
+            'index' => 'sop.index',
+            'create' => 'sop.create',
+            'store' => 'sop.store',
+            'show' => 'sop.show',
+            'edit' => 'sop.edit',
+            'update' => 'sop.update',
+            'destroy' => 'sop.destroy',
+        ]);
 
-    Route::resource('Area', areaController::class)->names([
-        'index' => 'area.index',
-        'create' => 'area.create',
-        'store' => 'area.store',
-        'show' => 'area.show',
-        'edit' => 'area.edit',
-        'update' => 'area.update',
-        'destroy' => 'area.destroy',
-    ]);
+        Route::resource('Area', areaController::class)->names([
+            'index' => 'area.index',
+            'create' => 'area.create',
+            'store' => 'area.store',
+            'show' => 'area.show',
+            'edit' => 'area.edit',
+            'update' => 'area.update',
+            'destroy' => 'area.destroy',
+        ]);
 
-    Route::resource('Laporan-Grooming', GroomingController::class)->names([
-        'index' => 'laporan-grooming.index',
-        'create' => 'laporan-grooming.create',
-        'store' => 'laporan-grooming.store',
-        'show' => 'laporan-grooming.show',
-        'edit' => 'laporan-grooming.edit',
-        'update' => 'laporan-grooming.update',
-        'destroy' => 'laporan-grooming.destroy',
-    ]);
+        Route::resource('Laporan-Grooming', GroomingController::class)->names([
+            'index' => 'laporan-grooming.index',
+            'create' => 'laporan-grooming.create',
+            'store' => 'laporan-grooming.store',
+            'show' => 'laporan-grooming.show',
+            'edit' => 'laporan-grooming.edit',
+            'update' => 'laporan-grooming.update',
+            'destroy' => 'laporan-grooming.destroy',
+        ]);
 
-    Route::resource('Laporan-PJKP', PjkpController::class)->names([
-        'index' => 'laporan-pjkp.index',
-        'create' => 'laporan-pjkp.create',
-        'store' => 'laporan-pjkp.store',
-        'show' => 'laporan-pjkp.show',
-        'edit' => 'laporan-pjkp.edit',
-        'update' => 'laporan-pjkp.update',
-        'destroy' => 'laporan-pjkp.destroy',
-    ]);
+        Route::resource('Laporan-PJKP', PjkpController::class)->names([
+            'index' => 'laporan-pjkp.index',
+            'create' => 'laporan-pjkp.create',
+            'store' => 'laporan-pjkp.store',
+            'show' => 'laporan-pjkp.show',
+            'edit' => 'laporan-pjkp.edit',
+            'update' => 'laporan-pjkp.update',
+            'destroy' => 'laporan-pjkp.destroy',
+        ]);
+    });
 });
 
 require __DIR__.'/auth.php';

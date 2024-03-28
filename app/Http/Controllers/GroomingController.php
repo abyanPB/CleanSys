@@ -10,6 +10,7 @@ use App\Models\Area;
 use App\Models\Sop;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class GroomingController extends Controller
 {
@@ -18,12 +19,12 @@ class GroomingController extends Controller
      */
     public function index()
     {
-        $laporan_grooming = TanggapanGrooming::all();
-        // $laporan_grooming = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
-        //     $query->where('status_lg', '=', 'hasil');
-        // })->get();
+        // $laporan_grooming = TanggapanGrooming::all();
+        $laporan_grooming = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
+            $query->where('status_lg', '=', 'hasil');
+        })->get();
         $title = 'Laporan Grooming Provice Group';
-        return view('grooming.index', compact('laporan_grooming' , 'title'));
+        return view('admin.grooming.index', compact('laporan_grooming' , 'title'));
     }
 
     /**
@@ -34,7 +35,7 @@ class GroomingController extends Controller
         $sops = Sop::all();
         $areas = Area::all();
         $title = 'Tambah Data Laporan Grooming Provice Group';
-        return view('grooming.create',compact('title', 'areas', 'sops', ));
+        return view('admin.grooming.create',compact('title', 'areas', 'sops', ));
     }
 
     /**
@@ -95,7 +96,7 @@ class GroomingController extends Controller
         $areas = Area::all();
         $lg = LaporanGrooming::findOrFail($id);
         $title = 'Ubah Data Laporan Grooming Provice Group';
-        return view('grooming.edit', compact('lg', 'title', 'areas', 'sops'));
+        return view('admin.grooming.edit', compact('lg', 'title', 'areas', 'sops'));
     }
 
     /**
@@ -149,12 +150,31 @@ class GroomingController extends Controller
         return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
     }
 
-    // public function showTanggapanGrooming(Request $request)
-    // {
-    //     $id = $request->id_lg;
-    //     $lg = LaporanGrooming::findOrFail($id);
-    //     $tanggapan_grooming = TanggapanGrooming::where('id_lg', '=', $id)->get();
-    //     $title = 'Tanggapan Grooming Provice Group';
-    //     return view('grooming.tanggapan_grooming', compact('lg', 'tanggapan_grooming', 'title'));
-    // }
+    public function showTanggapanGroomingSupervisor(Request $request)
+    {
+        $tanggalHariIni = now()->toDateString(); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+        $laporanHariIni = LaporanGrooming::whereDate('created_at', $tanggalHariIni)->get();
+        $title = 'Tanggapan Grooming Supervisor Provice Group';
+        return view('supervisor.grooming.index', compact('laporanHariIni', 'title'));
+    }
+
+    public function inputTanggapanGroomingSupervisor(Request $request)
+    {
+        $request->validate([
+            'tanggapan_grooming'=>'required',
+        ],[
+            'tanggapan_grooming.required' => 'Tanggapan Grooming tidak boleh kosong',
+        ]);
+        $currentDateTime = Carbon::now();
+        $user_id = Auth::id();
+
+        TanggapanGrooming::create([
+            'id_lg' => $request->id_lg,
+            'tgl_tg' => $currentDateTime,
+            'tanggapan_grooming' => $request->tanggapan_grooming,
+            'id_users' => $user_id,
+        ]);
+
+        return redirect()->route('showTanggapanGrooming')->with('success', 'Berhasil Menanggapi Laporan Grooming');
+    }
 }
