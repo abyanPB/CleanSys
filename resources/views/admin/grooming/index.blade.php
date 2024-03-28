@@ -27,9 +27,6 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <a href="{{route('laporan-grooming.create')}}">
-            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan Grooming</button>
-        </a>
         <h6 class="card-title">Daftar Laporan Grooming</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
@@ -57,9 +54,9 @@
                 <td>{{$lg->tgl_tg}}</td>
                 <td>{{$lg->laporanGrooming->status_lg}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGrooming{{$lg->id_lg}}">Detail</button>
-                    <a href="{{route('laporan-grooming.edit', $lg->id_lg)}}" class="btn btn-secondary">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGrooming{{$lg->id_lg}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGrooming{{$lg->id_lg}}"><i data-feather="info"></i></button>
+                    <a href="{{route('laporan-grooming.edit', $lg->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGrooming{{$lg->id_lg}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

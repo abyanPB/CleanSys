@@ -27,21 +27,33 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
 
-    Route::get('/user', [ProfileController::class, 'index'])->name('user.index');
-    Route::get('/user/create', [ProfileController::class, 'create'])->name('user.create');
-    Route::post('/user/create', [ProfileController::class, 'store'])->name('user.store');
-    Route::get('/user/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
-    Route::put('/user/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
-    Route::delete('/user/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
+    // Routes for cleaner
+    Route::middleware(['cleaner'])->prefix('Cleaner')->group(function () {
+        Route::get('/sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
+        Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'showLaporanGroomingCleaner'])->name('showLaporanGroomingCleaner');
+        Route::get('/Laporan-Grooming/Create',[GroomingController::class, 'createLaporanGroomingCleaner'])->name('createLaporanGroomingCleaner');
+        Route::post('/Laporan-Grooming/Create',[GroomingController::class, 'storeLaporanGroomingCleaner'])->name('storeLaporanGroomingCleaner');
+        Route::delete('/Laporan-Grooming/{id_lg}',[GroomingController::class, 'destroyLaporanGroomingCleaner'])->name('destroyLaporanGroomingCleaner');
+
+    });
+
 
     // Routes for supervisor
-    Route::middleware(['spv'])->prefix('supervisor')->group(function () {
+    Route::middleware(['spv'])->prefix('Supervisor')->group(function () {
         Route::get('/Laporan-Grooming', [GroomingController::class, 'showTanggapanGroomingSupervisor'])->name('showTanggapanGrooming');
         Route::post('/Laporan-Grooming', [GroomingController::class, 'inputTanggapanGroomingSupervisor'])->name('inputTanggapanGrooming');
     });
 
     // Routes for admin
-    Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::middleware(['admin'])->prefix('Admin')->group(function () {
+
+        Route::get('/user', [ProfileController::class, 'index'])->name('user.index');
+        Route::get('/user/create', [ProfileController::class, 'create'])->name('user.create');
+        Route::post('/user/create', [ProfileController::class, 'store'])->name('user.store');
+        Route::get('/user/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
+        Route::put('/user/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
+        Route::delete('/user/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
+
         Route::resource('Sop', sopController::class)->names([
             'index' => 'sop.index',
             'create' => 'sop.create',

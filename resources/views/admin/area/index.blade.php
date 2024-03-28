@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+    <li class="breadcrumb-item"><a href="#">Area Kerja</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Area Kerja</li>
   </ol>
 </nav>
 
@@ -17,9 +17,9 @@
     {{session('success')}}
 </div>
 @endif
-@if (session('error'))
+@if (session('danger'))
 <div class="alert alert-danger" role="alert">
-    {{session('error')}}
+    {{session('danger')}}
 </div>
 @endif
 
@@ -27,15 +27,17 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Daftar Laporan Grooming</h6>
+        <a href="{{route('area.create')}}">
+            <button type="submit" class="btn btn-primary float-right">+ Tambah Area Kerja</button>
+        </a>
+        <h6 class="card-title">Daftar Area Kerja</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Petugas</th>
-                <th>Waktu Laporan</th>
-                <th>Status</th>
+                <th>Nama</th>
+                <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -43,18 +45,14 @@
                 @php
                     $no=1;
                 @endphp
-                @foreach ($laporanHariIni as $laporan)
+                @foreach ($areas as $area)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$laporan->user->name}}</td>
-                <td>{{$laporan->tgl_lg}}</td>
-                <td>{{$laporan->status_lg}}</td>
+                <td>{{$area->nama_area}}</td>
+                <td>{{$area->desc_area}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="message-circle"></i></button>
-                    {{-- @foreach ($tanggapanHariIni as $tanggapan) --}}
-                        {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}&&{{$tanggapan->id_tg}}">Tanggapan</button> --}}
-                    {{-- @endforeach --}}
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="trash-2"></i></button>
+                    <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

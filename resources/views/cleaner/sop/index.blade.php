@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Area Kerja</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar Area Kerja</li>
+    <li class="breadcrumb-item"><a href="#">SOP</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar SOP</li>
   </ol>
 </nav>
 
@@ -17,9 +17,9 @@
     {{session('success')}}
 </div>
 @endif
-@if (session('danger'))
+@if (session('error'))
 <div class="alert alert-danger" role="alert">
-    {{session('danger')}}
+    {{session('error')}}
 </div>
 @endif
 
@@ -27,37 +27,33 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <a href="{{route('area.create')}}">
-            <button type="submit" class="btn btn-primary float-right">+ Tambah Area Kerja</button>
-        </a>
-        <h6 class="card-title">Daftar Area Kerja</h6>
+        <h6 class="card-title">Daftar SOP</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
+                <th>Foto</th>
                 <th>Nama</th>
                 <th>Keterangan</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
                 @php
                     $no=1;
                 @endphp
-                @foreach ($areas as $area)
+                @foreach ($sops as $sop)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$area->nama_area}}</td>
-                <td>{{$area->desc_area}}</td>
                 <td>
-                    <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}">Hapus</button>
-
-                    <!-- Modal -->
-                    @include('modals')
-
+                    @if ($sop->image_sop == null)
+                    <i>Empty</i>
+                    @else
+                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
+                    @endif
                 </td>
+                <td>{{$sop->nama_sop}}</td>
+                <td>{{$sop->ket_sop}}</td>
               </tr>
               @endforeach
             </tbody>

@@ -48,9 +48,9 @@
                 <td>{{$user->email}}</td>
                 <td>{{$user->level}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailPengguna{{$user->id_users}}">Detail</button>
-                    <a href="{{route('user.edit', $user->id_users)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPengguna{{$user->id_users}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailPengguna{{$user->id_users}}"><i data-feather="info"></i></button>
+                    <a href="{{route('user.edit', $user->id_users)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPengguna{{$user->id_users}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

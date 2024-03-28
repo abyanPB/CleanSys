@@ -32,10 +32,7 @@ class GroomingController extends Controller
      */
     public function create()
     {
-        $sops = Sop::all();
-        $areas = Area::all();
-        $title = 'Tambah Data Laporan Grooming Provice Group';
-        return view('admin.grooming.create',compact('title', 'areas', 'sops', ));
+
     }
 
     /**
@@ -43,40 +40,7 @@ class GroomingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_area' =>'required',
-            'id_sop' =>'required',
-            'status_lg' =>'required',
-            'image_lg' =>'required|image|mimes:jpeg,png,jpg,gif',
-        ],[
-            'id_area.required' => 'Area kerja tidak boleh kosong',
-            'id_sop.required' => 'SOP kerja tidak boleh kosong',
-            'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
-            'image_lg.required' => 'Foto pekerjaan tidak boleh kosong',
-            'image_lg.image' => 'File harus berupa gambar',
-            'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
-        ]);
 
-        $imageName = $request->image_lg->getClientOriginalName();
-        $request->image_lg->move(public_path('images/laporan_grooming/'), $imageName);
-
-        // $q = Sop::where('image_lg','=',$request->image_lg)->count();
-        // if ($q > 0) {
-        //     return redirect()->back();
-        // }
-
-        $currentDateTime = Carbon::now();
-
-        LaporanGrooming::create([
-            'id_users' => $request->id_users,
-            'id_area' => $request->id_area,
-            'id_sop' => $request->id_sop,
-            'tgl_lg' => $currentDateTime,
-            'image_lg' => $imageName,
-            'status_lg' => $request->status_lg,
-        ]);
-
-        return redirect()->route('laporan-grooming.index')->with('success', 'Berhasil Tambah Laporan Grooming');
     }
 
     /**
@@ -176,5 +140,73 @@ class GroomingController extends Controller
         ]);
 
         return redirect()->route('showTanggapanGrooming')->with('success', 'Berhasil Menanggapi Laporan Grooming');
+    }
+
+    public function showLaporanGroomingCleaner(Request $request)
+    {
+        $user = $request->user()->id_users;
+        $tanggalHariIni = now()->toDateString();
+        $laporanCleaner = LaporanGrooming::where('id_users', $user)
+                                        ->whereDate('created_at', $tanggalHariIni)
+                                        ->get();
+        $title = 'Laporan Grooming Cleaner Provice Group';
+        return view('cleaner.grooming.index', compact('laporanCleaner', 'title'));
+    }
+
+    public function createLaporanGroomingCleaner()
+    {
+        $sops = Sop::all();
+        $areas = Area::all();
+        $title = 'Tambah Data Laporan Grooming Provice Group';
+        return view('cleaner.grooming.create',compact('title', 'areas', 'sops', ));
+    }
+
+    public function storeLaporanGroomingCleaner(Request $request)
+    {
+        $request->validate([
+            'id_area' =>'required',
+            'id_sop' =>'required',
+            'status_lg' =>'required',
+            'image_lg' =>'required|image|mimes:jpeg,png,jpg,gif',
+        ],[
+            'id_area.required' => 'Area kerja tidak boleh kosong',
+            'id_sop.required' => 'SOP kerja tidak boleh kosong',
+            'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
+            'image_lg.required' => 'Foto pekerjaan tidak boleh kosong',
+            'image_lg.image' => 'File harus berupa gambar',
+            'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
+        ]);
+
+        $imageName = $request->image_lg->getClientOriginalName();
+        $request->image_lg->move(public_path('images/laporan_grooming/'), $imageName);
+
+        // $q = Sop::where('image_lg','=',$request->image_lg)->count();
+        // if ($q > 0) {
+        //     return redirect()->back();
+        // }
+
+        $currentDateTime = Carbon::now();
+
+        LaporanGrooming::create([
+            'id_users' => $request->id_users,
+            'id_area' => $request->id_area,
+            'id_sop' => $request->id_sop,
+            'tgl_lg' => $currentDateTime,
+            'image_lg' => $imageName,
+            'status_lg' => $request->status_lg,
+        ]);
+
+        return redirect()->route('showLaporanGroomingCleaner')->with('success', 'Berhasil Tambah Laporan Grooming');
+    }
+
+    public function destroyLaporanGroomingCleaner(string $id)
+    {
+        $lg = LaporanGrooming::findOrFail($id);
+        $path = 'images/laporan_grooming/';
+
+        File::delete(public_path($path . $lg['image_lg']));
+        $lg->delete();
+
+        return redirect()->route('showLaporanGroomingCleaner')->with('success', 'Laporan Grooming berhasil dihapus');
     }
 }

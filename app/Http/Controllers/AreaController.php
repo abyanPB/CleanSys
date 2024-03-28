@@ -14,7 +14,7 @@ class AreaController extends Controller
     {
         $areas = Area::all();
         $title = 'Area Kerja Provice Group';
-        return view('area.index', compact('areas', 'title'));
+        return view('admin.area.index', compact('areas', 'title'));
     }
 
     /**
@@ -23,7 +23,7 @@ class AreaController extends Controller
     public function create()
     {
         $title = 'Tambah Data Area Kerja Provice Group';
-        return view('area.create',compact('title'));
+        return view('admin.area.create',compact('title'));
     }
 
     /**
@@ -62,7 +62,7 @@ class AreaController extends Controller
     {
         $area = Area::find($id);
         $title = 'Ubah Data Area Kerja Provice Group';
-        return view('area.edit', compact('area', 'title'));
+        return view('admin.area.edit', compact('area', 'title'));
     }
 
     /**

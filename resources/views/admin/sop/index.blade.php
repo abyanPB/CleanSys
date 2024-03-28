@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+    <li class="breadcrumb-item"><a href="#">SOP</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar SOP</li>
   </ol>
 </nav>
 
@@ -27,15 +27,18 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Daftar Laporan Grooming</h6>
+        <a href="{{route('sop.create')}}">
+            <button type="submit" class="btn btn-primary float-right">+ Tambah SOP</button>
+        </a>
+        <h6 class="card-title">Daftar SOP</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Petugas</th>
-                <th>Waktu Laporan</th>
-                <th>Status</th>
+                <th>Foto</th>
+                <th>Nama</th>
+                <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -43,18 +46,21 @@
                 @php
                     $no=1;
                 @endphp
-                @foreach ($laporanHariIni as $laporan)
+                @foreach ($sops as $sop)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$laporan->user->name}}</td>
-                <td>{{$laporan->tgl_lg}}</td>
-                <td>{{$laporan->status_lg}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="message-circle"></i></button>
-                    {{-- @foreach ($tanggapanHariIni as $tanggapan) --}}
-                        {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}&&{{$tanggapan->id_tg}}">Tanggapan</button> --}}
-                    {{-- @endforeach --}}
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="trash-2"></i></button>
+                    @if ($sop->image_sop == null)
+                    <i>Empty</i>
+                    @else
+                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
+                    @endif
+                </td>
+                <td>{{$sop->nama_sop}}</td>
+                <td>{{$sop->ket_sop}}</td>
+                <td>
+                    <a href="{{route('sop.edit', $sop->id_sop)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusSOP{{$sop->id_sop}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

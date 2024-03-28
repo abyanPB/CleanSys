@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">SOP</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar SOP</li>
+    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming Cleaner</li>
   </ol>
 </nav>
 
@@ -27,18 +27,19 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <a href="{{route('sop.create')}}">
-            <button type="submit" class="btn btn-primary float-right">+ Tambah SOP</button>
+        <a href="{{route('createLaporanGroomingCleaner')}}">
+            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan Grooming</button>
         </a>
-        <h6 class="card-title">Daftar SOP</h6>
+        <h6 class="card-title">Daftar Laporan Grooming</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Foto</th>
-                <th>Nama</th>
-                <th>Keterangan</th>
+                <th>Foto Pekerjaan</th>
+                <th>Area Kerja</th>
+                <th>Waktu Laporan</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -46,21 +47,19 @@
                 @php
                     $no=1;
                 @endphp
-                @foreach ($sops as $sop)
+                @foreach ($laporanCleaner as $lc)
               <tr>
-                <th scope="row">{{ $no++ }}</th>
+                <td scope="row">{{ $no++ }}</td>
                 <td>
-                    @if ($sop->image_sop == null)
-                    <i>Empty</i>
-                    @else
-                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
-                    @endif
+                    <img src="{{asset('images/laporan_grooming/'.$lc->image_lg)}}" alt="Foto Grooming" style="height: 75px; width:75px; border-radius:5%">
                 </td>
-                <td>{{$sop->nama_sop}}</td>
-                <td>{{$sop->ket_sop}}</td>
+                <td>{{$lc->area->nama_area}}</td>
+                <td>{{$lc->tgl_lg}}</td>
+                <td>{{$lc->status_lg}}</td>
+                {{-- <td>{{$lg->status_lg}}</td> --}}
                 <td>
-                    <a href="{{route('sop.edit', $sop->id_sop)}}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusSOP{{$sop->id_sop}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

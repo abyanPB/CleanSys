@@ -16,7 +16,7 @@ class SopController extends Controller
     {
         $sops = Sop::all();
         $title = 'SOP Provice Group';
-        return view('sop.index',compact('title','sops'));
+        return view('admin.sop.index',compact('title','sops'));
     }
 
     /**
@@ -25,7 +25,7 @@ class SopController extends Controller
     public function create()
     {
         $title = 'Tambah Data SOP Provice Group';
-        return view('sop.create',compact('title'));
+        return view('admin.sop.create',compact('title'));
     }
 
     /**
@@ -78,7 +78,7 @@ class SopController extends Controller
     {
         $sop = Sop::findOrFail($id);
         $title = 'Ubah Data SOP';
-        return view('sop.edit', compact('sop', 'title'));
+        return view('admin.sop.edit', compact('sop', 'title'));
     }
 
     /**
@@ -134,5 +134,11 @@ class SopController extends Controller
         $sop->delete();
 
         return redirect()->route('sop.index')->with('success', 'SOP berhasil dihapus');
+    }
+
+    public function showSopCleaner(){
+        $sops = Sop::all();
+        $title = 'Daftar SOP Provice Group';
+        return view('cleaner.sop.index',compact('title','sops'));
     }
 }

@@ -28,7 +28,7 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Tambah Laporan Grooming Pekerjaan Cleaning Service</h6>
-        <form id="take" class="forms-sample" action="{{route('laporan-grooming.store')}}" method="POST" enctype="multipart/form-data">
+        <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id_users" value="{{ auth()->user()->id_users }}">
             <div class="form-group">
@@ -76,7 +76,7 @@
             </div>
 
           <button type="submit" id="btnSubmit" class="btn btn-primary mr-2">Submit</button>
-          <a href="{{route('Laporan-Grooming.index')}}" class="btn btn-light">Cancel</a>
+          <a href="{{route('showLaporanGroomingCleaner')}}" class="btn btn-light">Cancel</a>
         </form>
       </div>
     </div>
