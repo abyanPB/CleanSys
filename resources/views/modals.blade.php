@@ -207,30 +207,26 @@
                     @csrf
                         <input type="hidden" name="id_lg" value="{{$laporan->id_lg}}">
 
-                        @if ($laporan->tanggapanGrooming == null)
+                        @php
+                            $tanggapanData = json_decode($laporan->tanggapanGrooming, true);
+                        @endphp
+
+                        @if (!empty($tanggapanData))
+                            @php
+                                $firstTanggapan = $tanggapanData[0]; // Mengambil elemen pertama dari array
+                                $tanggapan_grooming = $firstTanggapan['tanggapan_grooming'];
+                            @endphp
+
+                            <div class="mb-3">
+                                <label for="tanggapan_grooming" class="form-label">Isi Tanggapan:</label>
+                                <textarea class="form-control" id="tanggapan_grooming" name="tanggapan_grooming" readonly>{{ $tanggapan_grooming }}</textarea>
+                            </div>
+                        @else
                             <div class="mb-3">
                                 <label for="tanggapan_grooming" class="form-label">Masukan Tanggapan:</label>
                                 <textarea class="form-control" id="tanggapan_grooming" name="tanggapan_grooming"></textarea>
                             </div>
-                        @else
-                            @if ($laporan->tanggapanGrooming != null)
-                                @php
-                                    $tanggapanData = json_decode($laporan->tanggapanGrooming, true);
-                                    // Periksa apakah array $tanggapanData memiliki elemen
-                                    if (!empty($tanggapanData)) {
-                                        $firstTanggapan = $tanggapanData[0]; // Mengambil elemen pertama dari array
-                                        $tanggapan_grooming = $firstTanggapan['tanggapan_grooming'];
-                                    }
-                                @endphp
-                                @if (isset($tanggapan_grooming))
-                                <div class="mb-3">
-                                    <label for="tanggapan_grooming" class="form-label">Isi Tanggapan:</label>
-                                    <textarea class="form-control" id="tanggapan_grooming" name="tanggapan_grooming" readonly>{{ $tanggapan_grooming }}</textarea>
-                                </div>
-                                @endif
-                            @endif
                         @endif
-
                         <hr>
                         Nama Petugas : {{$laporan->user->name}}
                         <hr>
