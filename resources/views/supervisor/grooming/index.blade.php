@@ -33,9 +33,10 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Status Tanggapan</th>
                 <th>Nama Petugas</th>
                 <th>Waktu Laporan</th>
-                <th>Status</th>
+                <th>Status Pekerjaan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -46,15 +47,19 @@
                 @foreach ($laporanHariIni as $laporan)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
+                <th>
+                    @if ($laporan->tanggapanGrooming()->exists())
+                        <button type="button" class="btn btn-success" title="Supervisor sudah memberikan tanggapan"><i data-feather="check"></i></button>
+                    @else
+                        <button type="button" class="btn btn-warning" title="Supervisor belum memberikan tanggapan"><i data-feather="alert-circle"></i></button>
+                    @endif
+                </th>
                 <td>{{$laporan->user->name}}</td>
                 <td>{{$laporan->tgl_lg}}</td>
                 <td>{{$laporan->status_lg}}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="message-circle"></i></button>
-                    {{-- @foreach ($tanggapanHariIni as $tanggapan) --}}
-                        {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tanggapanLaporanGroomingSpv{{$laporan->id_lg}}&&{{$tanggapan->id_tg}}">Tanggapan</button> --}}
-                    {{-- @endforeach --}}
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="trash-2"></i></button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingSpv{{$laporan->id_lg}}"><i data-feather="trash"></i></button>
 
                     <!-- Modal -->
                     @include('modals')
@@ -78,4 +83,9 @@
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <script>
+    setTimeout(function() {
+        location.reload();
+    }, 60000);
+</script>
 @endpush

@@ -31,6 +31,8 @@ License: You must have a valid license purchased only from https://themeforest.n
   <!-- end common css -->
 
   @stack('style')
+
+  @livewireStyles
 </head>
 <body data-base-url="{{url('/')}}">
 
@@ -62,5 +64,8 @@ License: You must have a valid license purchased only from https://themeforest.n
     <!-- end common js -->
 
     @stack('custom-scripts')
+
+    @stack('scripts')
+    @livewireScriptsz
 </body>
 </html>

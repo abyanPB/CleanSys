@@ -5,6 +5,7 @@ use App\Http\Controllers\SopController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\PjkpController;
+use App\Livewire\GroomingLivewire;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Routes for supervisor
     Route::middleware(['spv'])->prefix('Supervisor')->group(function () {
+        // Route::get('/Laporan-Grooming', GroomingLivewire::class)->name('showTanggapanGrooming');
         Route::get('/Laporan-Grooming', [GroomingController::class, 'showTanggapanGroomingSupervisor'])->name('showTanggapanGrooming');
         Route::post('/Laporan-Grooming', [GroomingController::class, 'inputTanggapanGroomingSupervisor'])->name('inputTanggapanGrooming');
     });

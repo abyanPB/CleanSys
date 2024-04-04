@@ -117,7 +117,7 @@ class GroomingController extends Controller
     public function showTanggapanGroomingSupervisor(Request $request)
     {
         $tanggalHariIni = now()->toDateString(); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
-        $laporanHariIni = LaporanGrooming::whereDate('created_at', $tanggalHariIni)->get();
+        $laporanHariIni = LaporanGrooming::whereDate('tgl_lg', $tanggalHariIni)->orderByDesc('tgl_lg')->get();
         $title = 'Tanggapan Grooming Supervisor Provice Group';
         return view('supervisor.grooming.index', compact('laporanHariIni', 'title'));
     }
