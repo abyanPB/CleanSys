@@ -80,4 +80,9 @@
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <script>
+    setTimeout(function() {
+        location.reload();
+    }, 30000);
+    </script>
 @endpush

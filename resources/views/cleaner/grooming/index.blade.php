@@ -59,7 +59,12 @@
                 {{-- <td>{{$lg->status_lg}}</td> --}}
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="info"></i></button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="trash-2"></i></button>
+
+                    @if ($lc->tanggapanGrooming()->exists())
+
+                    @else
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="trash-2"></i></button>
+                    @endif
 
                     <!-- Modal -->
                     @include('modals')

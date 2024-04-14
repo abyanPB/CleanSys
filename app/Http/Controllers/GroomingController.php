@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CleanerInput;
+use App\Events\LaporanGroomingEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\LaporanGrooming;
@@ -125,6 +125,10 @@ class GroomingController extends Controller
 
     public function inputTanggapanGroomingSupervisor(Request $request)
     {
+        $name = Auth::user()->name;
+
+        event(new LaporanGroomingEvent($name));
+
         $request->validate([
             'tanggapan_grooming'=>'required',
         ],[
@@ -166,7 +170,7 @@ class GroomingController extends Controller
     {
         $name = Auth::user()->name;
 
-        event(new CleanerInput($name));
+        event(new LaporanGroomingEvent($name));
 
         $request->validate([
             'id_area' =>'required',

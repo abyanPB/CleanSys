@@ -68,30 +68,6 @@ License: You must have a valid license purchased only from https://themeforest.n
     @stack('scripts')
     @livewireScripts
 
-    @if (Auth::user()->level == 'spv')
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <script>
-
-            // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
-
-            var pusher = new Pusher('756eb93483e90f6aa3f5', {
-            cluster: 'ap1'
-            });
-
-            var channel = pusher.subscribe('popup-notifications');
-            channel.bind('cleaner-input', function(data) {
-                toastr.info('Cleaner dengan nama ' + JSON.stringify(data.name) + ' Baru saja memasukan Laporan Grooming, Silahkan Periksa Laporan Tersebut');
-                // Refresh halaman setelah 1 detik
-                setTimeout(function() {
-                    location.reload();
-                }, 5000);
-            });
-        </script>
-    @endif
-
+    @include('notifications')
 </body>
 </html>
