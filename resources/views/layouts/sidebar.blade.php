@@ -23,7 +23,7 @@
             <i class="link-icon" data-feather="file-plus"></i>
             <span class="link-title">Grooming</span>
             </a>
-            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <a href="{{ route('showLaporanPJKP') }}" class="nav-link @if(request()->routeIs('showLaporanPJKP')) active_class @endif">
             <i class="link-icon" data-feather="folder-plus"></i>
             <span class="link-title">PJKP</span>
             </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CleanerInput;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\LaporanGrooming;
@@ -163,6 +164,10 @@ class GroomingController extends Controller
 
     public function storeLaporanGroomingCleaner(Request $request)
     {
+        $name = Auth::user()->name;
+
+        event(new CleanerInput($name));
+
         $request->validate([
             'id_area' =>'required',
             'id_sop' =>'required',

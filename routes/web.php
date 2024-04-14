@@ -6,6 +6,9 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\PjkpController;
 use App\Livewire\GroomingLivewire;
+use App\Livewire\PjkpCreate;
+use App\Livewire\PjkpLivewire;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,15 +89,19 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'laporan-grooming.destroy',
         ]);
 
-        Route::resource('Laporan-PJKP', PjkpController::class)->names([
-            'index' => 'laporan-pjkp.index',
-            'create' => 'laporan-pjkp.create',
-            'store' => 'laporan-pjkp.store',
-            'show' => 'laporan-pjkp.show',
-            'edit' => 'laporan-pjkp.edit',
-            'update' => 'laporan-pjkp.update',
-            'destroy' => 'laporan-pjkp.destroy',
-        ]);
+        //Route Livewire Controller
+        Route::get('/Laporan-PJKP', PjkpLivewire::class)->name('showLaporanPJKP');
+        Route::get('/Laporan-PJKP/Create', PjkpCreate::class)->name('createLaporanPJKP');
+
+        // Route::resource('Laporan-PJKP', PjkpController::class)->names([
+        //     'index' => 'laporan-pjkp.index',
+        //     'create' => 'laporan-pjkp.create',
+        //     'store' => 'laporan-pjkp.store',
+        //     'show' => 'laporan-pjkp.show',
+        //     'edit' => 'laporan-pjkp.edit',
+        //     'update' => 'laporan-pjkp.update',
+        //     'destroy' => 'laporan-pjkp.destroy',
+        // ]);
     });
 });
 

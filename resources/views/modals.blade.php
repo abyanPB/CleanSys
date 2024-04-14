@@ -65,6 +65,47 @@
         @endif
     {{-- End Laporan Grooming --}}
 
+    {{-- Start Laporan Pjkp --}}
+    @if(isset($lp))
+    {{-- Modal Detail --}}
+    {{-- <div class="modal fade" id="detailLaporanGrooming{{$lg->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="detailLaporanGrooming" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="detailLaporanGrooming">Detail Laporan Grooming</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Nama Petugas : {{$lg->laporanGrooming->user->name}}
+            <hr>
+            Area Kerja : {{$lg->laporanGrooming->area->nama_area}}
+            <hr>
+            Sop Kerja : {{$lg->laporanGrooming->sop->nama_sop}}
+            <hr>
+            Nama Supervisor : {{ $lg->user->level == 'spv' ? $lg->user->name : 'Tidak Ada Penanggung Jawab' }}
+            <hr>
+            Isi Tanggapan : {{$lg->tanggapan_grooming}}
+            <hr>
+            Waktu Masuk : {{$lg->laporanGrooming->tgl_lg}}
+            <hr>
+            Waktu Ditanggapi : {{$lg->tgl_tg}}
+            <hr>
+            Status : {{$lg->laporanGrooming->status_lg}}
+            <hr>
+            Foto :
+            <img src="{{asset('images/laporan_grooming/'.$lg->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+        </div>
+    </div> --}}
+    @endif
+{{-- End Laporan Grooming --}}
+
     {{-- Start Profile --}}
         @if(isset($user))
         {{-- Modal Detail --}}

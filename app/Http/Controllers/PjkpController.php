@@ -11,7 +11,7 @@ class PjkpController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pjkp.index');
     }
 
     /**

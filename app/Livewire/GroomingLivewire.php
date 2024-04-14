@@ -21,7 +21,7 @@ class GroomingLivewire extends Component
     public function render()
     {
         $this->laporanHariIni = LaporanGrooming::whereDate('tgl_lg', today())->get();
-        return view('livewire.grooming-livewire', ['laporanHariIni' => $this->laporanHariIni])->extends('layouts.master');
+        return view('livewire.grooming-livewire', ['laporanHariIni' => $this->laporanHariIni]);
     }
 
 
