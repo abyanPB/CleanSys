@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+    <li class="breadcrumb-item"><a href="#">Pjkp</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Laporan Pjkp Cleaner</li>
   </ol>
 </nav>
 
@@ -27,35 +27,42 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Daftar Laporan Grooming</h6>
+        <a href="{{route('createLaporanPjkpCleaner')}}">
+            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan Pjkp</button>
+        </a>
+        <h6 class="card-title">Daftar Laporan Pjkp</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Status Tanggapan</th>
-                <th>Nama Petugas</th>
+                <th>Foto Pekerjaan</th>
+                <th>Area Kerja</th>
                 <th>Waktu Laporan</th>
-                <th>Status Pekerjaan</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-                @foreach ($supervisorGroomingReportToday as $sGrt)
+                @foreach ($cleanerPjkpReportToday as $cPrt)
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    @if ($sGrt->tanggapanGrooming()->exists())
-                        <button type="button" class="btn btn-success" title="Supervisor sudah memberikan tanggapan"><i data-feather="check"></i></button>
-                    @else
-                        <button type="button" class="btn btn-warning" title="Supervisor belum memberikan tanggapan"><i data-feather="alert-circle"></i></button>
-                    @endif
+                    <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto Pjkp" style="height: 75px; width:75px; border-radius:5%">
                 </td>
-                <td>{{$sGrt->user->name}}</td>
-                <td>{{$sGrt->tgl_lg}}</td>
-                <td>{{$sGrt->status_lg}}</td>
+                <td>{{$cPrt->area->nama_area}}</td>
+                <td>{{$cPrt->tgl_lp}}</td>
+                <td>{{$cPrt->status_lp}}</td>
+                {{-- <td>{{$lp->status_lp}}</td> --}}
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGroomingReportResponse{{$sGrt->id_lg}}"><i data-feather="message-circle"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerPjkpReportDetail{{$cPrt->id_lp}}"><i data-feather="info"></i></button>
+
+                    @if ($cPrt->tanggapanPjkp()->exists())
+
+                    @else
+                        <a href="{{route('editLaporanPjkpCleaner', $cPrt->id_lp)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeletePjkpReport{{$cPrt->id_lp}}"><i data-feather="trash-2"></i></button>
+                    @endif
 
                     <!-- Modal -->
                     @include('modals')

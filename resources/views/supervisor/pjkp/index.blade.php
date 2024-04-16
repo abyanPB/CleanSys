@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+    <li class="breadcrumb-item"><a href="#">Pjkp</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Laporan Pjkp</li>
   </ol>
 </nav>
 
@@ -27,7 +27,7 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Daftar Laporan Grooming</h6>
+        <h6 class="card-title">Daftar Laporan Pjkp</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
@@ -41,21 +41,21 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($supervisorGroomingReportToday as $sGrt)
+                @foreach ($supervisorPjkpReportToday as $sPrt)
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    @if ($sGrt->tanggapanGrooming()->exists())
+                    @if ($sPrt->tanggapanPjkp()->exists())
                         <button type="button" class="btn btn-success" title="Supervisor sudah memberikan tanggapan"><i data-feather="check"></i></button>
                     @else
                         <button type="button" class="btn btn-warning" title="Supervisor belum memberikan tanggapan"><i data-feather="alert-circle"></i></button>
                     @endif
                 </td>
-                <td>{{$sGrt->user->name}}</td>
-                <td>{{$sGrt->tgl_lg}}</td>
-                <td>{{$sGrt->status_lg}}</td>
+                <td>{{$sPrt->user->name}}</td>
+                <td>{{$sPrt->tgl_lp}}</td>
+                <td>{{$sPrt->status_lp}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGroomingReportResponse{{$sGrt->id_lg}}"><i data-feather="message-circle"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorPjkpReportResponse{{$sPrt->id_lp}}"><i data-feather="message-circle"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

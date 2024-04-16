@@ -23,7 +23,7 @@
             <i class="link-icon" data-feather="file-plus"></i>
             <span class="link-title">Grooming</span>
             </a>
-            <a href="{{ route('showLaporanPJKP') }}" class="nav-link @if(request()->routeIs('showLaporanPJKP')) active_class @endif">
+            <a href="{{ route('laporan-pjkp.index') }}" class="nav-link @if(request()->routeIs('laporan-pjkp.index')) active_class @endif">
             <i class="link-icon" data-feather="folder-plus"></i>
             <span class="link-title">PJKP</span>
             </a>
@@ -55,7 +55,7 @@
                 <i class="link-icon" data-feather="file-plus"></i>
                 <span class="link-title">Grooming</span>
             </a>
-            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <a href="{{ route('showTanggapanPjkp') }}" class="nav-link @if(request()->routeIs('showTanggapanPjkp')) active_class @endif">
                 <i class="link-icon" data-feather="folder-plus"></i>
                 <span class="link-title">PJKP</span>
             </a>
@@ -73,7 +73,7 @@
                 <i class="link-icon" data-feather="file-plus"></i>
                 <span class="link-title">Grooming</span>
             </a>
-            <a href="{{ url('/dashboard') }}" class="nav-link">
+            <a href="{{ route('showLaporanPjkpCleaner') }}" class="nav-link @if(request()->routeIs('showLaporanPjkpCleaner')) active_class @endif">
                 <i class="link-icon" data-feather="folder-plus"></i>
                 <span class="link-title">PJKP</span>
             </a>

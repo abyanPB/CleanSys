@@ -44,26 +44,24 @@
               </tr>
             </thead>
             <tbody>
-                @php
-                    $no=1;
-                @endphp
-                @foreach ($laporanCleaner as $lc)
+                @foreach ($cleanerGroomingReportToday as $cGrt)
               <tr>
-                <td scope="row">{{ $no++ }}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>
-                    <img src="{{asset('images/laporan_grooming/'.$lc->image_lg)}}" alt="Foto Grooming" style="height: 75px; width:75px; border-radius:5%">
+                    <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto Grooming" style="height: 75px; width:75px; border-radius:5%">
                 </td>
-                <td>{{$lc->area->nama_area}}</td>
-                <td>{{$lc->tgl_lg}}</td>
-                <td>{{$lc->status_lg}}</td>
+                <td>{{$cGrt->area->nama_area}}</td>
+                <td>{{$cGrt->tgl_lg}}</td>
+                <td>{{$cGrt->status_lg}}</td>
                 {{-- <td>{{$lg->status_lg}}</td> --}}
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGroomingReportDetail{{$cGrt->id_lg}}"><i data-feather="info"></i></button>
 
-                    @if ($lc->tanggapanGrooming()->exists())
+                    @if ($cGrt->tanggapanGrooming()->exists())
 
                     @else
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGroomingCleaner{{$lc->id_lg}}"><i data-feather="trash-2"></i></button>
+                        <a href="{{route('editLaporanGroomingCleaner', $cGrt->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeleteGroomingReport{{$cGrt->id_lg}}"><i data-feather="trash-2"></i></button>
                     @endif
 
                     <!-- Modal -->

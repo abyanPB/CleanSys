@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edit Laporan Grooming</li>
+    <li class="breadcrumb-item"><a href="#">Pjkp</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Tambah Laporan Pjkp</li>
   </ol>
 </nav>
 
@@ -27,18 +27,16 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Edit Laporan Grooming Pekerjaan Cleaning Service</h6>
-        <form id="take" class="forms-sample" action="{{route('laporan-grooming.update',$lg->id_lg)}}" method="POST" enctype="multipart/form-data">
+        <h6 class="card-title">Tambah Laporan Pjkp Pekerjaan Cleaning Service</h6>
+        <form id="take" class="forms-sample" action="{{route('storeLaporanPjkpCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            <input type="hidden" name="id_users" value="{{ auth()->user()->id_users }}">
             <div class="form-group">
                 <label>Area Kerja</label>
                 <select class="js-example-basic-single w-100" id="id_area" name="id_area">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
-                    <option value="{{ $area->id_area }}" {{ $area->id_area == $lg->id_area ? 'selected' : '' }}>
-                        {{ $area->nama_area }}
-                    </option>
+                    <option value="{{$area->id_area}}">{{$area->nama_area}}</option>
                     @endforeach
                 </select>
             </div>
@@ -47,26 +45,24 @@
                 <select class="js-example-basic-single w-100" id="id_sop" name="id_sop">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
-                    <option value="{{ $sop->id_sop }}" {{ $sop->id_sop == $lg->id_sop ? 'selected' : '' }}>
-                        {{ $sop->nama_sop }}</option>
-                    </option>
+                    <option value="{{$sop->id_sop}}">{{$sop->nama_sop}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label>Status Pekerjaan</label>
-                <select class="js-example-basic-single w-100" id="status_lg" name="status_lg">
+                <select class="js-example-basic-single w-100" id="status_lp" name="status_lp">
                     <option value="">Pilih Status Pekerjaan</option>
-                    <option value="sebelum" {{ $lg->status_lg == 'sebelum'?'selected' : '' }}>Sebelum</option>
-                    <option value="proses" {{ $lg->status_lg == 'proses'?'selected' : '' }}>Proses</option>
-                    <option value="hasil" {{ $lg->status_lg == 'hasil'?'selected' : '' }}>Hasil</option>
+                    <option value="sebelum">Sebelum</option>
+                    <option value="proses">Proses</option>
+                    <option value="hasil">Hasil</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Foto Pekerjaan</label>
-                <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">
+                <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lp" class="file-upload-default">
                 <div class="input-group col-xs-12">
-                  <input type="text" class="form-control file-upload-info" disabled="" value="{{$lg->image_lg}}" placeholder="Masukan Foto">
+                  <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">
                   <span class="input-group-append">
                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                   </span>
@@ -75,12 +71,12 @@
             <div id="photoPreview" class="form-group">
                 <label>Hasil Foto</label>
                 <figure>
-                    <img src="{{asset('images/laporan_grooming/'.$lg->image_lg)}}" alt="Foto SOP" style="width: 30%; height: auto;">
+                <img id="previewImage" src="#" alt="Foto" class="img-fluid">
                 </figure>
             </div>
 
           <button type="submit" id="btnSubmit" class="btn btn-primary mr-2">Submit</button>
-          <a href="{{route('laporan-grooming.index')}}" class="btn btn-light">Cancel</a>
+          <a href="{{route('showLaporanPjkpCleaner')}}" class="btn btn-light">Cancel</a>
         </form>
       </div>
     </div>
@@ -121,4 +117,9 @@
 @push('custom-scripts')
   <script src="{{ asset('assets/js/file-upload.js') }}"></script>
   <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script>
+    $(".js-example-basic-single").select2({
+        tags: true
+    });
+  </script>
 @endpush

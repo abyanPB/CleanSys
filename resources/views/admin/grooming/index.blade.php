@@ -42,21 +42,17 @@
               </tr>
             </thead>
             <tbody>
-                @php
-                    $no=1;
-                @endphp
-                @foreach ($laporan_grooming as $lg)
+                @foreach ($adminGroomingReport as $aGr)
               <tr>
-                <th scope="row">{{ $no++ }}</th>
-                <td>{{$lg->laporanGrooming->user->name}}</td>
-                <td>{{ $lg->user->level == 'spv' ? $lg->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
-                <td>{{$lg->laporanGrooming->tgl_lg}}</td>
-                <td>{{$lg->tgl_tg}}</td>
-                <td>{{$lg->laporanGrooming->status_lg}}</td>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$aGr->laporanGrooming->user->name}}</td>
+                <td>{{$aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
+                <td>{{$aGr->laporanGrooming->tgl_lg}}</td>
+                <td>{{$aGr->tgl_tg}}</td>
+                <td>{{$aGr->laporanGrooming->status_lg}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGrooming{{$lg->id_lg}}"><i data-feather="info"></i></button>
-                    <a href="{{route('laporan-grooming.edit', $lg->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGrooming{{$lg->id_lg}}"><i data-feather="trash-2"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminGroomingReportDetail{{$aGr->id_lg}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeleteGroomingReport{{$aGr->id_lg}}"><i data-feather="trash-2"></i></button>
 
                     <!-- Modal -->
                     @include('modals')

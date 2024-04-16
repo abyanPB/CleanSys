@@ -2,63 +2,189 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LaporanPjkpEvent;
+use App\Models\Area;
+use App\Models\LaporanGrooming;
+use App\Models\LaporanPJKP;
+use App\Models\Sop;
+use App\Models\TanggapanPJKP;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PjkpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('admin.pjkp.index');
-    }
+    //Start Admin
+        /**
+         * Display a listing of the resource.
+         */
+        public function index()
+        {
+            $adminPjkpReport = TanggapanPJKP::whereHas('laporanPjkp', function ($query){
+                $query->where('status_lp', '=', 'hasil');
+            })->orderBy('tgl_tp', 'desc')->get();
+            $title = 'Laporan PJKP Provice Group';
+            return view('admin.pjkp.index', compact('adminPjkpReport' , 'title'));
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy(string $id)
+        {
+            $pjkp = LaporanPJKP::findOrFail($id);
+            $path = 'images/laporan_pjkp/';
+            File::delete(public_path($path . $pjkp['image_lp']), true);
+            $pjkp->delete();
+            return redirect()->route('laporan-pjkp.index')->with('success', 'Laporan Pjkp berhasil dihapus');
+        }
+    //End Admin
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    //Start Supervisor
+        public function indexPjkpResponseSupervisor(Request $request)
+        {
+            $todayDate = now()->toDateString(); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+            $supervisorPjkpReportToday = LaporanPJKP::whereDate('tgl_lp', $todayDate)->orderByDesc('tgl_lp')->get();
+            $title = 'Tanggapan PJKP Supervisor Provice Group';
+            return view('supervisor.pjkp.index', compact('supervisorPjkpReportToday', 'title'));
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        public function storePjkpResponseSupervisor(Request $request)
+        {
+            // Emit an event with the supervisor's name
+            $name = Auth::user()->name;
+            event(new LaporanPjkpEvent($name));
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            $request->validate([
+                'tanggapan_pjkp'=>'required',
+            ],[
+                'tanggapan_pjkp.required' => 'Tanggapan Pjkp tidak boleh kosong',
+            ]);
+            $currentDateTime = Carbon::now();
+            TanggapanPJKP::create([
+                'id_lp' => $request->id_lp,
+                'tgl_tp' => $currentDateTime,
+                'tanggapan_pjkp' => $request->tanggapan_pjkp,
+                'id_users' => Auth::id(),
+            ]);
+            return redirect()->route('showTanggapanPjkp')->with('success', 'Berhasil Menanggapi Laporan Pjkp');
+        }
+    //End Supervisor
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    //Start Cleaner
+        public function indexPjkpDailyReportCleaner(Request $request)
+        {
+            $userId = Auth::user()->id_users;
+            $currentDate = now()->toDateString();
+            $cleanerPjkpReportToday = LaporanPJKP::where('id_users', $userId)
+                                            ->whereDate('tgl_lp', $currentDate)
+                                            ->orderBydesc('tgl_lp')
+                                            ->get();
+            $title = 'Laporan Pjkp Cleaner Provice Group';
+            return view('cleaner.pjkp.index', compact('cleanerPjkpReportToday', 'title'));
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+        public function createPjkpDailyReportCleaner()
+        {
+            $sops = Sop::all();
+            $areas = Area::all();
+            $title = 'Tambah Data Laporan Harian Pjkp - Provice Group';
+            return view('cleaner.pjkp.create',compact('title', 'areas', 'sops', ));
+        }
+
+        public function storePjkpDailyReportCleaner(Request $request)
+        {
+            // Emit an event with the supervisor's name
+            $name = Auth::user()->name;
+            event(new LaporanPjkpEvent($name));
+
+            $request->validate([
+                'id_area' =>'required',
+                'id_sop' =>'required',
+                'status_lp' =>'required',
+                'image_lp' =>'required|image|mimes:jpeg,png,jpg,gif',
+            ],[
+                'id_area.required' => 'Area kerja tidak boleh kosong',
+                'id_sop.required' => 'SOP kerja tidak boleh kosong',
+                'status_lp.required' => 'Status pekerjaan tidak boleh kosong',
+                'image_lp.required' => 'Foto pekerjaan tidak boleh kosong',
+                'image_lp.image' => 'File harus berupa gambar',
+                'image_lp.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
+            ]);
+            $imageName = $request->image_lp->getClientOriginalName();
+            $request->image_lp->move(public_path('images/laporan_pjkp/'), $imageName);
+
+            $currentDateTime = Carbon::now();
+            LaporanPJKP::create([
+                'id_users' => $request->id_users,
+                'id_area' => $request->id_area,
+                'id_sop' => $request->id_sop,
+                'tgl_lp' => $currentDateTime,
+                'image_lp' => $imageName,
+                'status_lp' => $request->status_lp,
+            ]);
+            return redirect()->route('showLaporanPjkpCleaner')->with('success', 'Berhasil Tambah Laporan Pjkp');
+        }
+
+        /**
+         * Show the form for editing the specified resource.
+         */
+        public function editPjkpDailyReportCleaner(string $id)
+        {
+            $sops = Sop::all();
+            $areas = Area::all();
+            $lp = LaporanPJKP::findOrFail($id);
+            $title = 'Ubah Data Laporan Harian Pjkp - Provice Group';
+            return view('cleaner.pjkp.edit', compact('lp', 'title', 'areas', 'sops'));
+        }
+
+        /**
+         * Update the specified resource in storage.
+         */
+        public function updatePjkpDailyReportCleaner(Request $request, string $id)
+        {
+            $lp = LaporanPJKP::findOrFail($id);
+
+            $request->validate([
+                'id_area' =>'required',
+                'id_sop' =>'required',
+                'status_lp' =>'required',
+                'image_lp' => $request->hasFile('image_lp') ? 'image|mimes:jpeg,png,jpg,gif' : '',
+            ],[
+                'id_area.required' => 'Area kerja tidak boleh kosong',
+                'id_sop.required' => 'SOP kerja tidak boleh kosong',
+                'status_lp.required' => 'Status pekerjaan tidak boleh kosong',
+                'image_lp.image' => 'File harus berupa gambar',
+                'image_lp.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
+            ]);
+
+            $lp->id_area = $request->id_area;
+            $lp->id_sop = $request->id_sop;
+            $lp->status_lp = $request->status_lp;
+
+            if($request->hasFile('image_lp')){
+                // Delete the old image before uploading the new one
+                File::delete(public_path('images/laporan_grooming/'. $lp->image_lp));
+
+                // Move and save the new image
+                $imageName = $request->image_lp->getClientOriginalName();
+                $request->image_lp->move(public_path('images/laporan_grooming/'), $imageName);
+                $lp->image_lp = $imageName;
+            };
+
+            $lp->save();
+
+            return redirect()->route('showLaporanPjkpCleaner')->with('success', 'Berhasil Ubah Laporan Grooming');
+        }
+
+        public function destroyPjkpDailyReportCleaner(string $id)
+        {
+            $lp = LaporanPJKP::findOrFail($id);
+            $path = 'images/laporan_pjkp/';
+            File::delete(public_path($path . $lp['image_lp']));
+            $lp->delete();
+            return redirect()->route('showLaporanPjkpCleaner')->with('success', 'Laporan Pjkp berhasil dihapus');
+        }
+    //End Cleaner
 }

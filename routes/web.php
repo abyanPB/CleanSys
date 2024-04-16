@@ -5,9 +5,6 @@ use App\Http\Controllers\SopController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\PjkpController;
-use App\Livewire\GroomingLivewire;
-use App\Livewire\PjkpCreate;
-use App\Livewire\PjkpLivewire;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
 
@@ -34,30 +31,45 @@ Route::middleware(['auth'])->group(function () {
     // Routes for cleaner
     Route::middleware(['cleaner'])->prefix('Cleaner')->group(function () {
         Route::get('/sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
-        Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'showLaporanGroomingCleaner'])->name('showLaporanGroomingCleaner');
-        Route::get('/Laporan-Grooming/Create',[GroomingController::class, 'createLaporanGroomingCleaner'])->name('createLaporanGroomingCleaner');
-        Route::post('/Laporan-Grooming/Create',[GroomingController::class, 'storeLaporanGroomingCleaner'])->name('storeLaporanGroomingCleaner');
-        Route::delete('/Laporan-Grooming/{id_lg}',[GroomingController::class, 'destroyLaporanGroomingCleaner'])->name('destroyLaporanGroomingCleaner');
+        //Routes for Grooming
+        Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'indexGroomingDailyReportCleaner'])->name('showLaporanGroomingCleaner');
+        Route::get('/Laporan-Grooming/Create',[GroomingController::class, 'createGroomingDailyReportCleaner'])->name('createLaporanGroomingCleaner');
+        Route::post('/Laporan-Grooming/Create',[GroomingController::class, 'storeGroomingDailyReportCleaner'])->name('storeLaporanGroomingCleaner');
+        Route::get('/Laporan-Grooming/Edit/{id_lg}',[GroomingController::class, 'editGroomingDailyReportCleaner'])->name('editLaporanGroomingCleaner');
+        Route::put('/Laporan-Grooming/Update/{id_lg}',[GroomingController::class, 'updateGroomingDailyReportCleaner'])->name('updateLaporanGroomingCleaner');
+        Route::delete('/Laporan-Grooming/{id_lg}',[GroomingController::class, 'destroyGroomingDailyReportCleaner'])->name('destroyLaporanGroomingCleaner');
 
+        //Routes for PJKP
+        Route::get('/Laporan-Pjkp/Index',[PjkpController::class, 'indexPjkpDailyReportCleaner'])->name('showLaporanPjkpCleaner');
+        Route::get('/Laporan-Pjkp/Create',[PjkpController::class, 'createPjkpDailyReportCleaner'])->name('createLaporanPjkpCleaner');
+        Route::post('/Laporan-Pjkp/Create',[PjkpController::class, 'storePjkpDailyReportCleaner'])->name('storeLaporanPjkpCleaner');
+        Route::get('/Laporan-Pjkp/Edit/{id_lp}',[PjkpController::class, 'editPjkpDailyReportCleaner'])->name('editLaporanPjkpCleaner');
+        Route::put('/Laporan-Pjkp/Update/{id_lp}',[PjkpController::class, 'updatePjkpDailyReportCleaner'])->name('updateLaporanPjkpCleaner');
+        Route::delete('/Laporan-Pjkp/{id_lp}',[PjkpController::class, 'destroyPjkpDailyReportCleaner'])->name('destroyLaporanPjkpCleaner');
     });
 
 
     // Routes for supervisor
     Route::middleware(['spv'])->prefix('Supervisor')->group(function () {
         // Route::get('/Laporan-Grooming', GroomingLivewire::class)->name('showTanggapanGrooming');
-        Route::get('/Laporan-Grooming', [GroomingController::class, 'showTanggapanGroomingSupervisor'])->name('showTanggapanGrooming');
-        Route::post('/Laporan-Grooming', [GroomingController::class, 'inputTanggapanGroomingSupervisor'])->name('inputTanggapanGrooming');
+        //Route for Grooming
+        Route::get('/Laporan-Grooming', [GroomingController::class, 'indexGroomingResponseSupervisor'])->name('showTanggapanGrooming');
+        Route::post('/Laporan-Grooming', [GroomingController::class, 'storeGroomingResponseSupervisor'])->name('inputTanggapanGrooming');
+
+        //Route for Pjkp
+        Route::get('/Laporan-Pjkp', [PjkpController::class, 'indexPjkpResponseSupervisor'])->name('showTanggapanPjkp');
+        Route::post('/Laporan-Pjkp', [PjkpController::class, 'inputTanggapanPjkpSupervisor'])->name('inputTanggapanPjkp');
     });
 
     // Routes for admin
     Route::middleware(['admin'])->prefix('Admin')->group(function () {
 
-        Route::get('/user', [ProfileController::class, 'index'])->name('user.index');
-        Route::get('/user/create', [ProfileController::class, 'create'])->name('user.create');
-        Route::post('/user/create', [ProfileController::class, 'store'])->name('user.store');
-        Route::get('/user/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
-        Route::put('/user/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
-        Route::delete('/user/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
+        Route::get('/User', [ProfileController::class, 'index'])->name('user.index');
+        Route::get('/User/create', [ProfileController::class, 'create'])->name('user.create');
+        Route::post('/User/create', [ProfileController::class, 'store'])->name('user.store');
+        Route::get('/User/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
+        Route::put('/User/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
+        Route::delete('/User/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
 
         Route::resource('Sop', sopController::class)->names([
             'index' => 'sop.index',
@@ -81,27 +93,17 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('Laporan-Grooming', GroomingController::class)->names([
             'index' => 'laporan-grooming.index',
-            'create' => 'laporan-grooming.create',
-            'store' => 'laporan-grooming.store',
-            'show' => 'laporan-grooming.show',
-            'edit' => 'laporan-grooming.edit',
-            'update' => 'laporan-grooming.update',
             'destroy' => 'laporan-grooming.destroy',
         ]);
 
         //Route Livewire Controller
-        Route::get('/Laporan-PJKP', PjkpLivewire::class)->name('showLaporanPJKP');
-        Route::get('/Laporan-PJKP/Create', PjkpCreate::class)->name('createLaporanPJKP');
+        // Route::get('/Laporan-PJKP', PjkpLivewire::class)->name('showLaporanPJKP');
+        // Route::get('/Laporan-PJKP/Create', PjkpCreate::class)->name('createLaporanPJKP');
 
-        // Route::resource('Laporan-PJKP', PjkpController::class)->names([
-        //     'index' => 'laporan-pjkp.index',
-        //     'create' => 'laporan-pjkp.create',
-        //     'store' => 'laporan-pjkp.store',
-        //     'show' => 'laporan-pjkp.show',
-        //     'edit' => 'laporan-pjkp.edit',
-        //     'update' => 'laporan-pjkp.update',
-        //     'destroy' => 'laporan-pjkp.destroy',
-        // ]);
+        Route::resource('Laporan-PJKP', PjkpController::class)->names([
+            'index' => 'laporan-pjkp.index',
+            'destroy' => 'laporan-pjkp.destroy',
+        ]);
     });
 });
 

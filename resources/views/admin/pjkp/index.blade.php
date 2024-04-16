@@ -5,7 +5,68 @@
 @endpush
 
 @section('content')
-    @livewire('pjkp-livewire')
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">PJKP</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Laporan PJKP</li>
+    </ol>
+  </nav>
+
+  @if (session('success'))
+  <div class="alert alert-success" role="alert">
+      {{session('success')}}
+  </div>
+  @endif
+  @if (session('error'))
+  <div class="alert alert-danger" role="alert">
+      {{session('error')}}
+  </div>
+  @endif
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Daftar Laporan PJKP</h6>
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Petugas</th>
+                  <th>Nama Supervisor</th>
+                  <th>Waktu Laporan</th>
+                  <th>Waktu Ditanggapi</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                  @foreach ($adminPjkpReport as $aPr)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{$aPr->laporanPjkp->user->name}}</td>
+                  <td>{{ $aPr->user->level == 'spv' ? $aPr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
+                  <td>{{$aPr->laporanPjkp->tgl_lp}}</td>
+                  <td>{{$aPr->tgl_tp}}</td>
+                  <td>{{$aPr->laporanPjkp->status_lp}}</td>
+                  <td>
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminPjkpReportDetail{{$aPr->id_lp}}"><i data-feather="info"></i></button>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeletePjkpReport{{$aPr->id_lp}}"><i data-feather="trash-2"></i></button>
+
+                      <!-- Modal -->
+                      @include('modals')
+
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @push('plugin-scripts')
@@ -15,10 +76,9 @@
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
-
-  {{-- <script>
-    Livewire.on('redirect', function (data) {
-        window.location.href = data.url;
-    });
-</script> --}}
+  <script>
+    setTimeout(function() {
+        location.reload();
+    }, 30000);
+    </script>
 @endpush
