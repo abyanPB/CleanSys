@@ -22,6 +22,7 @@ License: You must have a valid license purchased only from https://themeforest.n
   <link href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
   <!-- end plugin css -->
 
   @stack('plugin-styles')
@@ -53,6 +54,7 @@ License: You must have a valid license purchased only from https://themeforest.n
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
     <!-- end base js -->
 
     <!-- plugin js -->

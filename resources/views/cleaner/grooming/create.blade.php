@@ -119,7 +119,7 @@
   <script src="{{ asset('assets/js/select2.js') }}"></script>
   <script>
     $(".js-example-basic-single").select2({
-        tags: true
+        tags: false
     });
   </script>
 @endpush
