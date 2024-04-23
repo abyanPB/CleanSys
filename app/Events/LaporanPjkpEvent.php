@@ -9,17 +9,20 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
-class LaporanPjkpEvent
+class LaporanPjkpEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $name;
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($name)
     {
-        //
+        $this->name = $name;
     }
 
     /**
@@ -30,7 +33,22 @@ class LaporanPjkpEvent
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new Channel('popup-notifications-pjkp'),
         ];
+    }
+
+    /**
+     * Broadcast the event cleaner input laporan.
+     *
+     * @return array
+     */
+    public function broadcastAs()
+    {
+        if (Auth::user()->level == 'spv'){
+            return 'reports-pjkp-spv-to-cleaner';
+        }
+        elseif (Auth::user()->level == 'cleaner'){
+            return 'reports-pjkp-cleaner-to-spv';
+        }
     }
 }

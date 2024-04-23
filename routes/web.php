@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
 
         //Route for Pjkp
         Route::get('/Laporan-Pjkp', [PjkpController::class, 'indexPjkpResponseSupervisor'])->name('showTanggapanPjkp');
-        Route::post('/Laporan-Pjkp', [PjkpController::class, 'inputTanggapanPjkpSupervisor'])->name('inputTanggapanPjkp');
+        Route::post('/Laporan-Pjkp', [PjkpController::class, 'storePjkpResponseSupervisor'])->name('inputTanggapanPjkp');
     });
 
     // Routes for admin
