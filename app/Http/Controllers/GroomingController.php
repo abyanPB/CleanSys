@@ -8,10 +8,12 @@ use App\Models\LaporanGrooming;
 use App\Models\Sop;
 use App\Models\TanggapanGrooming;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpKernel\Debug\VirtualRequestStack;
 
 class GroomingController extends Controller
 {
@@ -24,8 +26,13 @@ class GroomingController extends Controller
             $adminGroomingReport = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
                 $query->where('status_lg', '=', 'hasil');
             })->orderBy('tgl_tg', 'desc')->get();
+            // Buat array yang berisi semua nilai tgl_tg
+            $tgl_tg_values = $adminGroomingReport->pluck('tgl_tg')->toArray();
+
+            // Temukan nilai minimum dari array tersebut
+            $minDate = min($tgl_tg_values);
             $title = 'Laporan Grooming Provice Group';
-            return view('admin.grooming.index', compact('adminGroomingReport' , 'title'));
+            return view('admin.grooming.index', compact('adminGroomingReport' , 'title', 'minDate'));
         }
 
         /**
@@ -39,6 +46,31 @@ class GroomingController extends Controller
             $grooming->delete();
             return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
         }
+
+        function getMonthYearName($monthNumber, $year) {
+            $bulan = [
+                'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            $namaBulan = $bulan[$monthNumber - 1];
+            return "$namaBulan $year";
+        }
+
+        public function generatePdf(){
+            $date = Carbon::now();
+            $monthNumber = $date->month;
+            $year = $date->year;
+            $namaBulanTahun = $this->getMonthYearName($monthNumber, $year);
+            $title = 'Laporan Grooming Provice Group';
+
+            $data = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
+                $query->where('status_lg', '=', 'hasil');
+            })->orderBy('tgl_tg', 'desc')->get();
+
+            $pdf = Pdf::loadView('admin.grooming.pdf',compact('data', 'title', 'namaBulanTahun'));
+
+            return $pdf->stream("$title - $namaBulanTahun");
+        }
+
     //End Admin
 
     //Start Supervisor

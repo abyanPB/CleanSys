@@ -91,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'area.destroy',
         ]);
 
+        Route::get('/Laporan-Grooming/Cetakpdf',[GroomingController::class, 'generatePdf'])->name('cetakpdf');
         Route::resource('Laporan-Grooming', GroomingController::class)->names([
             'index' => 'laporan-grooming.index',
             'destroy' => 'laporan-grooming.destroy',

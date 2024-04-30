@@ -2,15 +2,29 @@
 
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
-<nav class="page-breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
-  </ol>
-</nav>
+
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <nav class="page-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Grooming</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+        </ol>
+      </nav>
+    <div class="d-flex align-items-center flex-wrap text-nowrap">
+      @php
+      // Set locale ke bahasa Indonesia
+      \Carbon\Carbon::setLocale('id');
+      @endphp
+      <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex">
+        <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+        <input type="text" class="form-control" value="{{ \Carbon\Carbon::now()->translatedFormat('l, d-m-Y') }}" readonly>
+      </div>
+    </div>
+  </div>
 
 @if (session('success'))
 <div class="alert alert-success" role="alert">
@@ -27,6 +41,9 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        <div style="padding-bottom: 1%">
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#adminPrintGroomingReport"><i data-feather="printer"></i> Cetak Pdf</button>
+        </div>
         <h6 class="card-title">Daftar Laporan Grooming</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
@@ -72,13 +89,28 @@
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script>
+    $(".js-example-basic-multiple").select2({
+        tags: false
+    });
+  </script>
   <script>
     setTimeout(function() {
         location.reload();
     }, 60000);
+    </script>
+    <script>
+        // Inisialisasi flatpickr untuk input rentang tanggal
+        flatpickr("#tanggal", {
+            mode: "range", // Set mode menjadi range
+            dateFormat: "Y-m-d", // Format tanggal
+            // maxDate: Today, // Set max date
+        });
     </script>
 @endpush

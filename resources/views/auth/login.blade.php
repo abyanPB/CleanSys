@@ -8,11 +8,11 @@
       <div class="card">
         <div class="row">
           <div class="col-md-4 pr-md-0">
-            <div class="auth-left-wrapper" style="background-image: url({{ url('https://via.placeholder.com/219x452') }})">
+            <div class="auth-left-wrapper" style="background-image: url({{asset('images/logo/provice_group.jpeg')}}); background-size: contain; background-position: center; background-repeat: no-repeat; height:  100%; border:2px solid #000062; border-right:none">
             </div>
           </div>
           <div class="col-md-8 pl-md-0">
-            <div class="auth-form-wrapper px-4 py-5">
+            <div class="auth-form-wrapper px-4 py-5" style="border:2px solid #000062;">
               <a href="#" class="noble-ui-logo d-block mb-2">Provice<span>Group</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Selamat Datang! Silahkan Masuk Ke Akun</h5>
               <form class="forms-sample" action="{{route('store.login')}}" method="POST">
@@ -36,12 +36,6 @@
                   <label for="exampleInputPassword1">Password</label>
                   <input type="password" name="password" id="password" class="form-control" autocomplete="current-password" placeholder="Password">
                   <span class="form-bar text-danger">@error('password'){{$message}}@enderror</span>
-                </div>
-                <div class="form-check form-check-flat form-check-primary">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    Remember me
-                  </label>
                 </div>
                 <div class="mt-3">
                   <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">

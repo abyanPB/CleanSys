@@ -5,10 +5,6 @@
 @endpush
 
 @section('content')
-@php
-    // Set locale ke bahasa Indonesia
-    \Carbon\Carbon::setLocale('id');
-@endphp
 
 @if ($errors->any())
     <div class="alert alert-danger" role="alert">
@@ -25,6 +21,10 @@
     <h4 class="mb-3 mb-md-0">Selamat Datang, {{request()->user()->name}}</h4>
   </div>
   <div class="d-flex align-items-center flex-wrap text-nowrap">
+    @php
+    // Set locale ke bahasa Indonesia
+    \Carbon\Carbon::setLocale('id');
+    @endphp
     <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex">
       <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
       <input type="text" class="form-control" value="{{ \Carbon\Carbon::now()->translatedFormat('l, d-m-Y') }}" readonly>

@@ -5,12 +5,25 @@
 @endpush
 
 @section('content')
-<nav class="page-breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
-  </ol>
-</nav>
+
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <nav class="page-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Grooming</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+        </ol>
+      </nav>
+    <div class="d-flex align-items-center flex-wrap text-nowrap">
+      @php
+      // Set locale ke bahasa Indonesia
+      \Carbon\Carbon::setLocale('id');
+      @endphp
+      <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex">
+        <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+        <input type="text" class="form-control" value="{{ \Carbon\Carbon::now()->translatedFormat('l, d-m-Y') }}" readonly>
+      </div>
+    </div>
+  </div>
 
 @if (session('success'))
 <div class="alert alert-success" role="alert">
