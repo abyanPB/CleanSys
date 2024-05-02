@@ -2,46 +2,48 @@
     {{-- Start Laporan Grooming --}}
         @if (isset($adminGroomingReport))
         {{-- Start Cetak Pdf --}}
-        <div class="modal fade" id="adminPrintGroomingReport" tabindex="-1" role="dialog" aria-labelledby="adminPrintGroomingReport" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="adminPrintGroomingReport">Konfirmasi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Pilih Nama Pekerja</label>
-                            <br>
-                            <select class="js-example-basic-multiple" style="width: 100%" multiple>
-                                @foreach ($adminGroomingReport as $aGr)
-                                    <option value="{{$aGr->laporanGrooming->user->id_users}}">{{$aGr->laporanGrooming->user->name}}</option>
-                                @endforeach
-                            </select>
+            <div class="modal fade" id="adminPrintGroomingReport" tabindex="-1" role="dialog" aria-labelledby="adminPrintGroomingReport" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="adminPrintGroomingReport">Konfirmasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                              <label for="startdate">Dari Tanggal :</label>
-                              <input type="date" name="start_date" class="form-control mb-2" id="startdate">
+                        <form action="{{ route('cetakpdf') }}" method="POST" target="_blank">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Pilih Nama Pekerja :</label>
+                                    <br>
+                                    <select class="js-example-basic-multiple" style="width: 100%" name="selected_users[]" multiple>
+                                        @foreach ($adminGroomingReport as $aGr)
+                                            <option value="{{$aGr->laporanGrooming->user->id_users}}">{{$aGr->laporanGrooming->user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                    <span class="text-danger">*kosongkan kolom ini jika ingin cetak semua</span>
+                                </div>
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto">
+                                    <label for="startdate">Dari Tanggal :</label>
+                                    <input type="date" name="start_date" class="form-control mb-2" id="start_date">
+                                    </div>
+                                    <div class="col-auto">
+                                    <label for="enddate">Hingga Tanggal :</label>
+                                    <input type="date" name="end_date" class="form-control mb-2" id="end_date">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                              <label for="enddate">Hingga Tanggal :</label>
-                              <input type="date" name="end_date" class="form-control mb-2" id="enddate">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-danger" id="print_button">Cetak</button>
                             </div>
-                          </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <form action="{{route('cetakpdf')}}" method="GET">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Cetak</button>
-                    </form>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
         {{-- End Cetak Pdf --}}
         @endif
 

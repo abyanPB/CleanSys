@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpKernel\Debug\VirtualRequestStack;
+use Termwind\Components\Dd;
 
 class GroomingController extends Controller
 {
@@ -47,30 +48,57 @@ class GroomingController extends Controller
             return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
         }
 
-        function getMonthYearName($monthNumber, $year) {
-            $bulan = [
-                'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            $namaBulan = $bulan[$monthNumber - 1];
-            return "$namaBulan $year";
+        // function getMonthYearName($monthNumber, $year) {
+        //     $bulan = [
+        //         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+        //     ];
+        //     $namaBulan = $bulan[$monthNumber - 1];
+        //     return "$namaBulan $year";
+        // }
+
+        function getMonthYearName($startDate, $endDate) {
+            $startMonth = date('F', strtotime($startDate)); // Ambil nama bulan dari tanggal awal
+            $startYear = date('Y', strtotime($startDate)); // Ambil tahun dari tanggal awal
+
+            $endMonth = date('F', strtotime($endDate)); // Ambil nama bulan dari tanggal akhir
+            $endYear = date('Y', strtotime($endDate)); // Ambil tahun dari tanggal akhir
+
+            if ($startMonth == $endMonth && $startYear == $endYear) {
+                // Jika bulan dan tahun sama, tampilkan hanya satu bulan dan tahun
+                return "$startMonth $startYear";
+            } else {
+                // Jika berbeda, tampilkan rentang bulan dan tahun
+                return "$startMonth $startYear - $endMonth $endYear";
+            }
         }
 
-        public function generatePdf(){
-            $date = Carbon::now();
-            $monthNumber = $date->month;
-            $year = $date->year;
-            $namaBulanTahun = $this->getMonthYearName($monthNumber, $year);
-            $title = 'Laporan Grooming Provice Group';
+        //Fungsi untuk mencetak PDF
+        public function generatePdf(Request $request){
+            $selectedUsers = $request->input('selected_users',[]);//Mendaparkan inputan user dari inputan
 
-            $data = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
-                $query->where('status_lg', '=', 'hasil');
-            })->orderBy('tgl_tg', 'desc')->get();
-
-            $pdf = Pdf::loadView('admin.grooming.pdf',compact('data', 'title', 'namaBulanTahun'));
-
-            return $pdf->stream("$title - $namaBulanTahun");
+            //Validasi tanggal
+            if (($request->start_date == '') || ($request->end_date == '')) {
+                return redirect()->route('laporan-grooming.index')->with('error','Cetak gagal ! Harap isi kedua tanggal !');
+            }else{
+                //Jika tidak ada pekerja dipilih, maka cetak semua
+                if ($selectedUsers == null){
+                    $printData = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
+                        $query->where('status_lg', '=', 'hasil');
+                    })->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
+                }
+                //Cetak berdasarkan nama pekerja yang dipilih
+                else{
+                    $printData = TanggapanGrooming::whereHas('laporanGrooming', function ($query) use ($selectedUsers){
+                        $query->where('status_lg', '=', 'hasil');
+                        $query->whereIn('id_users', $selectedUsers);
+                    })->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
+                }
+                $title = 'Laporan Grooming Provice Group';
+                $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
+                $pdf = Pdf::loadView('admin.grooming.pdf',compact('printData', 'title', 'nameMonthYear'));
+                return $pdf->stream("$title - $request->start_date - $request->end_date");
+            }
         }
-
     //End Admin
 
     //Start Supervisor

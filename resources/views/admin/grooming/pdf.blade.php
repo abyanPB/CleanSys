@@ -10,7 +10,7 @@
 </head>
 <body>
     <h5 class="text-center text-uppercase">{{$title}}</h5>
-    <h6 class="text-center text-uppercase">{{$namaBulanTahun}}</h6>
+    <h6 class="text-center text-uppercase">{{$nameMonthYear}}</h6>
 
 
     <div>
@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $aGr)
+                @foreach ($printData as $aGr)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $aGr->laporanGrooming->user->name }}</td>

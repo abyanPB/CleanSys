@@ -97,7 +97,7 @@
   <script src="{{ asset('assets/js/select2.js') }}"></script>
   <script>
     $(".js-example-basic-multiple").select2({
-        tags: false
+        tags: true,
     });
   </script>
   <script>
