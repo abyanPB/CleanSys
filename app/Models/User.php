@@ -34,6 +34,7 @@ class User extends Authenticatable
         'no_telepon',
         'level',
         'image',
+        'default_pass',
     ];
 
     protected static function boot()

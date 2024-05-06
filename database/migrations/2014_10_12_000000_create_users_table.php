@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('no_telepon')->nullable();
             $table->enum('level',['admin','spv','cleaner']);
             $table->string('image')->nullable();
+            $table->integer('default_pass');
             $table->rememberToken();
             $table->timestamps();
         });

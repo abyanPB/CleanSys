@@ -32,6 +32,8 @@
   </div>
 </div>
 
+@if (request()->user()->default_pass == 1)
+
 <div class="row">
   <div class="col-12 col-xl-12 stretch-card">
     <div class="row flex-grow">
@@ -428,6 +430,42 @@
     </div>
   </div>
 </div> <!-- row -->
+@elseif(request()->user()->default_pass == 0)
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+
+            <h6 class="card-title">Silakan ubah kata sandi default Anda.</h6>
+            <form class="forms-sample" action="{{ route('defaultpass') }}" method="POST">
+                @csrf
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password Lama</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" placeholder="Masukkan Password Lama" name="current_pass" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password Baru</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" autocomplete="off" placeholder="Masukkan Password Baru" name="new_pass" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Ulangi Password Baru</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" placeholder="Ulangi Password Lama" name="confirm_pass" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+@endif
+
+
 @endsection
 
 @push('plugin-scripts')

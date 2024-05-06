@@ -7,6 +7,15 @@ use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\PjkpController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +34,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
+
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
+    Route::post('/defaultpass', function (Request $request) {
+        $request->validate([
+            'current_pass' => ['required'],
+            'new_pass' => ['required'],
+            'confirm_pass' => ['required','same:new_pass'],
+        ]);
+        $id = request()->user()->id_users;
+        User::whereIdUsers($id)
+            ->update(['password' =>Hash::make($request->new_pass),'default_pass'=>1]);
+        return redirect('dashboard');
+    })->middleware(['verified'])->name('defaultpass');
+
+    Route::get('/Profile', [ProfileController::class, 'viewProfile'])->name('showProfile');
+    Route::put('/Profile/Update', [ProfileController::class, 'changeProfile'])->name('changeProfile');
 
     // Routes for cleaner
     Route::middleware(['cleaner'])->prefix('Cleaner')->group(function () {
         Route::get('/sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
+
         //Routes for Grooming
         Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'indexGroomingDailyReportCleaner'])->name('showLaporanGroomingCleaner');
         Route::get('/Laporan-Grooming/Create',[GroomingController::class, 'createGroomingDailyReportCleaner'])->name('createLaporanGroomingCleaner');
