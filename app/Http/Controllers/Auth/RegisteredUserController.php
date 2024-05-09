@@ -43,7 +43,8 @@ class RegisteredUserController extends Controller
             'jk'=>null,
             'no_telepon'=>null,
             'level'=>'admin',
-            'image'=>null,
+            'default_pass' => 0,
+            'image_profile'=>null,
         ]);
 
         event(new Registered($user));

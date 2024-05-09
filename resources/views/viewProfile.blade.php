@@ -97,25 +97,28 @@
                     <span class="input-group-append-sm">
                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                     </span>
-                    </div>
                     <span class="form-bar text-danger">@error('image_profile'){{$message}}@enderror</span>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password Lama</label>
                     <div class="col-sm-9">
                         <input type="password" class="form-control" placeholder="Masukkan Password Lama" name="current_password">
+                        <span class="form-bar text-danger">@error('current_password'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password Baru</label>
                     <div class="col-sm-9">
                         <input type="password" class="form-control" autocomplete="off" placeholder="Masukkan Password Baru" name="new_password">
+                        <span class="form-bar text-danger">@error('new_password'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                     <div class="col-sm-9">
                         <input type="password" class="form-control" placeholder="Ulangi Password Lama" name="confirm_password">
+                        <span class="form-bar text-danger">@error('confirm_password'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>

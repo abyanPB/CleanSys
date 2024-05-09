@@ -202,10 +202,10 @@
                 Jabatan : {{$user->level}}
                 <hr>
                 Foto :
-                @if ($user->image == null)
+                @if ($user->image_profile == null)
                     <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto;">
                 @else
-                    <img src="{{asset('images/pengguna/'.$user->image)}}" alt="Foto Pengguna" style="width: 50%; height: auto;">
+                    <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto;">
                 @endif
                 </div>
                 <div class="modal-footer">
@@ -269,7 +269,6 @@
         </div>
         @endif
     {{-- End Area Kerja --}}
-
 
     {{-- Start SOP --}}
         @if(isset($sop))

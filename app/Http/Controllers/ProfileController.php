@@ -146,8 +146,8 @@ class ProfileController extends Controller
             'email.required' => 'Harap Masukan Email Pengguna',
             'email.email' => 'Format Email tidak valid',
             'email.unique' => 'Email Yang Anda Masukan Sudah Digunakan',
+            'no_telepon' => 'Harap Masukan Nomor Hanya Berupa Angka'
         ]);
-
 
         // Memeriksa apakah ada perubahan password
         $isPasswordChanged = $request->filled('new_password') && $request->filled('confirm_password');
@@ -162,9 +162,18 @@ class ProfileController extends Controller
         } else {
             // Jika ada perubahan password, lakukan validasi dan update profil dengan password baru
             $request->validate([
-                'current_password' => 'required',
-                'new_password' => 'required|min:8|different:current_password|same:confirm_password',
-                'confirm_password' => 'required|min:8',
+                'current_password' => 'required|min:8',
+                'new_password' => 'required|min:8|different:current_password',
+                'confirm_password' => 'required|min:8|same:new_password|different:current_password',
+            ],[
+                'current_password.required' => 'Harap masukan password lama',
+                'current_password.min' => 'Harap masukan password minimal 8 karakter',
+                'new_password.required' => 'Harap masukan password baru',
+                'new_password.min' => 'Harap masukan password minimal 8 karakter',
+                'new_password.different' => 'Harap masukan password baru berbeda dengan password saat ini',
+                'confirm_password.same' => 'Password yang anda masukan berbeda',
+                'confirm_password.min' => 'Harap masukan password minimal 8 karakter',
+                'confirm_password.different' => 'Harap masukan password baru berbeda dengan password saat ini',
             ]);
 
             // Memeriksa apakah password saat ini sesuai
@@ -172,10 +181,11 @@ class ProfileController extends Controller
                 $user->update([
                     'name' => $request->name,
                     'email' => $request->email,
+                    'no_telepon' => $request->filled('no_telepon')? $request->no_telepon : null,
                     'password' => Hash::make($request->new_password),
                 ]);
             } else {
-                return redirect()->back()->withErrors(['current_password' => 'Password saat ini tidak sesuai.'])->withInput();
+                return redirect()->back()->with('error', 'Password anda saat ini tidak sesuai.')->withInput([$request->current_password, ]);
             }
         }
 
@@ -183,20 +193,18 @@ class ProfileController extends Controller
         if ($request->hasFile('image_profile')) {
             $this->userChangeProfileImage($request, $user->id_users, $request->file('image_profile'));
         }
-
         return redirect()->route('showProfile')->with('success', 'Berhasil Ubah Profile');
     }
 
-
-
-    private function userChangeProfileImage($request, $idUser, $image){
+    private function userChangeProfileImage($request, $idUser, $imageprofile){
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif'
+            'image_profile' => 'image|mimes:jpeg,png,jpg,gif'
         ]);
-        $oldImage = Auth::guard('web')->user()->image;
-
-        $newImageName = 'image_profile' . '_' . time() . '.' . $image->extension();
-
+        //Cek nama gambar sekarang
+        $oldImage = Auth::guard('web')->user()->image_profile;
+        //Inisialisasi gambar yang baru dimasukan
+        $newImageName = 'image_profile' . '_' . time() . '.' . $imageprofile->extension();
+        //Penempatan path gambar
         $path = 'images/pengguna/';
 
         if ($oldImage) {

@@ -6,19 +6,19 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown nav-profile">
         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @if (request()->user()->image == null)
+            @if (request()->user()->image_profile == null)
                 <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
             @else
-                <img src="{{asset('images/pengguna/'.request()->user()->image)}}" alt="Foto Pengguna">
+                <img src="{{asset('images/pengguna/'.request()->user()->image_profile)}}" alt="user-profile">
             @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="profileDropdown">
           <div class="dropdown-header d-flex flex-column align-items-center">
             <div class="figure mb-3">
-                @if (request()->user()->image == null)
+                @if (request()->user()->image_profile == null)
                     <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
                 @else
-                    <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" alt="">
+                    <img src="{{asset('images/pengguna/'.request()->user()->image_profile)}}" class="p-1 bg-light" alt="user-profile">
                 @endif
             </div>
             <div class="info text-center">

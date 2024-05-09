@@ -439,22 +439,38 @@
             <h6 class="card-title">Silakan ubah kata sandi default Anda.</h6>
             <form class="forms-sample" action="{{ route('defaultpass') }}" method="POST">
                 @csrf
+                @if (request()->user()->jk == null)
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="jk" name="jk">
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="laki-laki">Laki-Laki</option>
+                            <option value="perempuan">Perempuan</option>
+                        </select>
+                        <span class="form-bar text-danger">@error('jk'){{$message}}@enderror</span>
+                    </div>
+                </div>
+                @endif
               <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Password Lama</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="Masukkan Password Lama" name="current_pass" required>
+                  <input type="password" class="form-control" placeholder="Masukkan Password Lama" name="current_password" required>
+                  <span class="form-bar text-danger">@error('current_password'){{$message}}@enderror</span>
                 </div>
               </div>
               <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Password Baru</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" autocomplete="off" placeholder="Masukkan Password Baru" name="new_pass" required>
+                  <input type="password" class="form-control" autocomplete="off" placeholder="Masukkan Password Baru" name="new_password" required>
+                  <span class="form-bar text-danger">@error('new_password'){{$message}}@enderror</span>
                 </div>
               </div>
               <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Ulangi Password Baru</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="Ulangi Password Lama" name="confirm_pass" required>
+                  <input type="password" class="form-control" placeholder="Ulangi Password Lama" name="confirm_password" required>
+                  <span class="form-bar text-danger">@error('confirm_password'){{$message}}@enderror</span>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>

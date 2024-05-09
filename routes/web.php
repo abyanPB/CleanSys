@@ -39,9 +39,17 @@ Route::middleware(['auth'])->group(function () {
     })->middleware(['verified'])->name('dashboard');
     Route::post('/defaultpass', function (Request $request) {
         $request->validate([
-            'current_pass' => ['required'],
-            'new_pass' => ['required'],
-            'confirm_pass' => ['required','same:new_pass'],
+            'jk' => 'required',
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|different:current_password',
+            'confirm_password' => 'required|same:new_password',
+        ],[
+            'jk.required' => 'Harap masukan jenis kelamin anda',
+            'current_password.required' => 'Harap masukan password saat ini',
+            'new_password.required' => 'Harap masukan password',
+            'new_password.min' => 'Harap masukan password minimal 8 karakter',
+            'new_password.different' => 'Harap masukan password yang berbeda dari password saat ini',
+            'confirm_password.same' => 'Password yang anda masukan tidak sama',
         ]);
         $id = request()->user()->id_users;
         User::whereIdUsers($id)
