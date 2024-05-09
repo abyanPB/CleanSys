@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('jk',['laki-laki','perempuan'])->nullable();
             $table->string('no_telepon')->nullable();
             $table->enum('level',['admin','spv','cleaner']);
-            $table->string('image')->nullable();
+            $table->string('image_profile')->nullable();
             $table->integer('default_pass');
             $table->rememberToken();
             $table->timestamps();

@@ -105,12 +105,4 @@
         location.reload();
     }, 60000);
     </script>
-    <script>
-        // Inisialisasi flatpickr untuk input rentang tanggal
-        flatpickr("#tanggal", {
-            mode: "range", // Set mode menjadi range
-            dateFormat: "Y-m-d", // Format tanggal
-            // maxDate: Today, // Set max date
-        });
-    </script>
 @endpush

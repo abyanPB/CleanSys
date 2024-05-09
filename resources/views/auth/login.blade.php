@@ -41,6 +41,12 @@
                   <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">
                     Login
                   </button>
+
+                  <a href="{{ url('/Guest') }}">
+                    <button class="btn btn-info mr-2 mb-2 mb-md-0">
+                        Login As Guest
+                    </button>
+                  </a>
                 </div>
                 {{-- <a href="{{ url('/register') }}" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
               </form>

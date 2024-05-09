@@ -25,10 +25,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                    @if (request()->user()->image == null)
+                    @if (request()->user()->image_profile == null)
                         <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" class="rounded-circle p-1 bg-secondary" width="100" alt="user-profile">
                     @else
-                        <img src="{{ url('https://ui-avatars.com/api/?name='.request()->user()->name)}}" class="rounded-circle p-1 bg-secondary" width="100" alt="user-profile">
+                        <img src="{{asset('images/pengguna/'.$user->image_profile)}}" class="p-1 bg-light" width="200" alt="user-profile">
                     @endif
 
                     <div class="mt-3">
@@ -44,7 +44,7 @@
       <div class="card">
         <div class="card-body">
             <div class="alert alert-info text-center"><h5>Anda Dapat Mengubah Profile</h5></div>
-            <form class="forms-sample" action="{{route('changeProfile')}}" method="POST">
+            <form class="forms-sample" action="{{route('changeProfile')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -71,7 +71,7 @@
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                     <div class="col-sm-9">
-                        <select class="form-control" id="jk" name="jk">
+                        <select class="form-control" id="jk" name="jk" disabled>
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="laki-laki" {{ $user->jk == 'laki-laki'?'selected' : '' }}>Laki-Laki</option>
                             <option value="perempuan" {{ $user->jk == 'perempuan'?'selected' : '' }}>Perempuan</option>
@@ -125,3 +125,7 @@
     </div>
   </div>
 @endsection
+
+@push('custom-scripts')
+  <script src="{{ asset('assets/js/file-upload.js') }}"></script>
+@endpush

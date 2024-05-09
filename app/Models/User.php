@@ -33,7 +33,7 @@ class User extends Authenticatable
         'jk',
         'no_telepon',
         'level',
-        'image',
+        'image_profile',
         'default_pass',
     ];
 

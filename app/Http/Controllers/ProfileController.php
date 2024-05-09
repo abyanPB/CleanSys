@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -78,11 +79,10 @@ class ProfileController extends Controller
         $rules = [
             'name' => 'required',
             'email' => 'required|email',
-
         ];
 
         if($request->email !== $user->email){
-            $rules['email'] .= '|unique:users';
+            $rules['email'] = '|unique:users';
         }
 
         $request->validate($rules,[
@@ -131,62 +131,81 @@ class ProfileController extends Controller
      */
     public function changeProfile(Request $request){
         $user = Auth::user();
-        $validation = $rules = [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+        $rules = [
+            'name' =>'required',
+            'email' =>'required|email',
+            'no_telepon' => 'nullable|numeric',
         ];
 
-        if($request->email !== $user->email){
-            $rules['email'] .= '|unique:users';
+        if ($request->email !== $user->email){
+            $rules['email'] = '|unique:users';
         }
 
-        $pass1 = Str::of($request->current_password)->isEmpty();
-        $pass2 = Str::of($request->new_password)->isEmpty();
-        $pass3 = Str::of($request->confirm_password)->isEmpty();
+        $request->validate($rules,[
+            'name.required' => 'Harap Masukan Nama Pengguna',
+            'email.required' => 'Harap Masukan Email Pengguna',
+            'email.email' => 'Format Email tidak valid',
+            'email.unique' => 'Email Yang Anda Masukan Sudah Digunakan',
+        ]);
 
-        if ($pass1 && $pass2 && $pass3) {
+
+        // Memeriksa apakah ada perubahan password
+        $isPasswordChanged = $request->filled('new_password') && $request->filled('confirm_password');
+
+        // Jika tidak ada perubahan password, update profil tanpa password
+        if (!$isPasswordChanged) {
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'no_telepon' => $request->filled('no_telepon')? $request->no_telepon : null,
             ]);
-        }
-        else {
+        } else {
+            // Jika ada perubahan password, lakukan validasi dan update profil dengan password baru
             $request->validate([
-                'password' => 'required',
-                'password_confirm' => 'required|same:password',
+                'current_password' => 'required',
+                'new_password' => 'required|min:8|different:current_password|same:confirm_password',
+                'confirm_password' => 'required|min:8',
             ]);
 
-            $user->update([
-                'name' => e($request->name),
-                'email' => Str::of(e($request->email))->lower(),
-                'password' => Hash::make($request->password)
-            ]);
+            // Memeriksa apakah password saat ini sesuai
+            if (Hash::check($request->current_password, $user->password)) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->new_password),
+                ]);
+            } else {
+                return redirect()->back()->withErrors(['current_password' => 'Password saat ini tidak sesuai.'])->withInput();
+            }
         }
 
-        if ($request->file('image')) {
-            $this->userChangeProfileImage($request, $user->id, $request->file('image'));
+        // Memeriksa dan menyimpan gambar profil jika ada
+        if ($request->hasFile('image_profile')) {
+            $this->userChangeProfileImage($request, $user->id_users, $request->file('image_profile'));
         }
+
         return redirect()->route('showProfile')->with('success', 'Berhasil Ubah Profile');
     }
 
 
+
     private function userChangeProfileImage($request, $idUser, $image){
         $request->validate([
-            'image' => 'mimes:jpg,png,jpeg|max:1024'
+            'image' => 'image|mimes:jpeg,png,jpg,gif'
         ]);
         $oldImage = Auth::guard('web')->user()->image;
 
         $newImageName = 'image_profile' . '_' . time() . '.' . $image->extension();
 
-        $path = 'asset-image/profil/';
+        $path = 'images/pengguna/';
 
         if ($oldImage) {
             if (File::exists(public_path($path . $oldImage))) {
                 File::delete(public_path($path . $oldImage));
             }
         }
-        $request->image->move(public_path($path), $newImageName);
+        $request->image_profile->move(public_path($path), $newImageName);
         User::where('id_users', $idUser)
-            ->update(['image' => $newImageName]);
+            ->update(['image_profile' => $newImageName]);
     }
 }
