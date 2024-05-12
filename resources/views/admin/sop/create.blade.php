@@ -28,12 +28,12 @@
             @csrf
           <div class="form-group">
             <label for="nama_sop">Nama SOP</label>
-            <input type="text" class="form-control" id="nama_sop" name="nama_sop" autocomplete="off" placeholder="Nama SOP">
+            <input type="text" class="form-control" id="nama_sop" name="nama_sop" autocomplete="off" placeholder="Nama SOP : Swipping">
             <span class="form-bar text-danger">@error('nama_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
             <label for="ket_sop">Keterangan SOP</label>
-            <input type="text" class="form-control" id="ket_sop" name="ket_sop" placeholder="Keterangan SOP">
+            <input type="text" class="form-control" id="ket_sop" name="ket_sop" placeholder="Keterangan SOP : Melakukan pembersihan pada lantai dengan sapu">
             <span class="form-bar text-danger">@error('ket_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">

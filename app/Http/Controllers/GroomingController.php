@@ -18,6 +18,21 @@ use Termwind\Components\Dd;
 
 class GroomingController extends Controller
 {
+
+    /**
+     * Fungsi untuk memeriksa koneksi internet.
+     * Mengembalikan true jika terhubung ke internet, dan false jika tidak.
+     */
+    private function check_internet_connection() {
+        $connected = @fsockopen("www.google.com", 80); // Mencoba membuka koneksi ke google
+        if ($connected) {
+            fclose($connected);
+            return true; // Terhubung ke internet
+        } else {
+            return false; // Tidak terhubung ke internet
+        }
+    }
+
     //Start Admin
         /**
          * Display a listing of the resource.
@@ -27,13 +42,13 @@ class GroomingController extends Controller
             $adminGroomingReport = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
                 $query->where('status_lg', '=', 'hasil');
             })->orderBy('tgl_tg', 'desc')->get();
-            // Buat array yang berisi semua nilai tgl_tg
-            $tgl_tg_values = $adminGroomingReport->pluck('tgl_tg')->toArray();
 
-            // Temukan nilai minimum dari array tersebut
-            $minDate = min($tgl_tg_values);
+            // // Buat array yang berisi semua nilai tgl_tg
+            // $tgl_tg_values = $adminGroomingReport->pluck('tgl_tg')->toArray();
+            // // Temukan nilai minimum dari array tersebut
+            // $minDate = min($tgl_tg_values);
             $title = 'Laporan Grooming Provice Group';
-            return view('admin.grooming.index', compact('adminGroomingReport' , 'title', 'minDate'));
+            return view('admin.grooming.index', compact('adminGroomingReport' , 'title'));
         }
 
         /**
@@ -122,7 +137,9 @@ class GroomingController extends Controller
         {
             // Emit an event with the supervisor's name
             $name = Auth::user()->name;
-            event(new LaporanGroomingEvent($name));
+            if ($this->check_internet_connection()) {
+                event(new LaporanGroomingEvent($name));
+            }
 
             $request->validate([
                 'tanggapan_grooming'=>'required',
@@ -168,7 +185,10 @@ class GroomingController extends Controller
         public function storeGroomingDailyReportCleaner(Request $request)
         {
             $name = Auth::user()->name;
-            event(new LaporanGroomingEvent($name));
+
+            if ($this->check_internet_connection()) {
+                event(new LaporanGroomingEvent($name));
+            }
 
             $request->validate([
                 'id_area' =>'required',

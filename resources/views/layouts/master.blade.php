@@ -40,14 +40,26 @@ License: You must have a valid license purchased only from https://themeforest.n
   <script src="{{ asset('assets/js/spinner.js') }}"></script>
 
   <div class="main-wrapper" id="app">
-    @include('layouts.sidebar')
-    <div class="page-wrapper">
-      @include('layouts.header')
-      <div class="page-content">
-        @yield('content')
-      </div>
-      @include('layouts.footer')
-    </div>
+    @if (Auth::check())
+        @include('layouts.sidebar')
+        <div class="page-wrapper">
+        @include('layouts.header')
+        <div class="page-content">
+            @yield('content')
+        </div>
+        @include('layouts.footer')
+        </div>
+    @else
+        @include('layouts.sidebar')
+        <div class="page-wrapper">
+        @include('layouts.header')
+        <div class="page-content">
+            @yield('content')
+        </div>
+        @include('layouts.footer')
+        </div>
+
+    @endif
   </div>
 
     <!-- base js -->

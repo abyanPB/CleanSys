@@ -29,12 +29,12 @@
             {{-- <input type="hidden" name="id_sop" value="{{$sop->id_sop}}"> --}}
             <div class="form-group">
                 <label for="nama_sop">Nama SOP</label>
-                <input type="text" class="form-control" id="nama_sop" name="nama_sop" value="{{ $sop->nama_sop }}" autocomplete="off" placeholder="Nama SOP" required>
+                <input type="text" class="form-control" id="nama_sop" name="nama_sop" value="{{ $sop->nama_sop }}" autocomplete="off" placeholder="Nama SOP  : Swipping" required>
                 <span class="form-bar text-danger">@error('nama_sop'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
                 <label for="ket_sop">Keterangan SOP</label>
-                <input type="text" class="form-control" id="ket_sop" name="ket_sop" value="{{ $sop->ket_sop }}" placeholder="Keterangan SOP" required>
+                <input type="text" class="form-control" id="ket_sop" name="ket_sop" value="{{ $sop->ket_sop }}" placeholder="Keterangan SOP : Melakukan pembersihan pada lantai dengan sapu" required>
                 <span class="form-bar text-danger">@error('ket_sop'){{$message}}@enderror</span>
             </div>
             <div class="form-group">

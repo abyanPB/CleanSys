@@ -11,7 +11,7 @@
                       <select class="js-example-basic-single w-100" wire:model="id_area">
                           <option value="">Pilih Area Kerja</option>
                           @foreach ($areas as $area)
-                          <option value="{{$area->id_area}}">{{$area->nama_area}}</option>
+                          <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                           @endforeach
                       </select>
                   </div>

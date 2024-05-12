@@ -36,7 +36,7 @@
                 <select class="js-example-basic-single w-100" id="id_area" name="id_area">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
-                    <option value="{{$area->id_area}}">{{$area->nama_area}}</option>
+                    <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                     @endforeach
                 </select>
             </div>
@@ -45,7 +45,7 @@
                 <select class="js-example-basic-single w-100" id="id_sop" name="id_sop">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
-                    <option value="{{$sop->id_sop}}">{{$sop->nama_sop}}</option>
+                    <option value="{{$sop->id_sop}}">{{$sop->nama_sop}} </option>
                     @endforeach
                 </select>
             </div>
@@ -68,6 +68,12 @@
                   </span>
                 </div>
             </div>
+            {{-- <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" checked class="form-check-input" id="locationCheckbox" onclick="getLocation()">
+                    Get Location
+                </label>
+            </div> --}}
             <div id="photoPreview" class="form-group">
                 <label>Hasil Foto</label>
                 <figure>
@@ -122,4 +128,41 @@
         tags: false
     });
   </script>
+
+{{-- <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+            document.getElementById("locationCheckbox").checked = false;
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                document.getElementById("locationCheckbox").checked = false;
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                document.getElementById("locationCheckbox").checked = false;
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                document.getElementById("locationCheckbox").checked = false;
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                document.getElementById("locationCheckbox").checked = false;
+                break;
+        }
+    }
+</script> --}}
 @endpush

@@ -61,7 +61,7 @@
                 <div class="modal-body">
                 Nama Petugas : {{$aGr->laporanGrooming->user->name}}
                 <hr>
-                Area Kerja : {{$aGr->laporanGrooming->area->nama_area}}
+                Area Kerja : {{$aGr->laporanGrooming->area->nama_area}} {{$aGr->laporanGrooming->area->desc_area}}
                 <hr>
                 Sop Kerja : {{$aGr->laporanGrooming->sop->nama_sop}}
                 <hr>
@@ -127,7 +127,7 @@
                 <div class="modal-body">
                 Nama Petugas : {{$aPr->laporanPjkp->user->name}}
                 <hr>
-                Area Kerja : {{$aPr->laporanPjkp->area->nama_area}}
+                Area Kerja : {{$aPr->laporanPjkp->area->nama_area}} {{$aPr->laporanPjkp->area->desc_area}}
                 <hr>
                 Sop Kerja : {{$aPr->laporanPjkp->sop->nama_sop}}
                 <hr>
@@ -342,7 +342,7 @@
                         <hr>
                         Nama Petugas : {{$sGrt->user->name}}
                         <hr>
-                        Area Kerja : {{$sGrt->area->nama_area}}
+                        Area Kerja : {{$sGrt->area->nama_area}} {{$sGrt->area->desc_area}}
                         <hr>
                         Sop Kerja : {{$sGrt->sop->nama_sop}}
                         <hr>
@@ -404,7 +404,7 @@
                         <hr>
                         Nama Petugas : {{$sPrt->user->name}}
                         <hr>
-                        Area Kerja : {{$sPrt->area->nama_area}}
+                        Area Kerja : {{$sPrt->area->nama_area}} {{$sPrt->area->desc_area}}
                         <hr>
                         Sop Kerja : {{$sPrt->sop->nama_sop}}
                         <hr>
@@ -454,7 +454,7 @@
 
                     Nama Petugas : {{$cGrt->user->name}}
                     <hr>
-                    Area Kerja : {{$cGrt->area->nama_area}}
+                    Area Kerja : {{$cGrt->area->nama_area}} {{$cGrt->area->desc_area}}
                     <hr>
                     Sop Kerja : {{$cGrt->sop->nama_sop}}
                     <hr>
@@ -528,7 +528,7 @@
 
                     Nama Petugas : {{$cPrt->user->name}}
                     <hr>
-                    Area Kerja : {{$cPrt->area->nama_area}}
+                    Area Kerja : {{$cPrt->area->nama_area}} {{$cPrt->area->desc_area}}
                     <hr>
                     Sop Kerja : {{$cPrt->sop->nama_sop}}
                     <hr>

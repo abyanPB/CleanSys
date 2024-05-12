@@ -135,6 +135,7 @@ class ProfileController extends Controller
             'name' =>'required',
             'email' =>'required|email',
             'no_telepon' => 'nullable|numeric',
+            'jk' => 'nullable',
         ];
 
         if ($request->email !== $user->email){
@@ -158,6 +159,7 @@ class ProfileController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'no_telepon' => $request->filled('no_telepon')? $request->no_telepon : null,
+                'jk' => $request->filled('jk')? $request->jk : null,
             ]);
         } else {
             // Jika ada perubahan password, lakukan validasi dan update profil dengan password baru

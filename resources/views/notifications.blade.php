@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+@if (Auth::check())
     {{-- Start Grooming Reports --}}
         @if (Auth::user()->level == 'spv')
             <script>
@@ -76,3 +77,4 @@
         @endif
     {{-- End PJKP Reports --}}
 {{-- End Laravel Pusher with Jquery --}}
+@endif

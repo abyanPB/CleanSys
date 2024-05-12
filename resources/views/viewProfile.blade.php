@@ -71,7 +71,11 @@
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                     <div class="col-sm-9">
-                        <select class="form-control" id="jk" name="jk" disabled>
+                        @if ($user->jk == null)
+                            <select class="form-control" id="jk" name="jk" >
+                        @else
+                            <select class="form-control" id="jk" name="jk" disabled >
+                        @endif
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="laki-laki" {{ $user->jk == 'laki-laki'?'selected' : '' }}>Laki-Laki</option>
                             <option value="perempuan" {{ $user->jk == 'perempuan'?'selected' : '' }}>Perempuan</option>

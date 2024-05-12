@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SopController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\GroomingController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PjkpController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +30,19 @@ use Illuminate\Validation\Rules;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('index');
 // });
+
+//Route for Guest
+Route::resource('Guest', GuestController::class)->names([
+    'index' => 'Guest.index',
+    'create' => 'Guest.create',
+    'store' => 'Guest.store',
+    'show' => 'Guest.show',
+    'edit' => 'Guest.edit',
+    'update' => 'Guest.update',
+    'destroy' => 'Guest.destroy',
+]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -53,16 +65,17 @@ Route::middleware(['auth'])->group(function () {
         ]);
         $id = request()->user()->id_users;
         User::whereIdUsers($id)
-            ->update(['password' =>Hash::make($request->new_pass),'default_pass'=>1]);
+            ->update(['jk'=>$request->jk,'password' =>Hash::make($request->new_password),'default_pass'=>1]);
         return redirect('dashboard');
     })->middleware(['verified'])->name('defaultpass');
 
+    //Route Ubah Profile Semua Role
     Route::get('/Profile', [ProfileController::class, 'viewProfile'])->name('showProfile');
     Route::put('/Profile/Update', [ProfileController::class, 'changeProfile'])->name('changeProfile');
 
     // Routes for cleaner
     Route::middleware(['cleaner'])->prefix('Cleaner')->group(function () {
-        Route::get('/sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
+        Route::get('/Sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
 
         //Routes for Grooming
         Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'indexGroomingDailyReportCleaner'])->name('showLaporanGroomingCleaner');
@@ -73,12 +86,12 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/Laporan-Grooming/{id_lg}',[GroomingController::class, 'destroyGroomingDailyReportCleaner'])->name('destroyLaporanGroomingCleaner');
 
         //Routes for PJKP
-        Route::get('/Laporan-Pjkp/Index',[PjkpController::class, 'indexPjkpDailyReportCleaner'])->name('showLaporanPjkpCleaner');
-        Route::get('/Laporan-Pjkp/Create',[PjkpController::class, 'createPjkpDailyReportCleaner'])->name('createLaporanPjkpCleaner');
-        Route::post('/Laporan-Pjkp/Create',[PjkpController::class, 'storePjkpDailyReportCleaner'])->name('storeLaporanPjkpCleaner');
-        Route::get('/Laporan-Pjkp/Edit/{id_lp}',[PjkpController::class, 'editPjkpDailyReportCleaner'])->name('editLaporanPjkpCleaner');
-        Route::put('/Laporan-Pjkp/Update/{id_lp}',[PjkpController::class, 'updatePjkpDailyReportCleaner'])->name('updateLaporanPjkpCleaner');
-        Route::delete('/Laporan-Pjkp/{id_lp}',[PjkpController::class, 'destroyPjkpDailyReportCleaner'])->name('destroyLaporanPjkpCleaner');
+        Route::get('/Laporan-PJKP/Index',[PjkpController::class, 'indexPjkpDailyReportCleaner'])->name('showLaporanPjkpCleaner');
+        Route::get('/Laporan-PJKP/Create',[PjkpController::class, 'createPjkpDailyReportCleaner'])->name('createLaporanPjkpCleaner');
+        Route::post('/Laporan-PJKP/Create',[PjkpController::class, 'storePjkpDailyReportCleaner'])->name('storeLaporanPjkpCleaner');
+        Route::get('/Laporan-PJKP/Edit/{id_lp}',[PjkpController::class, 'editPjkpDailyReportCleaner'])->name('editLaporanPjkpCleaner');
+        Route::put('/Laporan-PJKP/Update/{id_lp}',[PjkpController::class, 'updatePjkpDailyReportCleaner'])->name('updateLaporanPjkpCleaner');
+        Route::delete('/Laporan-PJKP/{id_lp}',[PjkpController::class, 'destroyPjkpDailyReportCleaner'])->name('destroyLaporanPjkpCleaner');
     });
 
 
@@ -90,18 +103,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/Laporan-Grooming', [GroomingController::class, 'storeGroomingResponseSupervisor'])->name('inputTanggapanGrooming');
 
         //Route for Pjkp
-        Route::get('/Laporan-Pjkp', [PjkpController::class, 'indexPjkpResponseSupervisor'])->name('showTanggapanPjkp');
-        Route::post('/Laporan-Pjkp', [PjkpController::class, 'storePjkpResponseSupervisor'])->name('inputTanggapanPjkp');
+        Route::get('/Laporan-PJKP', [PjkpController::class, 'indexPjkpResponseSupervisor'])->name('showTanggapanPjkp');
+        Route::post('/Laporan-PJKP', [PjkpController::class, 'storePjkpResponseSupervisor'])->name('inputTanggapanPjkp');
     });
 
     // Routes for admin
     Route::middleware(['admin'])->prefix('Admin')->group(function () {
 
-        Route::get('/User', [ProfileController::class, 'index'])->name('user.index');
-        Route::get('/User/create', [ProfileController::class, 'create'])->name('user.create');
-        Route::post('/User/create', [ProfileController::class, 'store'])->name('user.store');
-        Route::get('/User/edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
-        Route::put('/User/update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
+        Route::get('/User/Index', [ProfileController::class, 'index'])->name('user.index');
+        Route::get('/User/Create', [ProfileController::class, 'create'])->name('user.create');
+        Route::post('/User/Create', [ProfileController::class, 'store'])->name('user.store');
+        Route::get('/User/Edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
+        Route::put('/User/Update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
         Route::delete('/User/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
 
         Route::resource('Sop', sopController::class)->names([

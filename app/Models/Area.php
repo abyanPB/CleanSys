@@ -37,4 +37,9 @@ class Area extends Model
     {
         return $this->hasMany(LaporanPjkp::class, 'id_area', 'id_area');
     }
+
+    public function laporanGuest(): HasMany
+    {
+        return $this->hasMany(LaporanGuest::class, 'id_area', 'id_area');
+    }
 }

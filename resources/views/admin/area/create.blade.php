@@ -28,12 +28,12 @@
             @csrf
           <div class="form-group">
             <label for="nama_area">Nama Area Kerja</label>
-            <input type="text" class="form-control" id="nama_area" name="nama_area" autocomplete="off" placeholder="Nama Area Kerja">
+            <input type="text" class="form-control" id="nama_area" name="nama_area" autocomplete="off" placeholder="Nama Area Kerja : J 1.1">
             <span class="form-bar text-danger">@error('nama_area'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
             <label for="desc_area">Keterangan Area Kerja</label>
-            <input type="text" class="form-control" id="desc_area" name="desc_area" placeholder="Keterangan Area Kerja">
+            <input type="text" class="form-control" id="desc_area" name="desc_area" placeholder="Keterangan Area Kerja : Lobby">
             <span class="form-bar text-danger">@error('desc_area'){{$message}}@enderror</span>
           </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -15,6 +15,21 @@ use Illuminate\Support\Facades\Auth;
 
 class PjkpController extends Controller
 {
+
+    /**
+     * Fungsi untuk memeriksa koneksi internet.
+     * Mengembalikan true jika terhubung ke internet, dan false jika tidak.
+     */
+    private function check_internet_connection() {
+        $connected = @fsockopen("www.google.com", 80); // Mencoba membuka koneksi ke google
+        if ($connected) {
+            fclose($connected);
+            return true; // Terhubung ke internet
+        } else {
+            return false; // Tidak terhubung ke internet
+        }
+    }
+
     //Start Admin
         /**
          * Display a listing of the resource.
@@ -54,7 +69,9 @@ class PjkpController extends Controller
         {
             // Emit an event with the supervisor's name
             $name = Auth::user()->name;
-            event(new LaporanPjkpEvent($name));
+            if($this->check_internet_connection()) {
+                event(new LaporanPjkpEvent($name));
+            }
 
             $request->validate([
                 'tanggapan_pjkp'=>'required',
@@ -97,7 +114,9 @@ class PjkpController extends Controller
         {
             // Emit an event with the supervisor's name
             $name = Auth::user()->name;
-            event(new LaporanPjkpEvent($name));
+            if ($this->check_internet_connection()){
+                event(new LaporanPjkpEvent($name));
+            }
 
             $request->validate([
                 'id_area' =>'required',

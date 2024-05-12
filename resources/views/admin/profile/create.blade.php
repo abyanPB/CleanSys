@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label for="jk">Jabatan</label>
                 <select class="form-control" id="level" name="level">
-                  <option selected disabled>Pilih Jabatan Pekerja</option>
+                  <option selected disabled>Pilih Jabatan Pekerja, Jika dikosongkan otomatis terisi "Cleaner"</option>
                   <option value="admin">Admin</option>
                   <option value="cleaner">Cleaner</option>
                   <option value="spv">Supervisor</option>
