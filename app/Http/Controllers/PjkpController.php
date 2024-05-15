@@ -8,6 +8,7 @@ use App\Models\LaporanGrooming;
 use App\Models\LaporanPJKP;
 use App\Models\Sop;
 use App\Models\TanggapanPJKP;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -53,6 +54,48 @@ class PjkpController extends Controller
             File::delete(public_path($path . $pjkp['image_lp']), true);
             $pjkp->delete();
             return redirect()->route('laporan-pjkp.index')->with('success', 'Laporan Pjkp berhasil dihapus');
+        }
+
+        //Fungsi untuk mencetak PDF
+        public function generatePdf(Request $request){
+            $selectedUsers = $request->input('selected_users', []);
+
+            // Validasi tanggal
+            if (($request->start_date == '') || ($request->end_date == '')) {
+                return redirect()->route('laporan-pjkp.index')->with('error', 'Cetak gagal! Harap isi kedua tanggal!');
+            }
+
+            // Ambil data tanggapan sesuai rentang tanggal dan pemilihan pengguna
+            $printDataQuery = TanggapanPJKP::whereHas('laporanPjkp', function ($query) {
+                $query->where('status_lp', '=', 'hasil');
+            })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()]);
+
+            // Filter berdasarkan pengguna yang dipilih jika ada
+            if (!empty($selectedUsers)) {
+                $printDataQuery->whereIn('id_users', $selectedUsers);
+            }
+
+            $printData = $printDataQuery->get();
+
+            // Validasi jika tidak ada data yang ditemukan
+            if ($printData->isEmpty()) {
+                // Periksa apakah ada tanggapan untuk pengguna tertentu pada tanggal yang diminta
+                $usersWithResponses = TanggapanPJKP::whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])
+                    ->whereIn('id_users', $selectedUsers)
+                    ->exists();
+
+                if (!$usersWithResponses) {
+                    return redirect()->route('laporan-pjkp.index')->with('error', 'Tidak ada tanggapan untuk pengguna yang dipilih pada tanggal tersebut');
+                } else {
+                    return redirect()->route('laporan-pjkp.index')->with('error', 'Hasil pekerjaan pada hari tersebut tidak ada, mohon ubah tanggal');
+                }
+            }
+
+            // Load view PDF
+            $title = 'Laporan PJKP Provice Group';
+            $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
+            $pdf = Pdf::loadView('admin.pjkp.pdf',compact('printData', 'title', 'nameMonthYear'));
+            return $pdf->stream("$title - $request->start_date - $request->end_date");
         }
     //End Admin
 

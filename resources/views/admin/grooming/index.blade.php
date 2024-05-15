@@ -2,6 +2,7 @@
 
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
@@ -103,6 +104,23 @@
   <script>
     setTimeout(function() {
         location.reload();
-    }, 60000);
+    }, 300000);
     </script>
+
+    <script>
+        $(document).ready(function () {
+            // Reset isian nama pekerja dan rentang tanggal saat tombol "Batal" diklik
+            $('#cancelButtonGrooming').on('click', function () {
+                $('#start_date').val('');
+                $('#end_date').val('');
+            });
+            // Reset isian nama pekerja dan rentang tanggal saat halaman direfresh
+            $(window).on('beforeunload', function () {
+                $('.js-example-basic-multiple').val(null).trigger('change');
+                $('#start_date').val('');
+                $('#end_date').val('');
+            });
+        });
+    </script>
+
 @endpush

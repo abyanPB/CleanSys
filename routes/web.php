@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SopController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PjkpController;
@@ -45,29 +46,8 @@ Route::resource('Guest', GuestController::class)->names([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-
-        return view('dashboard');
-    })->middleware(['verified'])->name('dashboard');
-    Route::post('/defaultpass', function (Request $request) {
-        $request->validate([
-            'jk' => 'required',
-            'current_password' => 'required',
-            'new_password' => 'required|min:8|different:current_password',
-            'confirm_password' => 'required|same:new_password',
-        ],[
-            'jk.required' => 'Harap masukan jenis kelamin anda',
-            'current_password.required' => 'Harap masukan password saat ini',
-            'new_password.required' => 'Harap masukan password',
-            'new_password.min' => 'Harap masukan password minimal 8 karakter',
-            'new_password.different' => 'Harap masukan password yang berbeda dari password saat ini',
-            'confirm_password.same' => 'Password yang anda masukan tidak sama',
-        ]);
-        $id = request()->user()->id_users;
-        User::whereIdUsers($id)
-            ->update(['jk'=>$request->jk,'password' =>Hash::make($request->new_password),'default_pass'=>1]);
-        return redirect('dashboard');
-    })->middleware(['verified'])->name('defaultpass');
+    Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/Defaultpass', [DashboardController::class, 'defaultPass'])->name('defaultpass');
 
     //Route Ubah Profile Semua Role
     Route::get('/Profile', [ProfileController::class, 'viewProfile'])->name('showProfile');
@@ -152,6 +132,6 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'laporan-pjkp.destroy',
         ]);
     });
-});
+})->middleware(['verified']);
 
 require __DIR__.'/auth.php';

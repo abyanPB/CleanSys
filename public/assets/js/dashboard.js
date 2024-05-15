@@ -181,6 +181,7 @@ $(function() {
   }
   // Dashbaord date end
 
+
   // Flot chart1 start
   if($('#flotChart1').length) {
     $.plot('#flotChart1', [{
@@ -219,7 +220,7 @@ $(function() {
         show: true,
         color: 'rgba(0,0,0,0.1)',
         ticks: [[0, 'Jan'], [20, 'Feb'], [40, 'Mar'], [60, 'Apr'], [80, 'May'], [100, 'June'], [120, 'July'], [140, 'Aug']],
-        tickColor: gridLineColor,      
+        tickColor: gridLineColor,
         font: {
           size: 13,
           color: colors.muted
@@ -386,19 +387,19 @@ $(function() {
       step: function(state, circle) {
         circle.path.setAttribute('stroke', state.color);
         circle.path.setAttribute('stroke-width', state.width);
-    
+
         var value = Math.round(circle.value() * 100);
         if (value === 0) {
           circle.setText('');
         } else {
           circle.setText(value + '%');
         }
-    
+
       }
     });
     bar.text.style.fontFamily = "'Overpass', sans-serif;";
     bar.text.style.fontSize = '3rem';
-    
+
     bar.animate(.78);
   }
   // Progressgar1 start

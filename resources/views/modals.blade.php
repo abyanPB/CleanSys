@@ -11,7 +11,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
-                        <form action="{{ route('cetakpdf') }}" method="POST" target="_blank">
+                        <form action="{{ route('cetakpdf') }}" method="POST" >
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary" id="cancelButtonGrooming" data-dismiss="modal">Batal</button>
                                 <button type="submit" class="btn btn-danger" id="print_button">Cetak</button>
                             </div>
                         </form>
@@ -113,6 +113,53 @@
     {{-- End Laporan Grooming --}}
 
     {{-- Start Laporan Pjkp --}}
+        @if (isset($adminPjkpReport))
+            {{-- Start Cetak Pdf --}}
+                <div class="modal fade" id="adminPrintPjkpReport" tabindex="-1" role="dialog" aria-labelledby="adminPrintPjkpReport" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="adminPrintPjkpReport">Konfirmasi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <form action="{{ route('cetakpdf') }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Pilih Nama Pekerja :</label>
+                                        <br>
+                                        <select class="js-example-basic-multiple" style="width: 100%" name="selected_users[]" multiple>
+                                            @foreach ($adminPjkpReport as $aPr)
+                                                <option value="{{$aPr->laporanPjkp->user->id_users}}">{{$aPr->laporanPjkp->user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <br>
+                                        <span class="text-danger">*kosongkan kolom ini jika ingin cetak semua</span>
+                                    </div>
+                                    <div class="form-row align-items-center">
+                                        <div class="col-auto">
+                                        <label for="startdate">Dari Tanggal :</label>
+                                        <input type="date" name="start_date" class="form-control mb-2" id="start_date">
+                                        </div>
+                                        <div class="col-auto">
+                                        <label for="enddate">Hingga Tanggal :</label>
+                                        <input type="date" name="end_date" class="form-control mb-2" id="end_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="cancelButtonPjkp" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger" id="print_button">Cetak</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {{-- End Cetak Pdf --}}
+        @endif
+
         @if(isset($aPr))
         {{-- Modal Detail --}}
         <div class="modal fade" id="adminPjkpReportDetail{{$aPr->id_lp}}" tabindex="-1" role="dialog" aria-labelledby="adminPjkpReportDetail" aria-hidden="true">

@@ -15,7 +15,7 @@
                 <div class="sidebar-body">
                     <ul class="nav">
                         <li class="nav-item nav-category">Utama</li>
-                        <li class="nav-item {{ active_class(['dashboard']) }}">
+                        <li class="nav-item {{ active_class(['Dashboard']) }}">
                             <a href="{{ route('dashboard') }}" class="nav-link">
                             <i class="link-icon" data-feather="home"></i>
                             <span class="link-title">Dashboard</span>
@@ -59,7 +59,7 @@
                 <div class="sidebar-body">
                     <ul class="nav">
                     <li class="nav-item nav-category">Menu</li>
-                    <li class="nav-item {{ active_class(['dashboard']) }}">
+                    <li class="nav-item {{ active_class(['Dashboard']) }}">
                         <a href="{{ route('dashboard') }}" class="nav-link">
                             <i class="link-icon" data-feather="home"></i>
                             <span class="link-title">Dashboard</span>
@@ -82,7 +82,7 @@
                 <div class="sidebar-body">
                     <ul class="nav">
                     <li class="nav-item nav-category">Menu</li>
-                    <li class="nav-item {{ active_class(['dashboard']) }}">
+                    <li class="nav-item {{ active_class(['Dashboard']) }}">
                         <a href="{{ route('dashboard') }}" class="nav-link">
                             <i class="link-icon" data-feather="home"></i>
                             <span class="link-title">Dashboard</span>

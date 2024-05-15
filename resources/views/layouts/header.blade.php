@@ -24,6 +24,7 @@
                 </div>
                 <div class="info text-center">
                 <p class="name font-weight-bold mb-0">{{request()->user()->name}}</p>
+                <p class="email text-muted mb-0">{{request()->user()->level}}</p>
                 <p class="email text-muted mb-3">{{request()->user()->email}}</p>
                 </div>
             </div>

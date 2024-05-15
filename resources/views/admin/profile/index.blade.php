@@ -35,6 +35,7 @@
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
                 <th>Posisi</th>
@@ -44,6 +45,7 @@
             <tbody>
                 @foreach ($users as $user)
               <tr>
+                <td>{{$loop->iteration}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->level}}</td>
