@@ -22,6 +22,7 @@ class DashboardController extends Controller
         $startOfMonth = now()->startOfMonth();
         $endOfMonth = now()->endOfMonth();
         $todayDate = now()->toDateString();
+        $userId = Auth::id();
 
         // Data admin
         $dataAdmin = [
@@ -39,7 +40,7 @@ class DashboardController extends Controller
 
         // Data Supervisor
         $dataSpv = [
-            'today' => $todayDate,
+            'monthYearNow' => now()->format('F Y'),
             'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
             'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
             'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
@@ -52,13 +53,13 @@ class DashboardController extends Controller
         ];
 
         // Data Cleaner
-        $dataCLeaner = [
-            'today' => $todayDate,
-
+        $dataCleaner = [
+            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('id_users', $userId)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
+            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('id_users', $userId)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
         ];
 
         $title = 'Dashboard Sistem Monitoring Cleaning Service';
-        return view('dashboard', compact('title', 'dataAdmin', 'dataSpv'));
+        return view('dashboard', compact('title', 'dataAdmin', 'dataSpv', 'dataCleaner'));
     }
 
 

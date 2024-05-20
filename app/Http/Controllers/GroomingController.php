@@ -137,9 +137,11 @@ class GroomingController extends Controller
         public function storeGroomingResponseSupervisor(Request $request)
         {
             // Emit an event with the supervisor's name
-            $name = Auth::user()->name;
+            $user = Auth::user();
+            $laporanGrooming = LaporanGrooming::findOrFail($request->id_lg);
+            $laporanOwnerId = $laporanGrooming->id_users;
             if ($this->check_internet_connection()) {
-                event(new LaporanGroomingEvent($name));
+                event(new LaporanGroomingEvent($user->name, $laporanOwnerId));
             }
 
             $request->validate([
@@ -185,10 +187,10 @@ class GroomingController extends Controller
 
         public function storeGroomingDailyReportCleaner(Request $request)
         {
-            $name = Auth::user()->name;
+            $user = Auth::user();
 
             if ($this->check_internet_connection()) {
-                event(new LaporanGroomingEvent($name));
+                event(new LaporanGroomingEvent($user->name, $));
             }
 
             $request->validate([

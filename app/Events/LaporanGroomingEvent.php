@@ -16,13 +16,15 @@ class LaporanGroomingEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $name;
+    public $userId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($name)
+    public function __construct($name, $userId)
     {
         $this->name = $name;
+        $this->userId = $userId;
     }
 
     /**
@@ -33,7 +35,7 @@ class LaporanGroomingEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('popup-notifications-grooming'),
+            new Channel('popup-notifications-grooming'.$this->userId),
         ];
     }
 

@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+@php
+    $userId = Auth::id();
+@endphp
+
 @if (Auth::check())
     {{-- Start Grooming Reports --}}
         @if (Auth::user()->level == 'spv')
@@ -13,7 +17,7 @@
                 var pusher = new Pusher('756eb93483e90f6aa3f5', {
                 cluster: 'ap1'
                 });
-                var channel = pusher.subscribe('popup-notifications-grooming');
+                var channel = pusher.subscribe('popup-notifications-grooming-{{$userId}}');
                 channel.bind('reports-grooming-cleaner-to-spv', function(data) {
                     toastr.info('Cleaner dengan nama ' + JSON.stringify(data.name) + ', Baru saja memasukan Laporan Grooming, Silahkan Periksa Laporan Tersebut', {timeOut: 4000});
                     // Refresh halaman setelah 1 detik
@@ -29,7 +33,7 @@
                 var pusher = new Pusher('756eb93483e90f6aa3f5', {
                 cluster: 'ap1'
                 });
-                var channel = pusher.subscribe('popup-notifications-grooming');
+                var channel = pusher.subscribe('popup-notifications-grooming-{{$userId}}');
                 channel.bind('reports-grooming-spv-to-cleaner', function(data) {
                     toastr.info('Supervisor dengan nama ' + JSON.stringify(data.name) + ', Baru saja memberikan tanggapan pada Laporan Grooming, Silahkan periksa tanggapan Tersebut', {timeOut: 4000});
                     // Refresh halaman setelah 1 detik

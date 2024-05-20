@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -41,5 +42,10 @@ class Area extends Model
     public function laporanGuest(): HasMany
     {
         return $this->hasMany(LaporanGuest::class, 'id_area', 'id_area');
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'area_responsibilities', 'area_id', 'user_id');
     }
 }

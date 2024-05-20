@@ -107,6 +107,9 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'sop.destroy',
         ]);
 
+        Route::get('Penanggung-Jawab-Area', [AreaController::class, 'showAreaResponsibilities'])->name('Penanggung-Jawab-Area.index');
+        Route::get('Penanggung-Jawab-Area/Create', [AreaController::class, 'createAreaResponsibilities'])->name('Penanggung-Jawab-Area.create');
+        Route::post('Penanggung-Jawab-Area/Create', [AreaController::class,'storeAreaResponsibilities'])->name('Penanggung-Jawab-Area.store');
         Route::resource('Area', areaController::class)->names([
             'index' => 'area.index',
             'create' => 'area.create',
@@ -115,6 +118,7 @@ Route::middleware(['auth'])->group(function () {
             'edit' => 'area.edit',
             'update' => 'area.update',
             'destroy' => 'area.destroy',
+            ''
         ]);
 
         Route::post('/Laporan-Grooming/Cetakpdf',[GroomingController::class, 'generatePdf'])->name('cetakpdfGrooming');

@@ -16,14 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('jk',['laki-laki','perempuan'])->nullable();
+            $table->enum('jk', ['laki-laki', 'perempuan'])->nullable();
             $table->string('no_telepon')->nullable();
-            $table->enum('level',['admin','spv','cleaner']);
+            $table->enum('level', ['admin', 'spv', 'cleaner']);
+            $table->uuid('supervisor_id')->nullable();
             $table->string('image_profile')->nullable();
             $table->integer('default_pass');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('supervisor_id')->references('id_users')->on('users')->onDelete('set null');
         });
+
     }
 
     /**

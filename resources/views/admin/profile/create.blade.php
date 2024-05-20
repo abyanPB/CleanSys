@@ -50,7 +50,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="jk">Jabatan</label>
+                <label for="level">Jabatan</label>
                 <select class="form-control" id="level" name="level">
                   <option selected disabled>Pilih Jabatan Pekerja, Jika dikosongkan otomatis terisi "Cleaner"</option>
                   <option value="admin">Admin</option>
@@ -59,8 +59,17 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="supervisor_id">Supervisor <span class="text-danger">(Hanya untuk Cleaner)</span></label>
+                <select class="form-control" id="supervisor_id" name="supervisor_id">
+                    <option value="" selected disabled>Pilih Supervisor</option>
+                    @foreach ($supervisors as $supervisor)
+                        <option value="{{ $supervisor->id_users }}">{{ $supervisor->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="password">Password</label>
-                <input type="Text" class="form-control" value='Password Awal Otomatis Terisi "12345678"' readonly>
+                <input type="Text" class="form-control" placeholder='Password Awal Otomatis Terisi "12345678"' readonly>
             </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>
           <a href="{{route('user.index')}}" class="btn btn-light">Cancel</a>

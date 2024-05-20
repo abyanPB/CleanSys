@@ -34,247 +34,331 @@
 </div>
 
 @if (request()->user()->default_pass == 1)
-@if (request()->user()->level == 'admin')
-<div class="row">
-  <div class="col-12 col-xl-12 stretch-card">
-    <div class="row flex-grow">
-      <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Total Laporan Grooming Bulan {{$dataAdmin['monthYearNow']}}</h6>
-              <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{$dataAdmin['totalSelesaiGrooming']}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Total Laporan PJKP Bulan {{$dataAdmin['monthYearNow']}}</h6>
-              <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{$dataAdmin['totalSelesaiPjkp']}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Total Akun Cleaner {{$dataAdmin['monthYearNow']}}</h6>
-              <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{$dataAdmin['totalAkunCleaner']}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-@elseif (request()->user()->level == 'spv')
-<h4 style="text-align: center;" >LAPORAN GROOMING</h4>
-<div class="row">
+    @if (request()->user()->level == 'admin')
+    <div class="row">
     <div class="col-12 col-xl-12 stretch-card">
-      <div class="row flex-grow">
+        <div class="row flex-grow">
         <div class="col-md-4 grid-margin stretch-card">
-          <div class="card">
+            <div class="card">
             <div class="card-body">
-              <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Total Laporan Grooming (Sebelum) Hari Ini</h6>
+                <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Total Laporan Grooming Bulan {{$dataAdmin['monthYearNow']}}</h6>
                 <div class="dropdown mb-2">
-                  <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">{{$dataSpv['laporanGroomingSebelum']}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Total Laporan Grooming (Proses) Hari Ini</h6>
-                <div class="dropdown mb-2">
-                  <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">{{$dataSpv['laporanGroomingProses']}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <h6 class="card-title mb-0">Total Laporan Grooming (Hasil) Hari Ini</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 col-md-12 col-xl-5">
-                    <h3 class="mb-2">{{$dataSpv['laporanGroomingHasil']}}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <h6 class="card-title mb-0">Laporan Grooming Belum Ditanggapi Hari Ini</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 col-md-12 col-xl-5">
-                    <h3 class="mb-2">{{$dataSpv['laporanGroomingBelumDitanggapi']}}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-</div>
-
-<h4 style="text-align:center">LAPORAN PJKP</h4>
-<div class="row">
-    <div class="col-12 col-xl-12 stretch-card">
-      <div class="row flex-grow">
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <h6 class="card-title mb-0">Total Laporan PJKP (Sebelum) Hari Ini</h6>
-                  <div class="dropdown mb-2">
                     <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
                     </div>
-                  </div>
+                </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 col-md-12 col-xl-5">
-                    <h3 class="mb-2">{{$dataSpv['laporanPjkpSebelum']}}</h3>
-                  </div>
+                <div class="col-6 col-md-12 col-xl-5">
+                    <h3 class="mb-2">{{$dataAdmin['totalSelesaiGrooming']}}</h3>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-4 grid-margin stretch-card">
+            </div>
+        </div>
+        <div class="col-md-4 grid-margin stretch-card">
             <div class="card">
-              <div class="card-body">
+            <div class="card-body">
                 <div class="d-flex justify-content-between align-items-baseline">
-                  <h6 class="card-title mb-0">Total Laporan PJKP (Proses) Hari Ini</h6>
-                  <div class="dropdown mb-2">
+                <h6 class="card-title mb-0">Total Laporan PJKP Bulan {{$dataAdmin['monthYearNow']}}</h6>
+                <div class="dropdown mb-2">
                     <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
                     </div>
-                  </div>
+                </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 col-md-12 col-xl-5">
-                    <h3 class="mb-2">{{$dataSpv['laporanPjkpProses']}}</h3>
-                  </div>
+                <div class="col-6 col-md-12 col-xl-5">
+                    <h3 class="mb-2">{{$dataAdmin['totalSelesaiPjkp']}}</h3>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
+            </div>
+        </div>
+        <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Total Akun Cleaner {{$dataAdmin['monthYearNow']}}</h6>
+                <div class="dropdown mb-2">
+                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                    <h3 class="mb-2">{{$dataAdmin['totalAkunCleaner']}}</h3>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    @elseif (request()->user()->level == 'spv')
+    <h4 style="text-align: center;" >LAPORAN GROOMING</h4>
+    <div class="row">
+        <div class="col-12 col-xl-12 stretch-card">
+        <div class="row flex-grow">
+            <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
                 <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-baseline">
-                    <h6 class="card-title mb-0">Total Laporan PJKP (Hasil) Hari Ini</h6>
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Laporan Grooming (Sebelum) Hari Ini</h6>
                     <div class="dropdown mb-2">
-                      <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                    <h3 class="mb-2">{{$dataSpv['laporanGroomingSebelum']}}</h3>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Laporan Grooming (Proses) Hari Ini</h6>
+                    <div class="dropdown mb-2">
+                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                    <h3 class="mb-2">{{$dataSpv['laporanGroomingProses']}}</h3>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Laporan Grooming (Hasil) Hari Ini</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['laporanGroomingHasil']}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Laporan Grooming Belum Ditanggapi Hari Ini</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['laporanGroomingBelumDitanggapi']}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <h4 style="text-align:center">LAPORAN PJKP</h4>
+    <div class="row">
+        <div class="col-12 col-xl-12 stretch-card">
+        <div class="row flex-grow">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Laporan PJKP (Sebelum) Hari Ini</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-grooming.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['laporanPjkpSebelum']}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Laporan PJKP (Proses) Hari Ini</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['laporanPjkpProses']}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <h6 class="card-title mb-0">Total Laporan PJKP (Hasil) Hari Ini</h6>
+                        <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('laporan-pjkp.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['laporanPjkpHasil']}}</h3>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                        <h6 class="card-title mb-0">Laporan PJKP Belum Ditanggapi Hari Ini</h6>
+                        <div class="dropdown mb-2">
+                            <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-6 col-md-12 col-xl-5">
+                            <h3 class="mb-2">{{$dataSpv['laporanPjkpBelumDitanggapi']}}</h3>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+    </div>
+
+    <h4 style="text-align: center">Akun Cleaner</h4>
+    <div class="row">
+        <div class="col-12 col-xl-12 stretch-card">
+        <div class="row flex-grow">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                    <h6 class="card-title mb-0">Total Akun Cleaner {{$dataSpv['monthYearNow']}}</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataSpv['totalAkunCleaner']}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+    </div>
+
+    @elseif (request()->user()->level == 'cleaner')
+    <div class="row">
+        <div class="col-12 col-xl-12 stretch-card">
+          <div class="row flex-grow">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Laporan Grooming Belum Ditanggapi Hari Ini</h6>
+                      <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2">{{$dataCleaner['laporanGroomingDitanggapiSpv']}}</h3>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-6 col-md-12 col-xl-5">
-                      <h3 class="mb-2">{{$dataSpv['laporanPjkpHasil']}}</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
-            </div>
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -291,55 +375,16 @@
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{$dataSpv['laporanPjkpBelumDitanggapi']}}</h3>
+                        <h3 class="mb-2">{{$dataCleaner['laporanPjkpDitanggapiSpv']}}</h3>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-      </div>
-    </div>
-</div>
-
-<h4 style="text-align: center">Akun Cleaner</h4>
-<div class="row">
-    <div class="col-12 col-xl-12 stretch-card">
-      <div class="row flex-grow">
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <h6 class="card-title mb-0">Total Akun Cleaner {{$dataAdmin['monthYearNow']}}</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <a class="dropdown-item d-flex align-items-center" href="{{route('user.index')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 col-md-12 col-xl-5">
-                    <h3 class="mb-2">{{$dataSpv['totalAkunCleaner']}}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
-
-      </div>
+        </div>
     </div>
-</div>
-
-
-  @elseif (request()->user()->level == 'cleaner')
-
-@endif
-
-
-
+    @endif
 
 @elseif(request()->user()->default_pass == 0)
 <div class="row">

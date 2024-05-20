@@ -33,7 +33,8 @@ class ProfileController extends Controller
     public function create()
     {
         $title = 'Tambah Data Pengguna Provice Group';
-        return view('admin.profile.create',compact('title'));
+        $supervisors = User::where('level', 'spv')->get();
+        return view('admin.profile.create',compact('title', 'supervisors'));
     }
 
     /**
@@ -53,7 +54,8 @@ class ProfileController extends Controller
             'jk' => $request->filled('jk') ? $request->jk : null,
             'no_telepon' => $request->filled('no_telepon') ? $request->no_telepon : null,
             'level' => $request->filled('level') ? $request->level : 'cleaner',
-            'image'=>null,
+            'supervisor_id' => $request->filled('supervisor_id') ? $request->supervisor_id : null,
+            'image_profile'=>null,
             'default_pass'=>0,
         ]);
 

@@ -47,6 +47,12 @@
                             <span class="link-title">Area Kerja</span>
                             </a>
                         </li>
+                        <li class="nav-item {{ active_class(['Admin/Penanggung*']) }}">
+                            <a href="{{ route('Penanggung-Jawab-Area.index') }}" class="nav-link">
+                            <i class="link-icon" data-feather="map-pin"></i>
+                            <span class="link-title">Penanggung Jawab Area</span>
+                            </a>
+                        </li>
                         <li class="nav-item {{ active_class(['Admin/Sop*']) }}">
                             <a href="{{ route('sop.index') }}" class="nav-link">
                             <i class="link-icon" data-feather="activity"></i>
