@@ -17,7 +17,7 @@
         <table class="table table-bordered ">
             <thead class="table-active">
                 <tr>
-                    <th >No</th>
+                    <th>No</th>
                     <th>Nama Petugas</th>
                     <th>Nama Supervisor</th>
                     <th>Waktu Laporan</th>
@@ -27,15 +27,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($printData as $aGr)
+                @foreach ($printData as $aPr)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $aGr->laporanGrooming->user->name }}</td>
-                        <td>{{ $aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
-                        <td>{{ date("d-m-Y", strtotime($aGr->laporanGrooming->tgl_lg)); }}</td>
-                        <td>{{ date("d-m-Y", strtotime($aGr->tgl_tg)) }}</td>
-                        <td><img src="{{public_path('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="" style="width: 100%; height: auto;"></td>
-                        <td>{{ $aGr->tanggapan_grooming }}</td>
+                        <td>{{ $aPr->laporanPjkp->user->name }}</td>
+                        <td>{{ $aPr->user->level == 'spv' ? $aPr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
+                        <td>{{ date("d-m-Y", strtotime($aPr->laporanPjkp->tgl_lp)); }}</td>
+                        <td>{{ date("d-m-Y", strtotime($aPr->tgl_tp)) }}</td>
+                        <td><img src="{{public_path('images/laporan_pjkp/'.$aPr->laporanPjkp->image_lp)}}" alt="" style="width: 100%; height: auto;"></td>
+                        <td>{{ $aPr->tanggapan_pjkp }}</td>
                     </tr>
                 @endforeach
             </tbody>

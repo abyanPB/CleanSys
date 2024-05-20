@@ -42,13 +42,14 @@ class GroomingController extends Controller
             $adminGroomingReport = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
                 $query->where('status_lg', '=', 'hasil');
             })->orderBy('tgl_tg', 'desc')->get();
+            $Users = User::where('level', '=', 'cleaner')->get();
 
             // // Buat array yang berisi semua nilai tgl_tg
             // $tgl_tg_values = $adminGroomingReport->pluck('tgl_tg')->toArray();
             // // Temukan nilai minimum dari array tersebut
             // $minDate = min($tgl_tg_values);
             $title = 'Laporan Grooming Provice Group';
-            return view('admin.grooming.index', compact('adminGroomingReport' , 'title'));
+            return view('admin.grooming.index', compact('adminGroomingReport' , 'title', 'Users'));
         }
 
         /**

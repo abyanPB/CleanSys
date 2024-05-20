@@ -8,6 +8,7 @@ use App\Models\LaporanGrooming;
 use App\Models\LaporanPJKP;
 use App\Models\Sop;
 use App\Models\TanggapanPJKP;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
@@ -40,8 +41,9 @@ class PjkpController extends Controller
             $adminPjkpReport = TanggapanPJKP::whereHas('laporanPjkp', function ($query){
                 $query->where('status_lp', '=', 'hasil');
             })->orderBy('tgl_tp', 'desc')->get();
+            $Users = User::where('level', '=', 'cleaner')->get();
             $title = 'Laporan PJKP Provice Group';
-            return view('admin.pjkp.index', compact('adminPjkpReport' , 'title'));
+            return view('admin.pjkp.index', compact('adminPjkpReport' , 'title', 'Users'));
         }
 
         /**
@@ -56,46 +58,48 @@ class PjkpController extends Controller
             return redirect()->route('laporan-pjkp.index')->with('success', 'Laporan Pjkp berhasil dihapus');
         }
 
+        function getMonthYearName($startDate, $endDate) {
+            $startMonth = date('F', strtotime($startDate)); // Ambil nama bulan dari tanggal awal
+            $startYear = date('Y', strtotime($startDate)); // Ambil tahun dari tanggal awal
+
+            $endMonth = date('F', strtotime($endDate)); // Ambil nama bulan dari tanggal akhir
+            $endYear = date('Y', strtotime($endDate)); // Ambil tahun dari tanggal akhir
+
+            if ($startMonth == $endMonth && $startYear == $endYear) {
+                // Jika bulan dan tahun sama, tampilkan hanya satu bulan dan tahun
+                return "$startMonth $startYear";
+            } else {
+                // Jika berbeda, tampilkan rentang bulan dan tahun
+                return "$startMonth $startYear - $endMonth $endYear";
+            }
+        }
+
         //Fungsi untuk mencetak PDF
         public function generatePdf(Request $request){
-            $selectedUsers = $request->input('selected_users', []);
+            $selectedUsers = $request->input('selected_users',[]);//Mendaparkan inputan user dari inputan
 
-            // Validasi tanggal
+            //Validasi tanggal
             if (($request->start_date == '') || ($request->end_date == '')) {
-                return redirect()->route('laporan-pjkp.index')->with('error', 'Cetak gagal! Harap isi kedua tanggal!');
-            }
-
-            // Ambil data tanggapan sesuai rentang tanggal dan pemilihan pengguna
-            $printDataQuery = TanggapanPJKP::whereHas('laporanPjkp', function ($query) {
-                $query->where('status_lp', '=', 'hasil');
-            })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()]);
-
-            // Filter berdasarkan pengguna yang dipilih jika ada
-            if (!empty($selectedUsers)) {
-                $printDataQuery->whereIn('id_users', $selectedUsers);
-            }
-
-            $printData = $printDataQuery->get();
-
-            // Validasi jika tidak ada data yang ditemukan
-            if ($printData->isEmpty()) {
-                // Periksa apakah ada tanggapan untuk pengguna tertentu pada tanggal yang diminta
-                $usersWithResponses = TanggapanPJKP::whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])
-                    ->whereIn('id_users', $selectedUsers)
-                    ->exists();
-
-                if (!$usersWithResponses) {
-                    return redirect()->route('laporan-pjkp.index')->with('error', 'Tidak ada tanggapan untuk pengguna yang dipilih pada tanggal tersebut');
-                } else {
-                    return redirect()->route('laporan-pjkp.index')->with('error', 'Hasil pekerjaan pada hari tersebut tidak ada, mohon ubah tanggal');
+                return redirect()->route('laporan-pjkp.index')->with('error','Cetak gagal ! Harap isi kedua tanggal !');
+            }else{
+                //Jika tidak ada pekerja dipilih, maka cetak semua
+                if ($selectedUsers == null){
+                    $printData = TanggapanPJKP::whereHas('laporanPjkp', function ($query){
+                        $query->where('status_lp', '=', 'hasil');
+                    })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
+                //Cetak berdasarkan nama pekerja yang dipilih
+                else{
+                    $printData = TanggapanPJKP::whereHas('laporanPjkp', function ($query) use ($selectedUsers){
+                        $query->where('status_lp', '=', 'hasil');
+                        $query->whereIn('id_users', $selectedUsers);
+                    })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
+                }
+                $title = 'Laporan PJKP Provice Group';
+                $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
+                $pdf = Pdf::loadView('admin.pjkp.pdf',compact('printData', 'title', 'nameMonthYear'));
+                return $pdf->stream("$title - $request->start_date - $request->end_date");
             }
-
-            // Load view PDF
-            $title = 'Laporan PJKP Provice Group';
-            $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
-            $pdf = Pdf::loadView('admin.pjkp.pdf',compact('printData', 'title', 'nameMonthYear'));
-            return $pdf->stream("$title - $request->start_date - $request->end_date");
         }
     //End Admin
 

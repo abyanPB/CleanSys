@@ -117,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'area.destroy',
         ]);
 
-        Route::post('/Laporan-Grooming/Cetakpdf',[GroomingController::class, 'generatePdf'])->name('cetakpdf');
+        Route::post('/Laporan-Grooming/Cetakpdf',[GroomingController::class, 'generatePdf'])->name('cetakpdfGrooming');
         Route::resource('Laporan-Grooming', GroomingController::class)->names([
             'index' => 'laporan-grooming.index',
             'destroy' => 'laporan-grooming.destroy',
@@ -127,6 +127,7 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/Laporan-PJKP', PjkpLivewire::class)->name('showLaporanPJKP');
         // Route::get('/Laporan-PJKP/Create', PjkpCreate::class)->name('createLaporanPJKP');
 
+        Route::post('/Laporan-Pjkp/Cetakpdf',[PjkpController::class, 'generatePdf'])->name('cetakpdfPjkp');
         Route::resource('Laporan-PJKP', PjkpController::class)->names([
             'index' => 'laporan-pjkp.index',
             'destroy' => 'laporan-pjkp.destroy',

@@ -11,15 +11,15 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
-                            <form action="{{ route('cetakpdf') }}" method="POST" >
+                            <form action="{{ route('cetakpdfGrooming') }}" method="POST" >
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label>Pilih Nama Pekerja :</label>
                                         <br>
                                         <select class="js-example-basic-multiple" style="width: 100%" name="selected_users[]" multiple>
-                                            @foreach ($adminGroomingReport as $aGr)
-                                                <option value="{{$aGr->laporanGrooming->user->id_users}}">{{$aGr->laporanGrooming->user->name}}</option>
+                                            @foreach ($Users as $user)
+                                                <option value="{{$user->id_users}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                         <br>
@@ -125,15 +125,15 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
-                            <form action="{{ route('cetakpdf') }}" method="POST">
+                            <form action="{{ route('cetakpdfPjkp') }}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label>Pilih Nama Pekerja :</label>
                                         <br>
                                         <select class="js-example-basic-multiple" style="width: 100%" name="selected_users[]" multiple>
-                                            @foreach ($adminPjkpReport as $aPr)
-                                                <option value="{{$aPr->laporanPjkp->user->id_users}}">{{$aPr->laporanPjkp->user->name}}</option>
+                                            @foreach ($Users as $user)
+                                                <option value="{{$user->id_users}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                         <br>
