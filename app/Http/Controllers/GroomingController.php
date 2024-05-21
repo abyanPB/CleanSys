@@ -43,11 +43,6 @@ class GroomingController extends Controller
                 $query->where('status_lg', '=', 'hasil');
             })->orderBy('tgl_tg', 'desc')->get();
             $Users = User::where('level', '=', 'cleaner')->get();
-
-            // // Buat array yang berisi semua nilai tgl_tg
-            // $tgl_tg_values = $adminGroomingReport->pluck('tgl_tg')->toArray();
-            // // Temukan nilai minimum dari array tersebut
-            // $minDate = min($tgl_tg_values);
             $title = 'Laporan Grooming Provice Group';
             return view('admin.grooming.index', compact('adminGroomingReport' , 'title', 'Users'));
         }
@@ -63,14 +58,6 @@ class GroomingController extends Controller
             $grooming->delete();
             return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
         }
-
-        // function getMonthYearName($monthNumber, $year) {
-        //     $bulan = [
-        //         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-        //     ];
-        //     $namaBulan = $bulan[$monthNumber - 1];
-        //     return "$namaBulan $year";
-        // }
 
         function getMonthYearName($startDate, $endDate) {
             $startMonth = date('F', strtotime($startDate)); // Ambil nama bulan dari tanggal awal

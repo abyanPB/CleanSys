@@ -42,7 +42,35 @@
     {{-- End Grooming Reports --}}
 
     {{-- Start PJKP Reports --}}
-        @if (Auth::user()->level == 'spv')
+        <script>
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+                cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+                encrypted: true
+            });
+
+            var channel = pusher.subscribe('popup-notifications-pjkp');
+            channel.bind('reports-pjkp', function(data) {
+                var userLevel = '{{ $userLevel }}';
+                var userId = '{{ $userId }}';
+
+                if (userLevel === 'spv' && data.userId == userId) {
+                    toastr.info('Cleaner dengan nama ' + data.name + ', baru saja memasukkan Laporan PJKP, silahkan periksa laporan tersebut.', { timeOut: 4000 });
+                    // Refresh halaman setelah 1 detik
+                    setTimeout(function() {
+                            location.reload();
+                        }, 5000);
+                } else if (userLevel === 'cleaner' && data.userId == userId) {
+                    toastr.info('Supervisor dengan nama ' + data.name + ', baru saja memberikan tanggapan pada Laporan PJKP, silahkan periksa tanggapan tersebut.', { timeOut: 4000 });
+                    // Refresh halaman setelah 1 detik
+                    setTimeout(function() {
+                            location.reload();
+                        }, 5000);
+                }
+            });
+        </script>
+        {{-- @if (Auth::user()->level == 'spv')
             <script>
                 // Enable pusher logging - don't include this in production
                 Pusher.logToConsole = true;
@@ -74,7 +102,7 @@
                     }, 5000);
                 });
             </script>
-        @endif
+        @endif --}}
     {{-- End PJKP Reports --}}
 @endif
 {{-- End Laravel Pusher with Jquery --}}

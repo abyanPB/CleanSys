@@ -16,13 +16,15 @@ class LaporanPjkpEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $name;
+    public $userId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($name)
+    public function __construct($name, $userId)
     {
         $this->name = $name;
+        $this->userId = $userId;
     }
 
     /**
@@ -44,11 +46,12 @@ class LaporanPjkpEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        if (Auth::user()->level == 'spv'){
-            return 'reports-pjkp-spv-to-cleaner';
-        }
-        elseif (Auth::user()->level == 'cleaner'){
-            return 'reports-pjkp-cleaner-to-spv';
-        }
+        // if (Auth::user()->level == 'spv'){
+        //     return 'reports-pjkp-spv-to-cleaner';
+        // }
+        // elseif (Auth::user()->level == 'cleaner'){
+        //     return 'reports-pjkp-cleaner-to-spv';
+        // }
+        return 'reports-pjkp';
     }
 }

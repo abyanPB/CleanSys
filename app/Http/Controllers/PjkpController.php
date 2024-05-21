@@ -107,7 +107,10 @@ class PjkpController extends Controller
         public function indexPjkpResponseSupervisor(Request $request)
         {
             $todayDate = now()->toDateString(); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
-            $supervisorPjkpReportToday = LaporanPJKP::whereDate('tgl_lp', $todayDate)->orderByDesc('tgl_lp')->get();
+            $user = Auth::user();
+            $supervisorPjkpReportToday = LaporanPJKP::whereHas('user', function ($query) use ($user){
+                $query->where('supervisor_id', $user->id_users);
+            })->whereDate('tgl_lp', $todayDate)->orderByDesc('tgl_lp')->get();
             $title = 'Tanggapan PJKP Supervisor Provice Group';
             return view('supervisor.pjkp.index', compact('supervisorPjkpReportToday', 'title'));
         }
@@ -115,9 +118,11 @@ class PjkpController extends Controller
         public function storePjkpResponseSupervisor(Request $request)
         {
             // Emit an event with the supervisor's name
-            $name = Auth::user()->name;
+            $user = Auth::user();
+            $laporanPjkp = LaporanPJKP::findOrFail($request->id_lp);
+            $laporanOwnerId = $laporanPjkp->id_users;
             if($this->check_internet_connection()) {
-                event(new LaporanPjkpEvent($name));
+                event(new LaporanPjkpEvent($user->name, $laporanOwnerId));
             }
 
             $request->validate([
@@ -160,9 +165,9 @@ class PjkpController extends Controller
         public function storePjkpDailyReportCleaner(Request $request)
         {
             // Emit an event with the supervisor's name
-            $name = Auth::user()->name;
+            $user = Auth::user();
             if ($this->check_internet_connection()){
-                event(new LaporanPjkpEvent($name));
+                event(new LaporanPjkpEvent($user->name, $user->supervisor_id));
             }
 
             $request->validate([
