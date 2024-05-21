@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         // Intervention\Image\ImageServiceProvider::class,
     ])->toArray(),
 
@@ -188,6 +189,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         // 'PDF' => Barryvdh\DomPDF\Facades::class,
         // 'Image' => Intervention\Image\Facades\Image::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ])->toArray(),
 
 ];

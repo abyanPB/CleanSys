@@ -1,11 +1,16 @@
 @extends('layouts.master')
 
 @push('plugin-styles')
-
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
 
+@if (session('success'))
+<div class="alert alert-success" role="alert">
+    {{session('success')}}
+</div>
+@endif
 @if ($errors->any())
     <div class="alert alert-danger" role="alert">
         <ul>
@@ -42,7 +47,7 @@
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja</label>
                     <div class="col-sm-9">
-                        <select class="form-control" id="id_area" name="id_area">
+                        <select class="js-example-basic-single" id="id_area" name="id_area">
                             <option value="">Pilih Area Kerja</option>
                             @foreach ($areas as $area)
                                 <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
@@ -82,7 +87,7 @@
                     <label class="col-sm-3 col-form-label">Foto Pekerjaan</label>
                     <div class="col-sm-9">
                         <div class="form-group">
-                            <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lguest" class="file-upload-default">
+                            <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">
                             <div class="input-group col-xs-12">
                                 <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">
                                 <span class="input-group-append">
@@ -98,6 +103,8 @@
                     <img id="previewImage" src="#" alt="Foto" class="img-fluid">
                     </figure>
                 </div>
+                {!! NoCaptcha::renderJs() !!}
+                {!! NoCaptcha::display() !!}
               <button type="submit" id="btnSubmit" class="btn btn-primary me-2">Kirim</button>
             </form>
           </div>
@@ -109,6 +116,7 @@
 @endsection
 
 @push('plugin-scripts')
+    <script src="https://www.recaptcha.net/recaptcha/api.js"></script>
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
@@ -117,7 +125,7 @@
     <script src="{{ asset('assets/js/select2.js') }}"></script>
     <script>
         $(".js-example-basic-single").select2({
-            tags: false
+            tags: true
         });
     </script>
     <script>

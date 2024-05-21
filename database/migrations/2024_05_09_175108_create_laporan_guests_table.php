@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_guest');
             $table->string('level_guest');
             $table->string('image_guest');
-            $table->datetime('tgl_lguest');
+            $table->datetime('tgl_guest');
             $table->text('ket_guest')->nullable();
             $table->timestamps();
         });

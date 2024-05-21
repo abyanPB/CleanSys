@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Area;
+use App\Models\LaporanGuest;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -31,7 +32,25 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'id_area' => 'required',
+            'nama_guest' => 'required|string',
+            'image_guest' =>'required|image|mimes:jpeg,png,jpg,gif',
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+        $imageName = $request->image_guest->getClientOriginalName();
+        $request->image_guest->move(public_path('images/laporan_guest/'), $imageName);
+
+        $currentDateTime = Carbon::now();
+        LaporanGuest::create([
+            'id_area' => $request->id_area,
+            'nama_guest' => $request->nama_guest,
+            'level_guest' => $request->level_guest,
+            'image_guest' => $imageName,
+            'tgl_guest' => $currentDateTime,
+            'ket_guest' => $request->ket_guest,
+        ]);
+        return redirect()->route('Guest.create')->with('success', 'Berhasil Tambah Laporan Guest');
     }
 
     /**
