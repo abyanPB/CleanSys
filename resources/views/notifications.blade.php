@@ -4,12 +4,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+@if (Auth::check())
+
 @php
     $userId = Auth::id();
     $userLevel = Auth::user()->level;
 @endphp
 
-@if (Auth::check())
     {{-- Start Grooming Reports --}}
         <script>
             Pusher.logToConsole = true;
