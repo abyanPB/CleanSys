@@ -35,7 +35,7 @@ class LaporanGroomingEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('popup-notifications-grooming'.$this->userId),
+            new Channel('popup-notifications-grooming'),
         ];
     }
 
@@ -46,11 +46,12 @@ class LaporanGroomingEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        if (Auth::user()->level == 'spv'){
-            return 'reports-grooming-spv-to-cleaner';
-        }
-        elseif (Auth::user()->level == 'cleaner'){
-            return 'reports-grooming-cleaner-to-spv';
-        }
+        // if (Auth::user()->level == 'spv' && $this->userId = Auth::user()->id_users){
+        //     return 'reports-grooming-spv-to-cleaner';
+        // }
+        // elseif (Auth::user()->level == 'cleaner'){
+        //     return 'reports-grooming-cleaner-to-spv';
+        // }
+        return 'reports-grooming';
     }
 }

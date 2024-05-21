@@ -125,7 +125,10 @@ class GroomingController extends Controller
         public function indexGroomingResponseSupervisor(Request $request)
         {
             $todayDate = now()->toDateString(); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
-            $supervisorGroomingReportToday = LaporanGrooming::whereDate('tgl_lg', $todayDate)->orderByDesc('tgl_lg')->get();
+            $user = Auth::user();
+            $supervisorGroomingReportToday = LaporanGrooming::whereHas('user', function ($query) use ($user) {
+                $query->where('supervisor_id', $user->id_users);
+            })->whereDate('tgl_lg', $todayDate)->orderByDesc('tgl_lg')->get();
             $title = 'Tanggapan Grooming Supervisor Provice Group';
             return view('supervisor.grooming.index', compact('supervisorGroomingReportToday', 'title'));
         }
@@ -190,7 +193,7 @@ class GroomingController extends Controller
             $user = Auth::user();
 
             if ($this->check_internet_connection()) {
-                event(new LaporanGroomingEvent($user->name, $));
+                event(new LaporanGroomingEvent($user->name, $user->supervisor_id));
             }
 
             $request->validate([

@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $startOfMonth = now()->startOfMonth();
         $endOfMonth = now()->endOfMonth();
         $todayDate = now()->toDateString();
-        $userId = Auth::id();
+        $user = Auth::user();
 
         // Data admin
         $dataAdmin = [
@@ -38,33 +38,32 @@ class DashboardController extends Controller
             'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
         ];
 
+        $SpvFilter = function ($query) use ($user) {
+            $query->where('supervisor_id', $user->id_users);
+        };
         // Data Supervisor
         $dataSpv = [
             'monthYearNow' => now()->format('F Y'),
-            'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
-            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
-            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
-            'laporanGroomingSebelum' => LaporanGrooming::whereDate('tgl_lg', $todayDate)->where('status_lg', 'sebelum')->count(),
-            'laporanGroomingProses' => LaporanGrooming::whereDate('tgl_lg', $todayDate)->where('status_lg', 'proses')->count(),
-            'laporanGroomingHasil' => LaporanGrooming::whereDate('tgl_lg', $todayDate)->where('status_lg', 'hasil')->count(),
-            'laporanPjkpSebelum' => LaporanPjkp::whereDate('tgl_lp', $todayDate)->where('status_lp', 'sebelum')->count(),
-            'laporanPjkpProses' => LaporanPjkp::whereDate('tgl_lp', $todayDate)->where('status_lp', 'proses')->count(),
-            'laporanPjkpHasil' => LaporanPjkp::whereDate('tgl_lp', $todayDate)->where('status_lp', 'hasil')->count(),
+            'totalAkunCleaner' => User::where('level', 'cleaner')->where('supervisor_id', $user->id_users)->count(),
+            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
+            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
+            'laporanGroomingSebelum' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'sebelum')->count(),
+            'laporanGroomingProses' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'proses')->count(),
+            'laporanGroomingHasil' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'hasil')->count(),
+            'laporanPjkpSebelum' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'sebelum')->count(),
+            'laporanPjkpProses' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'proses')->count(),
+            'laporanPjkpHasil' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'hasil')->count(),
         ];
 
         // Data Cleaner
         $dataCleaner = [
-            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('id_users', $userId)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
-            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('id_users', $userId)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
+            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('id_users', $user->id_users)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
+            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('id_users', $user->id_users)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
         ];
 
         $title = 'Dashboard Sistem Monitoring Cleaning Service';
         return view('dashboard', compact('title', 'dataAdmin', 'dataSpv', 'dataCleaner'));
     }
-
-
-
-
 
     public function defaultPass(Request $request)
     {
