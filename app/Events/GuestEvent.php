@@ -15,13 +15,15 @@ class CleanerInput implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $name;
+    public $userId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($name)
+    public function __construct($name, $userId)
     {
         $this->name = $name;
+        $this->userId = $userId;
     }
 
     /**
@@ -32,7 +34,7 @@ class CleanerInput implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('popup-notifications'),
+            new Channel('popup-notifications-guest'),
         ];
     }
 
@@ -43,6 +45,6 @@ class CleanerInput implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'cleaner-input';
+        return 'reports-guest';
     }
 }

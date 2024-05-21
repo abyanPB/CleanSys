@@ -141,5 +141,33 @@
         </nav>
     @endif
 @else
-
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-brand">
+            Provice<span>Group</span>
+            </a>
+            <div class="sidebar-toggler not-active">
+            <span></span>
+            <span></span>
+            <span></span>
+            </div>
+        </div>
+        <div class="sidebar-body">
+            <ul class="nav">
+                <li class="nav-item nav-category">Form</li>
+                <li class="nav-item {{ active_class(['Guest/create*']) }}">
+                    <a href="{{ route('Guest.create') }}" class="nav-link">
+                    <i class="link-icon" data-feather="folder-plus"></i>
+                    <span class="link-title">Laporan Pengaduan</span>
+                    </a>
+                </li>
+                <li class="nav-item nav-category">Tabel</li>
+                <li class="nav-item {{ active_class(['Guest/Penanggung*']) }}">
+                    <a href="{{ route('showGuest') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Penanggung Jawab Ruang</span>
+                    </a>
+                </li>
+        </div>
+    </nav>
 @endif

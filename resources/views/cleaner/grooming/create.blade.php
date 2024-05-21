@@ -89,30 +89,6 @@
   </div>
 </div>
 
-<script>
-    // Function to show submit button and photo preview after selecting photo
-    function showSubmitButtonAndPreview() {
-        var btnSubmit = document.getElementById("btnSubmit");
-        var photoPreview = document.getElementById("photoPreview");
-        btnSubmit.classList.remove("is-hidden");
-        photoPreview.classList.remove("is-hidden");
-
-        // Show preview of selected photo
-        var previewImage = document.getElementById("previewImage");
-        var photoInput = document.getElementById("photoInput");
-        var file = photoInput.files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            previewImage.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
-
-    // Event listener to show submit button and photo preview when photo is selected
-    var photoInput = document.getElementById("photoInput");
-    photoInput.addEventListener("change", showSubmitButtonAndPreview);
-</script>
-
 @endsection
 
 @push('plugin-scripts')
@@ -128,6 +104,30 @@
         tags: false
     });
   </script>
+
+    <script>
+        // Function to show submit button and photo preview after selecting photo
+        function showSubmitButtonAndPreview() {
+            var btnSubmit = document.getElementById("btnSubmit");
+            var photoPreview = document.getElementById("photoPreview");
+            btnSubmit.classList.remove("is-hidden");
+            photoPreview.classList.remove("is-hidden");
+
+            // Show preview of selected photo
+            var previewImage = document.getElementById("previewImage");
+            var photoInput = document.getElementById("photoInput");
+            var file = photoInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+
+        // Event listener to show submit button and photo preview when photo is selected
+        var photoInput = document.getElementById("photoInput");
+        photoInput.addEventListener("change", showSubmitButtonAndPreview);
+    </script>
 
 {{-- <script>
     function getLocation() {

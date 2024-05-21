@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Area;
+use App\Models\User;
 use Carbon\Carbon;
 
 class GuestController extends Controller
@@ -21,7 +22,8 @@ class GuestController extends Controller
      */
     public function create()
     {
-        return view('guest.create');
+        $areas = Area::all();
+        return view('guest.create', compact('areas'));
     }
 
     /**
@@ -29,7 +31,7 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -62,5 +64,12 @@ class GuestController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showAreaResponsibilities()
+    {
+        $title = 'Daftar Penanggung Jawab Area Kerja';
+        $cleaners = User::where('level', 'cleaner')->with('areaResponsibilities')->get();
+        return view('guest.index', compact('cleaners', 'title'));
     }
 }

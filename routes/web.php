@@ -35,6 +35,7 @@ use Illuminate\Validation\Rules;
 // });
 
 //Route for Guest
+Route::get('Guest/Penanggung-Jawab-Area', [GuestController::class, 'showAreaResponsibilities'])->name('showGuest');
 Route::resource('Guest', GuestController::class)->names([
     'index' => 'Guest.index',
     'create' => 'Guest.create',
