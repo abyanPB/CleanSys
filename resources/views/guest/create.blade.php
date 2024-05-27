@@ -28,83 +28,89 @@
   </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h6 class="card-title">Silahkan Inputkan Pengaduan Anda</h6>
-            <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group row">
-                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja<span class="text-danger">*</span></label>
-                    <div class="col-sm-9">
-                        <select class="js-example-basic-single" id="area_id" name="area_id">
-                            <option value="">Pilih Area Kerja</option>
-                            @foreach ($areas as $area)
-                                <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
-                            @endforeach
-                        </select>
-                        <span class="form-bar text-danger">@error('area_id'){{$message}}@enderror</span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Nama Guest<span class="text-danger">*</span></label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Nama Anda" name="nama_guest" id="nama_guest" value="{{ old('nama_guest') }}">
-                        </div>
-                        <span class="form-bar text-danger">@error('nama_guest'){{$message}}@enderror</span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Jabatan Guest</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Posisi Anda, Contoh: Dosen/Mahasiswa" name="level_guest" id="level_guest" value="{{ old('level_guest') }}">
+@if (Auth::check())
+    @php
+        header("Location: " . route('dashboard'));
+        exit();
+    @endphp
+@else
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Silahkan Inputkan Pengaduan Anda</h6>
+                <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="js-example-basic-single" id="area_id" name="area_id">
+                                <option value="">Pilih Area Kerja</option>
+                                @foreach ($areas as $area)
+                                    <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
+                                @endforeach
+                            </select>
+                            <span class="form-bar text-danger">@error('area_id'){{$message}}@enderror</span>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Keterangan<span class="text-danger">*</span></label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <textarea id="ket_guest" name="ket_guest" class="form-control" maxlength="100" rows="8" placeholder="Masukan Keterangan Laporan, Contoh: Mas Galon Habis" value="{{ old('ket_guest') }}"></textarea>
-                        </div>
-                        <span class="form-bar text-danger">@error('ket_guest'){{$message}}@enderror</span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Foto Pekerjaan<span class="text-danger">*</span></label>
-                    <div class="col-sm-9">
-                        <div class="form-group">
-                            <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">
-                            <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">
-                                <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                </span>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Nama Guest<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Masukkan Nama Anda" name="nama_guest" id="nama_guest" value="{{ old('nama_guest') }}">
                             </div>
-                            <span class="form-bar text-danger">@error('image_guest'){{$message}}@enderror</span>
+                            <span class="form-bar text-danger">@error('nama_guest'){{$message}}@enderror</span>
                         </div>
                     </div>
-                </div>
-                <div id="photoPreview" class="form-group">
-                    <label>Hasil Foto</label>
-                    <figure>
-                    <img id="previewImage" src="#" alt="Foto" class="img-fluid">
-                    </figure>
-                </div>
-                {!! NoCaptcha::renderJs() !!}
-                {!! NoCaptcha::display() !!}
-                <span class="form-bar text-danger">@error('g-recaptcha-response'){{$message}}@enderror</span>
-                <br>
-              <button type="submit" id="btnSubmit" class="btn btn-primary me-2">Kirim</button>
-            </form>
-          </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Jabatan Guest</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Masukkan Posisi Anda, Contoh: Dosen/Mahasiswa" name="level_guest" id="level_guest" value="{{ old('level_guest') }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Keterangan<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <textarea id="ket_guest" name="ket_guest" class="form-control" maxlength="100" rows="8" placeholder="Masukan Keterangan Laporan, Contoh: Mas Galon Habis" value="{{ old('ket_guest') }}"></textarea>
+                            </div>
+                            <span class="form-bar text-danger">@error('ket_guest'){{$message}}@enderror</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Foto Pekerjaan<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
+                                <span class="form-bar text-danger">@error('image_guest'){{$message}}@enderror</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="photoPreview" class="form-group">
+                        <label>Hasil Foto</label>
+                        <figure>
+                        <img id="previewImage" src="#" alt="Foto" class="img-fluid">
+                        </figure>
+                    </div>
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                    <span class="form-bar text-danger">@error('g-recaptcha-response'){{$message}}@enderror</span>
+                    <br>
+                <button type="submit" id="btnSubmit" class="btn btn-primary me-2">Kirim</button>
+                </form>
+            </div>
+            </div>
         </div>
     </div>
-</div>
-
+@endif
 
 @endsection
 
