@@ -102,6 +102,7 @@ use Illuminate\Validation\Rules;
                     Route::post('/User/Create', [ProfileController::class, 'store'])->name('user.store');
                     Route::get('/User/Edit/{id_users}', [ProfileController::class, 'edit'])->name('user.edit');
                     Route::put('/User/Update/{id_users}', [ProfileController::class, 'update'])->name('user.update');
+                    Route::post('/User/Reset-Password/{id_users}', [ProfileController::class, 'reset'])->name('user.reset');
                     Route::delete('/User/{id_users}', [ProfileController::class, 'destroy'])->name('user.destroy');
 
                 //Route for Mengelola Penanggung Jawab Area

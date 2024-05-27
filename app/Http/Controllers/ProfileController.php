@@ -109,6 +109,28 @@ class ProfileController extends Controller
         }
 
         /**
+         * Reset Password the user account.
+         */
+        public function reset(Request $request)
+        {
+            // Cari user berdasarkan ID
+            $user = User::find($request->id_users);
+
+            // Cek apakah user ditemukan
+            if ($user) {
+                // Reset password ke 12345678
+                $user->password = Hash::make('12345678');
+                $user->save();
+
+                // Berikan response sukses
+                return redirect()->back()->with('success', 'Password dengan nama '. $user->name .' telah direset.');
+            } else {
+                // Berikan response error jika user tidak ditemukan
+                return redirect()->back()->with('error', 'Akun tidak ditemukan.');
+            }
+        }
+
+        /**
          * Delete the user's account.
          */
         public function destroy(Request $request)

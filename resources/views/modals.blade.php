@@ -272,6 +272,31 @@
                 </div>
             {{-- End Modal Detail --}}
 
+            {{-- Modal Reset --}}
+                <div class="modal fade" id="resetPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="resetPengguna" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="resetPengguna">Konfirmasi</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah anda yakin ingin mereset password akun ini?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <form action="{{route('user.reset',$user->id_users)}}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{-- End Modal Reset --}}
+
             {{-- Modal Hapus --}}
                 <div class="modal fade" id="hapusPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="hapusPengguna" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -283,7 +308,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Apakah anda yakin ingin menghapus data ini?
+                                Apakah anda yakin ingin menghapus akun ini?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

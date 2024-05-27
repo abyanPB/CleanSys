@@ -160,7 +160,7 @@ class PjkpController extends Controller
             $sops = Sop::all();
             $areas = Area::all();
             $title = 'Tambah Data Laporan Harian Pjkp - Provice Group';
-            return view('cleaner.pjkp.create',compact('title', 'areas', 'sops', ));
+            return view('cleaner.pjkp.create',compact('title', 'areas', 'sops'));
         }
 
         public function storePjkpDailyReportCleaner(Request $request)
