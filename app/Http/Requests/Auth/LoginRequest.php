@@ -33,6 +33,22 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Harap masukkan alamat email.',
+            'email.string' => 'Alamat email harus berupa teks.',
+            'email.email' => 'Harap masukkan alamat email yang valid.',
+            'password.required' => 'Harap masukkan kata sandi.',
+            'password.string' => 'Kata sandi harus berupa teks.',
+        ];
+    }
+
+    /**
      * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -45,7 +61,9 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                // 'email' => trans('auth.failed'),
+                'email' => 'Email dan password tidak sesuai.',
+                'password' => 'Email dan password tidak sesuai.',
             ]);
         }
 

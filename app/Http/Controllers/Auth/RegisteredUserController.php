@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register', ['title' => 'Login Provice Group']);
+        return view('auth.register', ['title' => 'Registrasi Akun Provice Group']);
     }
 
     /**
