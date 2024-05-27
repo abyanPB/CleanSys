@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+@endpush
+
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
@@ -72,9 +76,9 @@
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                     <div class="col-sm-9">
                         @if ($user->jk == null)
-                            <select class="form-control" id="jk" name="jk" >
+                            <select class="js-example-basic-single" id="jk" name="jk" >
                         @else
-                            <select class="form-control" id="jk" name="jk" disabled >
+                            <select class="js-example-basic-single" id="jk" name="jk" disabled >
                         @endif
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="laki-laki" {{ $user->jk == 'laki-laki'?'selected' : '' }}>Laki-Laki</option>
@@ -85,7 +89,7 @@
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jabatan</label>
                     <div class="col-sm-9">
-                        <select class="form-control" id="level" name="level" disabled>
+                        <select class="js-example-basic-single" id="level" name="level" disabled>
                             <option value="">Pilih Jabatan</option>
                             <option value="admin" {{ $user->level == 'admin'?'selected' : '' }}>Admin</option>
                             <option value="cleaner" {{ $user->level == 'cleaner'?'selected' : '' }}>Cleaner</option>
@@ -93,8 +97,16 @@
                         </select>
                     </div>
                 </div>
+                @if ($user->level == 'cleaner')
+                    <div class="form-group row">
+                        <label for="exampleInputMobile" class="col-sm-3 col-form-label">Supervisor</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="no_telepon" placeholder="Nomor Telepon" name="no_telepon" value="{{ $user->supervisor->name }}" disabled>
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group row">
-                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">File Upload</label>
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Upload Foto</label>
                     <input type="file" name="image_profile" class="file-upload-default">
                     <div class="input-group col-sm-9">
                     <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
@@ -133,6 +145,16 @@
   </div>
 @endsection
 
-@push('custom-scripts')
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
   <script src="{{ asset('assets/js/file-upload.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+<script>
+    $(".js-example-basic-single").select2({
+        tags: false
+    });
+  </script>
 @endpush
