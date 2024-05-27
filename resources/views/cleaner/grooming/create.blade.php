@@ -30,10 +30,10 @@
         <h6 class="card-title">Tambah Laporan Grooming Pekerjaan Cleaning Service</h6>
         <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="id_users" value="{{ auth()->user()->id_users }}">
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
             <div class="form-group">
                 <label>Area Kerja</label>
-                <select class="js-example-basic-single w-100" id="id_area" name="id_area">
+                <select class="js-example-basic-single w-100" id="area_id" name="area_id">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
                     <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label>Sop Kerja</label>
-                <select class="js-example-basic-single w-100" id="id_sop" name="id_sop">
+                <select class="js-example-basic-single w-100" id="sop_id" name="sop_id">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
                     <option value="{{$sop->id_sop}}">{{$sop->nama_sop}} </option>
@@ -93,17 +93,16 @@
 
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-@endpush
-
-
-@push('custom-scripts')
   <script src="{{ asset('assets/js/file-upload.js') }}"></script>
   <script src="{{ asset('assets/js/select2.js') }}"></script>
-  <script>
-    $(".js-example-basic-single").select2({
-        tags: false
-    });
-  </script>
+@endpush
+
+@push('custom-scripts')
+    <script>
+        $(".js-example-basic-single").select2({
+            tags: false
+        });
+    </script>
 
     <script>
         // Function to show submit button and photo preview after selecting photo
@@ -128,41 +127,4 @@
         var photoInput = document.getElementById("photoInput");
         photoInput.addEventListener("change", showSubmitButtonAndPreview);
     </script>
-
-{{-- <script>
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-            document.getElementById("locationCheckbox").checked = false;
-        }
-    }
-
-    function showPosition(position) {
-        document.getElementById("latitude").value = position.coords.latitude;
-        document.getElementById("longitude").value = position.coords.longitude;
-    }
-
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
-                document.getElementById("locationCheckbox").checked = false;
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Location information is unavailable.");
-                document.getElementById("locationCheckbox").checked = false;
-                break;
-            case error.TIMEOUT:
-                alert("The request to get user location timed out.");
-                document.getElementById("locationCheckbox").checked = false;
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("An unknown error occurred.");
-                document.getElementById("locationCheckbox").checked = false;
-                break;
-        }
-    }
-</script> --}}
 @endpush

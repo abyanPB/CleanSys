@@ -7,7 +7,6 @@ use App\Models\LaporanPJKP;
 use App\Models\TanggapanGrooming;
 use App\Models\TanggapanPJKP;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -45,8 +44,8 @@ class DashboardController extends Controller
         $dataSpv = [
             'monthYearNow' => now()->format('F Y'),
             'totalAkunCleaner' => User::where('level', 'cleaner')->where('supervisor_id', $user->id_users)->count(),
-            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
-            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
+            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkps')->count(),
+            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGroomings')->count(),
             'laporanGroomingSebelum' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'sebelum')->count(),
             'laporanGroomingProses' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'proses')->count(),
             'laporanGroomingHasil' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'hasil')->count(),
@@ -57,8 +56,8 @@ class DashboardController extends Controller
 
         // Data Cleaner
         $dataCleaner = [
-            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('id_users', $user->id_users)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGrooming')->count(),
-            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('id_users', $user->id_users)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkp')->count(),
+            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('user_id', $user->id_users)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGroomings')->count(),
+            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('user_id', $user->id_users)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkps')->count(),
         ];
 
         $title = 'Dashboard Sistem Monitoring Cleaning Service';

@@ -129,7 +129,7 @@ class GroomingController extends Controller
             // Emit an event with the supervisor's name
             $user = Auth::user();
             $laporanGrooming = LaporanGrooming::findOrFail($request->id_lg);
-            $laporanOwnerId = $laporanGrooming->id_users;
+            $laporanOwnerId = $laporanGrooming->user_id;
             if ($this->check_internet_connection()) {
                 event(new LaporanGroomingEvent($user->name, $laporanOwnerId));
             }
@@ -141,10 +141,10 @@ class GroomingController extends Controller
             ]);
             $currentDateTime = Carbon::now();//inisialisasi date
             TanggapanGrooming::create([
-                'id_lg' => $request->id_lg,
+                'lg_id' => $request->id_lg,
                 'tgl_tg' => $currentDateTime,
                 'tanggapan_grooming' => $request->tanggapan_grooming,
-                'id_users' => Auth::id(),
+                'user_id' => Auth::id(),
             ]);
             return redirect()->route('showTanggapanGrooming')->with('success', 'Berhasil Menanggapi Laporan Grooming');
         }
@@ -157,9 +157,9 @@ class GroomingController extends Controller
          */
         public function indexGroomingDailyReportCleaner(Request $request)
         {
-            $userId = Auth::user()->id_users;
+            $user = Auth::user();
             $currentDate = now()->toDateString();
-            $cleanerGroomingReportToday = LaporanGrooming::where('id_users', $userId)
+            $cleanerGroomingReportToday = LaporanGrooming::where('user_id', $user->id_users)
                                             ->whereDate('tgl_lg', $currentDate)
                                             ->orderBydesc('tgl_lg')
                                             ->get();
@@ -172,7 +172,7 @@ class GroomingController extends Controller
             $sops = Sop::all();
             $areas = Area::all();
             $title = 'Tambah Data Laporan Harian Grooming - Provice Group';
-            return view('cleaner.grooming.create',compact('title', 'areas', 'sops', ));
+            return view('cleaner.grooming.create',compact('title', 'areas', 'sops'));
         }
 
         public function storeGroomingDailyReportCleaner(Request $request)
@@ -184,13 +184,13 @@ class GroomingController extends Controller
             }
 
             $request->validate([
-                'id_area' =>'required',
-                'id_sop' =>'required',
+                'area_id' =>'required',
+                'sop_id' =>'required',
                 'status_lg' =>'required',
                 'image_lg' =>'required|image|mimes:jpeg,png,jpg,gif',
             ],[
-                'id_area.required' => 'Area kerja tidak boleh kosong',
-                'id_sop.required' => 'SOP kerja tidak boleh kosong',
+                'area_id.required' => 'Area kerja tidak boleh kosong',
+                'sop_id.required' => 'SOP kerja tidak boleh kosong',
                 'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lg.required' => 'Foto pekerjaan tidak boleh kosong',
                 'image_lg.image' => 'File harus berupa gambar',
@@ -201,9 +201,9 @@ class GroomingController extends Controller
 
             $currentDateTime = Carbon::now();
             LaporanGrooming::create([
-                'id_users' => $request->id_users,
-                'id_area' => $request->id_area,
-                'id_sop' => $request->id_sop,
+                'user_id' => $request->user_id,
+                'area_id' => $request->area_id,
+                'sop_id' => $request->sop_id,
                 'tgl_lg' => $currentDateTime,
                 'image_lg' => $imageName,
                 'status_lg' => $request->status_lg,
@@ -231,20 +231,20 @@ class GroomingController extends Controller
             $lg = LaporanGrooming::findOrFail($id);
 
             $request->validate([
-                'id_area' =>'required',
-                'id_sop' =>'required',
+                'area_id' =>'required',
+                'sop_id' =>'required',
                 'status_lg' =>'required',
                 'image_lg' => $request->hasFile('image_lg') ? 'image|mimes:jpeg,png,jpg,gif' : '',
             ],[
-                'id_area.required' => 'Area kerja tidak boleh kosong',
-                'id_sop.required' => 'SOP kerja tidak boleh kosong',
+                'area_id.required' => 'Area kerja tidak boleh kosong',
+                'sop_id.required' => 'SOP kerja tidak boleh kosong',
                 'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lg.image' => 'File harus berupa gambar',
                 'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
             ]);
 
-            $lg->id_area = $request->id_area;
-            $lg->id_sop = $request->id_sop;
+            $lg->area_id = $request->area_id;
+            $lg->sop_id = $request->sop_id;
             $lg->status_lg = $request->status_lg;
 
             if($request->hasFile('image_lg')){

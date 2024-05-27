@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+@endpush
+
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
@@ -43,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label for="jk">Jenis Kelamin</label>
-                <select class="form-control" id="jk" name="jk">
+                <select class="js-example-basic-single" id="jk" name="jk">
                   <option selected disabled>Pilih Jenis Kelamin</option>
                   <option value="laki-laki">Laki-Laki</option>
                   <option value="perempuan">Perempuan</option>
@@ -51,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label for="level">Jabatan</label>
-                <select class="form-control" id="level" name="level">
+                <select class="js-example-basic-single" id="level" name="level">
                   <option selected disabled>Pilih Jabatan Pekerja, Jika dikosongkan otomatis terisi "Cleaner"</option>
                   <option value="admin">Admin</option>
                   <option value="cleaner">Cleaner</option>
@@ -60,7 +64,7 @@
             </div>
             <div class="form-group">
                 <label for="supervisor_id">Supervisor <span class="text-danger">(Hanya untuk Cleaner)</span></label>
-                <select class="form-control" id="supervisor_id" name="supervisor_id">
+                <select class="js-example-basic-single" id="supervisor_id" name="supervisor_id">
                     <option value="" selected disabled>Pilih Supervisor</option>
                     @foreach ($supervisors as $supervisor)
                         <option value="{{ $supervisor->id_users }}">{{ $supervisor->name }}</option>
@@ -80,6 +84,17 @@
 </div>
 @endsection
 
-@push('custom-scripts')
-  <script src="{{ asset('assets/js/file-upload.js') }}"></script>
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush
+
+@push('custom-scripts')
+<script>
+    $(".js-example-basic-single").select2({
+        tags: false
+    });
+  </script>
+@endpush
+
+

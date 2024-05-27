@@ -71,39 +71,37 @@
                 }
             });
         </script>
-        {{-- @if (Auth::user()->level == 'spv')
-            <script>
-                // Enable pusher logging - don't include this in production
-                Pusher.logToConsole = true;
-                var pusher = new Pusher('756eb93483e90f6aa3f5', {
-                cluster: 'ap1'
-                });
-                var channel = pusher.subscribe('popup-notifications-pjkp');
-                channel.bind('reports-pjkp-cleaner-to-spv', function(data) {
-                    toastr.info('Cleaner dengan nama ' + JSON.stringify(data.name) + ', Baru saja memasukan Laporan PJKP, Silahkan Periksa Laporan Tersebut', {timeOut: 4000});
-                    // Refresh halaman setelah 1 detik
-                    setTimeout(function() {
-                        location.reload();
-                    }, 5000);
-                });
-            </script>
-        @elseif (Auth::user()->level == 'cleaner')
-            <script>
-                // Enable pusher logging - don't include this in production
-                Pusher.logToConsole = true;
-                var pusher = new Pusher('756eb93483e90f6aa3f5', {
-                cluster: 'ap1'
-                });
-                var channel = pusher.subscribe('popup-notifications-pjkp');
-                channel.bind('reports-pjkp-spv-to-cleaner', function(data) {
-                    toastr.info('Supervisor dengan nama ' + JSON.stringify(data.name) + ', Baru saja memberikan tanggapan pada Laporan PJKP, Silahkan periksa tanggapan Tersebut', {timeOut: 4000});
-                    // Refresh halaman setelah 1 detik
-                    setTimeout(function() {
-                        location.reload();
-                    }, 5000);
-                });
-            </script>
-        @endif --}}
     {{-- End PJKP Reports --}}
+
+    {{-- Start Guest Reports --}}
+    <script>
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('popup-notifications-guest');
+        channel.bind('reports-guest', function(data) {
+            var userLevel = '{{ $userLevel }}';
+            var userId = '{{ $userId }}';
+
+            if (userLevel === 'spv' && data.userId == userId) {
+                toastr.info('Guest dengan nama ' + data.name + ', baru saja memasukkan Laporan Guest, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
+                // Refresh halaman setelah 1 detik
+                setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+            } else if (userLevel === 'cleaner' && data.userId == userId) {
+                toastr.info('Guest dengan nama ' + data.name + ', baru saja memberikan tanggapan pada Laporan Guest, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
+                // Refresh halaman setelah 1 detik
+                setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+            }
+        });
+    </script>
+    {{-- End Guest Reports --}}
 @endif
 {{-- End Laravel Pusher with Jquery --}}

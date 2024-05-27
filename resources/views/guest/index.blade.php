@@ -46,8 +46,8 @@
                 <th scope="row">{{ $no++ }}</th>
                 <td>{{$cleaner->name}}</td>
                 <td>
-                    @foreach ($cleaner->areaResponsibilities as $area)
-                        <span class="badge badge-primary">{{ $area->nama_area }} {{ $area->desc_area }}</span>
+                    @foreach ($cleaner->areaResponsibilities as $ar)
+                        <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
                     @endforeach
                 </td>
                 {{-- <td>

@@ -83,6 +83,12 @@
                             <span class="link-title">PJKP</span>
                         </a>
                     </li>
+                    <li class="nav-item {{ active_class(['Supervisor/Laporan-Pengaduan*']) }}">
+                        <a href="{{ route('showPengaduanSpv') }}" class="nav-link">
+                        <i class="link-icon" data-feather="folder-plus"></i>
+                        <span class="link-title">Laporan Pengaduan</span>
+                        </a>
+                    </li>
                 </div>
             @elseif (Auth::user()->level == 'cleaner')
                 <div class="sidebar-body">

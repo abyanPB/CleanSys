@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Area;
+use App\Models\AreaResponsibility;
 use App\Models\User;
 
 class AreaController extends Controller
@@ -46,14 +47,6 @@ class AreaController extends Controller
             'desc_area' => $request->desc_area,
         ]);
         return redirect()->route('area.index')->with('success', 'Berhasil Tambah Area Kerja');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -105,32 +98,5 @@ class AreaController extends Controller
         $area->delete();
 
         return redirect()->route('area.index')->with('success', 'Area Kerja berhasil dihapus');
-    }
-
-    public function showAreaResponsibilities()
-    {
-        $title = 'Daftar Penanggung Jawab Area Kerja';
-        $cleaners = User::where('level', 'cleaner')->with('areaResponsibilities')->get();
-        return view('admin.area_responsibilities.index', compact('cleaners', 'title'));
-    }
-
-    public function createAreaResponsibilities(){
-        $cleaners = User::where('level', 'cleaner')->whereDoesntHave('areaResponsibilities')->get();
-        $areas = Area::all();
-        $title = 'Tambah Penanggung Jawab Area Kerja';
-        return view('admin.area_responsibilities.create', compact('cleaners','areas', 'title'));
-    }
-
-    public function storeAreaResponsibilities(Request $request)
-    {
-        $request->validate([
-            'user_id' =>'required',
-            'area_id' =>'required',
-        ]);
-
-        $cleaner = User::findOrFail($request->user_id);
-        $cleaner->areaResponsibilities()->sync($request->area_id);
-
-        return redirect()->route('Penanggung-Jawab-Area.index')->with('success', 'Penanggung Jawab Area berhasil ditambahkan');
     }
 }

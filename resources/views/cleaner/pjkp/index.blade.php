@@ -40,7 +40,7 @@
     <div class="card">
       <div class="card-body">
         <a href="{{route('createLaporanPjkpCleaner')}}">
-            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan Pjkp</button>
+            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan</button>
         </a>
         <h6 class="card-title">Daftar Laporan Pjkp</h6>
         <div class="table-responsive">
@@ -48,11 +48,11 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Foto Pekerjaan</th>
                 <th>Area Kerja</th>
                 <th>Waktu Laporan</th>
                 <th>Status</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -60,16 +60,9 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto Pjkp" style="height: 75px; width:75px; border-radius:5%">
-                </td>
-                <td>{{$cPrt->area->nama_area}}</td>
-                <td>{{$cPrt->tgl_lp}}</td>
-                <td>{{$cPrt->status_lp}}</td>
-                {{-- <td>{{$lp->status_lp}}</td> --}}
-                <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerPjkpReportDetail{{$cPrt->id_lp}}"><i data-feather="info"></i></button>
 
-                    @if ($cPrt->tanggapanPjkp()->exists())
+                    @if ($cPrt->tanggapanPjkps()->exists())
 
                     @else
                         <a href="{{route('editLaporanPjkpCleaner', $cPrt->id_lp)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
@@ -80,6 +73,13 @@
                     @include('modals')
 
                 </td>
+                <td>
+                    <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto Pjkp" style="height: 75px; width:75px; border-radius:5%">
+                </td>
+                <td>{{$cPrt->area->nama_area}}</td>
+                <td>{{$cPrt->tgl_lp}}</td>
+                <td>{{$cPrt->status_lp}}</td>
+                {{-- <td>{{$lp->status_lp}}</td> --}}
               </tr>
               @endforeach
             </tbody>

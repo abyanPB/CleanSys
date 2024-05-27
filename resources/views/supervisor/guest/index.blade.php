@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Area Kerja</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar Area Kerja</li>
+    <li class="breadcrumb-item"><a href="#">Penanggung Jawab Ruang</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Penanggung Area Kerja</li>
   </ol>
 </nav>
 
@@ -27,17 +27,15 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div style="padding-bottom: 1%">
-            <button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteAreaResponsibilities"><i data-feather="refresh-cw"></i> RESET ALL DATA</button>
-        </div>
         <h6 class="card-title">Daftar Penanggung Jawab Area Kerja</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Cleaner</th>
-                <th>Area Tanggungan</th>
+                <th>Waktu Laporan</th>
+                <th>Area Kerja</th>
+                <th>Nama Guest</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -45,21 +43,16 @@
                 @php
                     $no=1;
                 @endphp
-                @foreach ($cleanersArea as $cleaner)
+                @foreach ($laporanGuestSpv  as $lGs)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$cleaner->name}}</td>
+                <td>{{$lGs->tgl_guest}}</td>
                 <td>
-                    @if ($cleaner->areaResponsibilities->isEmpty())
-                        Belum Memasukan Penanggung Jawab Area
-                    @else
-                        @foreach ($cleaner->areaResponsibilities as $ar)
-                            <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
-                        @endforeach
-                    @endif
-                </td>
+                    <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
+                <td>{{$lGs->nama_guest}}</td>
                 <td>
-                    <a href="{{route('Penanggung-Jawab-Area.edit', $cleaner->id_users)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}"><i data-feather="info"></i></button>
+                    <!-- Modal -->
                     @include('modals')
                 </td>
               </tr>

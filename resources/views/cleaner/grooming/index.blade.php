@@ -40,7 +40,7 @@
     <div class="card">
       <div class="card-body">
         <a href="{{route('createLaporanGroomingCleaner')}}">
-            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan Grooming</button>
+            <button type="submit" class="btn btn-primary float-right">+ Tambah Laporan</button>
         </a>
         <h6 class="card-title">Daftar Laporan Grooming</h6>
         <div class="table-responsive">
@@ -48,11 +48,11 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Foto Pekerjaan</th>
                 <th>Area Kerja</th>
                 <th>Waktu Laporan</th>
                 <th>Status</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -60,26 +60,23 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGroomingReportDetail{{$cGrt->id_lg}}"><i data-feather="info"></i></button>
+                    @if ($cGrt->tanggapanGroomings()->exists())
+
+                    @else
+                        <a href="{{route('editLaporanGroomingCleaner', $cGrt->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeleteGroomingReport{{$cGrt->id_lg}}"><i data-feather="trash-2"></i></button>
+                    @endif
+                    <!-- Modal -->
+                    @include('modals')
+                </td>
+                <td>
                     <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto Grooming" style="height: 75px; width:75px; border-radius:5%">
                 </td>
                 <td>{{$cGrt->area->nama_area}}</td>
                 <td>{{$cGrt->tgl_lg}}</td>
                 <td>{{$cGrt->status_lg}}</td>
                 {{-- <td>{{$lg->status_lg}}</td> --}}
-                <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGroomingReportDetail{{$cGrt->id_lg}}"><i data-feather="info"></i></button>
-
-                    @if ($cGrt->tanggapanGrooming()->exists())
-
-                    @else
-                        <a href="{{route('editLaporanGroomingCleaner', $cGrt->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeleteGroomingReport{{$cGrt->id_lg}}"><i data-feather="trash-2"></i></button>
-                    @endif
-
-                    <!-- Modal -->
-                    @include('modals')
-
-                </td>
               </tr>
               @endforeach
             </tbody>

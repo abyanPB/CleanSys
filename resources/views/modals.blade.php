@@ -47,11 +47,11 @@
             {{-- End Cetak Pdf --}}
             @foreach ($adminGroomingReport as $aGr)
                 {{-- Modal Detail --}}
-                    <div class="modal fade" id="adminGroomingReportDetail{{$aGr->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->id_lg}}" aria-hidden="true">
+                    <div class="modal fade" id="adminGroomingReportDetail{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->lg_id}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->id_lg}}">Detail Laporan Grooming</h5>
+                            <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->lg_id}}">Detail Laporan Grooming</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -85,11 +85,11 @@
                 {{-- End Modal Detail --}}
 
                 {{-- Modal Hapus --}}
-                    <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->id_lg}}" aria-hidden="true">
+                    <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->lg_id}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->id_lg}}">Konfirmasi</h5>
+                            <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->lg_id}}">Konfirmasi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form action="{{route('laporan-grooming.destroy',$aGr->id_lg)}}" method="POST">
+                            <form action="{{route('laporan-grooming.destroy',$aGr->lg_id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
@@ -162,11 +162,11 @@
 
             @foreach ($adminPjkpReport as $aPr)
             {{-- Modal Detail --}}
-                <div class="modal fade" id="adminPjkpReportDetail{{$aPr->id_lp}}" tabindex="-1" role="dialog" aria-labelledby="adminPjkpReportDetail{{$aPr->id_lp}}" aria-hidden="true">
+                <div class="modal fade" id="adminPjkpReportDetail{{$aPr->lp_id}}" tabindex="-1" role="dialog" aria-labelledby="adminPjkpReportDetail{{$aPr->lp_id}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="adminPjkpReportDetail{{$aPr->id_lp}}">Detail Laporan Pjkp</h5>
+                                <h5 class="modal-title" id="adminPjkpReportDetail{{$aPr->lp_id}}">Detail Laporan Pjkp</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -189,7 +189,7 @@
                                 Status : {{$aPr->laporanPjkp->status_lp}}
                                 <hr>
                                 Foto :
-                                <img src="{{asset('images/laporan_pjkp/'.$aPr->laporanPjkp->image_lp)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+                                <img src="{{asset('images/laporan_pjkp/'.$aPr->laporanPjkp->image_lp)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:1px">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -200,11 +200,11 @@
             {{-- End Modal Detail --}}
 
             {{-- Modal Hapus --}}
-                <div class="modal fade" id="adminDeletePjkpReport{{$aPr->id_lp}}" tabindex="-1" role="dialog" aria-labelledby="adminDeletePjkpReport{{$aPr->id_lp}}" aria-hidden="true">
+                <div class="modal fade" id="adminDeletePjkpReport{{$aPr->lp_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeletePjkpReport{{$aPr->lp_id}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="adminDeletePjkpReport{{$aPr->id_lp}}">Konfirmasi</h5>
+                                <h5 class="modal-title" id="adminDeletePjkpReport{{$aPr->lp_id}}">Konfirmasi</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <form action="{{route('laporan-pjkp.destroy',$aPr->id_lp)}}" method="POST">
+                                <form action="{{route('laporan-pjkp.destroy',$aPr->lp_id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
@@ -250,6 +250,12 @@
                             Jenis Kelamin : {{$user->jk}}
                             <hr>
                             Jabatan : {{$user->level}}
+                            <hr>
+                            @if ($user->level == 'cleaner' && $user->supervisor)
+                                <p>Supervisor: {{ $user->supervisor->name }}</p>
+                            @else
+                                <p>Supervisor: Tidak ada</p>
+                            @endif
                             <hr>
                             Foto :
                             @if ($user->image_profile == null)
@@ -324,6 +330,36 @@
         @endif
     {{-- End Area Kerja --}}
 
+    {{-- Start Area Responsibilities --}}
+        @if(isset($cleanersArea))
+        {{-- Modal Hapus --}}
+            <div class="modal fade" id="deleteAreaResponsibilities" tabindex="-1" role="dialog" aria-labelledby="deleteAreaResponsibilities" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteAreaResponsibilities">Konfirmasi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah anda yakin ingin mereset semua data ini?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <form action="{{route('Penanggung-Jawab-Area.reset')}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Modal Hapus --}}
+        @endif
+    {{-- End Area Responsibilities --}}
+
     {{-- Start SOP --}}
         @if(isset($sop))
             {{-- Modal Hapus --}}
@@ -355,7 +391,6 @@
     {{-- End SOP --}}
 {{-- END ADMIN --}}
 
-
 {{-- START SUPERVISOR --}}
     {{-- Start Laporan Grooming --}}
         @if(isset($sGrt))
@@ -375,7 +410,7 @@
                                         <input type="hidden" name="id_lg" value="{{$sGrt->id_lg}}">
 
                                         @php
-                                            $tanggapanData = json_decode($sGrt->tanggapanGrooming, true);
+                                            $tanggapanData = json_decode($sGrt->tanggapanGroomings, true);
                                         @endphp
 
                                         @if (!empty($tanggapanData))
@@ -406,7 +441,7 @@
                                         Status : {{$sGrt->status_lg}}
                                         <hr>
                                         Foto :
-                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -438,7 +473,7 @@
                                     <input type="hidden" name="id_lp" value="{{$sPrt->id_lp}}">
 
                                     @php
-                                        $tanggapanData = json_decode($sPrt->tanggapanPjkp, true);
+                                        $tanggapanData = json_decode($sPrt->tanggapanPjkps, true);
                                     @endphp
 
                                     @if (!empty($tanggapanData))
@@ -469,7 +504,7 @@
                                     Status : {{$sPrt->status_lp}}
                                     <hr>
                                     Foto :
-                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -482,6 +517,43 @@
             {{-- End Modal Tanggapan --}}
         @endif
     {{-- End Laporan Pjkp --}}
+
+    {{-- Start Laporan Pjkp --}}
+        @if(isset($lGs))
+            {{-- Modal Tanggapan --}}
+                <div class="modal fade" id="supervisorGuestReport{{$lGs->id_guest}}" tabindex="-1" role="dialog" aria-labelledby="supervisorGuestReport" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="supervisorGuestReport">Detail Laporan Pjkp</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                    Area Kerja : {{$lGs->area->nama_area}} {{$lGs->area->desc_area}}
+                                    <hr>
+                                    Nama Guest : {{$lGs->nama_guest}}
+                                    <hr>
+                                    Posisi Guest : {{$lGs->level_guest}}
+                                    <hr>
+                                    Keterangan : {{$lGs->ket_guest}}
+                                    <hr>
+                                    Waktu Pengaduan : {{$lGs->tgl_guest}}
+                                    <hr>
+                                    Foto :
+                                    <img src="{{asset('images/laporan_guest/'.$lGs->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {{-- End Modal Tanggapan --}}
+        @endif
+{{-- End Laporan Pjkp --}}
 {{-- END SUPERVISOR --}}
 
 
@@ -500,7 +572,7 @@
                         </div>
                         <div class="modal-body">
                                     @php
-                                        $tanggapanData = json_decode($cGrt->tanggapanGrooming, true);
+                                        $tanggapanData = json_decode($cGrt->tanggapanGroomings, true);
                                         // Periksa apakah array $tanggapanData memiliki elemen
                                         if (!empty($tanggapanData)) {
                                             $firstTanggapan = $tanggapanData[0]; // Mengambil elemen pertama dari array
@@ -524,7 +596,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_grooming)){{ $tanggapan_grooming }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -575,15 +647,15 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                                    @php
-                                        $tanggapanData = json_decode($cPrt->tanggapanPjkp, true);
-                                        // Periksa apakah array $tanggapanData memiliki elemen
-                                        if (!empty($tanggapanData)) {
-                                            $firstTanggapan = $tanggapanData[0]; // Mengambil elemen pertama dari array
-                                            $tanggapan_pjkp = $firstTanggapan['tanggapan_pjkp'];
-                                            $waktu_tanggapan = $firstTanggapan['tgl_tp'];
-                                        }
-                                    @endphp
+                                @php
+                                    $tanggapanData = json_decode($cPrt->tanggapanPjkps, true);
+                                    // Periksa apakah array $tanggapanData memiliki elemen
+                                    if (!empty($tanggapanData)) {
+                                        $firstTanggapan = $tanggapanData[0]; // Mengambil elemen pertama dari array
+                                        $tanggapan_pjkp = $firstTanggapan['tanggapan_pjkp'];
+                                        $waktu_tanggapan = $firstTanggapan['tgl_tp'];
+                                    }
+                                @endphp
 
                             Nama Petugas : {{$cPrt->user->name}}
                             <hr>
@@ -600,7 +672,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_pjkp)){{ $tanggapan_pjkp }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" style="width: 80%; height: auto;">
+                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

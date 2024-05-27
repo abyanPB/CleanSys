@@ -47,10 +47,10 @@
               <tr>
                 <th>No</th>
                 <th>Status Tanggapan</th>
+                <th>Aksi</th>
                 <th>Nama Petugas</th>
                 <th>Waktu Laporan</th>
                 <th>Status Pekerjaan</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -58,15 +58,12 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    @if ($sGrt->tanggapanGrooming()->exists())
+                    @if ($sGrt->tanggapanGroomings()->exists())
                         <button type="button" class="btn btn-success" title="Supervisor sudah memberikan tanggapan"><i data-feather="check"></i></button>
                     @else
                         <button type="button" class="btn btn-warning" title="Supervisor belum memberikan tanggapan"><i data-feather="alert-circle"></i></button>
                     @endif
                 </td>
-                <td>{{$sGrt->user->name}}</td>
-                <td>{{$sGrt->tgl_lg}}</td>
-                <td>{{$sGrt->status_lg}}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGroomingReportResponse{{$sGrt->id_lg}}"><i data-feather="message-circle"></i></button>
 
@@ -74,6 +71,9 @@
                     @include('modals')
 
                 </td>
+                <td>{{$sGrt->user->name}}</td>
+                <td>{{$sGrt->tgl_lg}}</td>
+                <td>{{$sGrt->status_lg}}</td>
               </tr>
               @endforeach
             </tbody>

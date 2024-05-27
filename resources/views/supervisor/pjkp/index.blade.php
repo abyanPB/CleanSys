@@ -58,15 +58,12 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    @if ($sPrt->tanggapanPjkp()->exists())
+                    @if ($sPrt->tanggapanPjkps()->exists())
                         <button type="button" class="btn btn-success" title="Supervisor sudah memberikan tanggapan"><i data-feather="check"></i></button>
                     @else
                         <button type="button" class="btn btn-warning" title="Supervisor belum memberikan tanggapan"><i data-feather="alert-circle"></i></button>
                     @endif
                 </td>
-                <td>{{$sPrt->user->name}}</td>
-                <td>{{$sPrt->tgl_lp}}</td>
-                <td>{{$sPrt->status_lp}}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorPjkpReportResponse{{$sPrt->id_lp}}"><i data-feather="message-circle"></i></button>
 
@@ -74,6 +71,9 @@
                     @include('modals')
 
                 </td>
+                <td>{{$sPrt->user->name}}</td>
+                <td>{{$sPrt->tgl_lp}}</td>
+                <td>{{$sPrt->status_lp}}</td>
               </tr>
               @endforeach
             </tbody>

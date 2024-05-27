@@ -2,6 +2,7 @@
 
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -387,19 +388,17 @@
             <h6 class="card-title">Silakan ubah kata sandi default Anda.</h6>
             <form class="forms-sample" action="{{ route('defaultpass') }}" method="POST">
                 @csrf
-                @if (request()->user()->jk == null)
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                     <div class="col-sm-9">
-                        <select class="form-control" id="jk" name="jk">
+                        <select class="js-example-basic-single" id="jk" name="jk">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="laki-laki">Laki-Laki</option>
-                            <option value="perempuan">Perempuan</option>
+                            <option value="laki-laki" {{ request()->user()->jk == 'laki-laki'?'selected' : '' }}>Laki-Laki</option>
+                            <option value="perempuan" {{ request()->user()->jk == 'perempuan'?'selected' : '' }}>Perempuan</option>
                         </select>
                         <span class="form-bar text-danger">@error('jk'){{$message}}@enderror</span>
                     </div>
                 </div>
-                @endif
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Password Lama</label>
                     <div class="col-sm-9">
@@ -449,6 +448,8 @@
 @endsection
 
 @push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
   <script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
   <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
@@ -470,5 +471,9 @@
         }
     }
   </script>
-
+  <script>
+    $(".js-example-basic-single").select2({
+        tags: false
+    });
+  </script>
 @endpush

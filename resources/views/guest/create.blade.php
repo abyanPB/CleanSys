@@ -11,15 +11,6 @@
     {{session('success')}}
 </div>
 @endif
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
@@ -45,22 +36,22 @@
             <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja</label>
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja<span class="text-danger">*</span></label>
                     <div class="col-sm-9">
-                        <select class="js-example-basic-single" id="id_area" name="id_area">
+                        <select class="js-example-basic-single" id="area_id" name="area_id">
                             <option value="">Pilih Area Kerja</option>
                             @foreach ($areas as $area)
                                 <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                             @endforeach
                         </select>
-                        <span class="form-bar text-danger">@error('jk'){{$message}}@enderror</span>
+                        <span class="form-bar text-danger">@error('area_id'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Nama Guest</label>
+                    <label class="col-sm-3 col-form-label">Nama Guest<span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Nama Anda" name="nama_guest" id="nama_guest" value="{{ old('nama_guest') }}" required>
+                            <input type="text" class="form-control" placeholder="Masukkan Nama Anda" name="nama_guest" id="nama_guest" value="{{ old('nama_guest') }}">
                         </div>
                         <span class="form-bar text-danger">@error('nama_guest'){{$message}}@enderror</span>
                     </div>
@@ -69,22 +60,21 @@
                     <label class="col-sm-3 col-form-label">Jabatan Guest</label>
                     <div class="col-sm-9">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Posisi Anda, Contoh: Dosen/Mahasiswa" name="level_guest" id="level_guest" value="{{ old('level_guest') }}" required>
+                            <input type="text" class="form-control" placeholder="Masukkan Posisi Anda, Contoh: Dosen/Mahasiswa" name="level_guest" id="level_guest" value="{{ old('level_guest') }}">
                         </div>
-                        <span class="form-bar text-danger">@error('level_guest'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Keterangan</label>
+                    <label class="col-sm-3 col-form-label">Keterangan<span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <div class="input-group">
-                            <textarea id="ket_guest" name="ket_guest" class="form-control" maxlength="100" rows="8" placeholder="Masukan Keterangan Laporan"></textarea>
+                            <textarea id="ket_guest" name="ket_guest" class="form-control" maxlength="100" rows="8" placeholder="Masukan Keterangan Laporan, Contoh: Mas Galon Habis" value="{{ old('ket_guest') }}"></textarea>
                         </div>
                         <span class="form-bar text-danger">@error('ket_guest'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Foto Pekerjaan</label>
+                    <label class="col-sm-3 col-form-label">Foto Pekerjaan<span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <div class="form-group">
                             <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">
@@ -94,6 +84,7 @@
                                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                 </span>
                             </div>
+                            <span class="form-bar text-danger">@error('image_guest'){{$message}}@enderror</span>
                         </div>
                     </div>
                 </div>
@@ -105,6 +96,8 @@
                 </div>
                 {!! NoCaptcha::renderJs() !!}
                 {!! NoCaptcha::display() !!}
+                <span class="form-bar text-danger">@error('g-recaptcha-response'){{$message}}@enderror</span>
+                <br>
               <button type="submit" id="btnSubmit" class="btn btn-primary me-2">Kirim</button>
             </form>
           </div>
@@ -116,7 +109,6 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="https://www.recaptcha.net/recaptcha/api.js"></script>
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
