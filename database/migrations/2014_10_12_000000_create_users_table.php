@@ -27,7 +27,6 @@ return new class extends Migration
 
             $table->foreign('supervisor_id')->references('id_users')->on('users')->onDelete('set null');
         });
-
     }
 
     /**

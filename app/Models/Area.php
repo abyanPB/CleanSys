@@ -29,23 +29,27 @@ class Area extends Model
         });
     }
 
-    public function laporanGrooming(): HasMany
+    //Relasi ke Laporan Grooming
+    public function laporanGroomings(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->hasMany(LaporanGrooming::class, 'id_area', 'id_area');
+        return $this->hasMany(LaporanGrooming::class, 'area_id', 'id_area');
     }
 
-    public function laporanPjkp(): HasMany
+    //Relasi ke Laporan Pjkp
+    public function laporanPjkps(): HasMany
     {
-        return $this->hasMany(LaporanPjkp::class, 'id_area', 'id_area');
+        return $this->hasMany(LaporanPjkp::class, 'area_id', 'id_area');
     }
 
-    public function laporanGuest(): HasMany
+    //Relasi ke Laporan Guest
+    public function laporanGuests(): HasMany
     {
-        return $this->hasMany(LaporanGuest::class, 'id_area', 'id_area');
+        return $this->hasMany(LaporanGuest::class, 'area_id', 'id_area');
     }
 
-    public function users(): BelongsToMany
+    //Relasi ke Area Responsibility
+    public function areaResponsibilities(): HasMany
     {
-        return $this->belongsToMany(User::class, 'area_responsibilities', 'area_id', 'user_id');
+        return $this->hasMany(AreaResponsibility::class, 'area_id', 'id_area');
     }
 }

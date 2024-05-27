@@ -17,11 +17,10 @@ class LaporanPJKP extends Model
     protected $primaryKey='id_lp';
     protected $keyType = 'string';
     protected $fillable=[
-        'id_users',
-        'id_area',
-        'id_sop',
+        'user_id',
+        'area_id',
+        'sop_id',
         'tgl_lp',
-        'ket_lp',
         'image_lp',
         'status_lp'
     ];
@@ -34,23 +33,27 @@ class LaporanPJKP extends Model
         });
     }
 
-    public function user(): BelongsTo
+    // Relasi ke User
+    public function user(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(User::class, 'id_users', 'id_users');
+        return $this->belongsTo(User::class, 'user_id', 'id_users');
     }
 
+    //Relasi ke Area
     public function area(): BelongsTo
     {
-        return $this->belongsTo(Area::class, 'id_area', 'id_area');
+        return $this->belongsTo(Area::class, 'area_id', 'id_area');
     }
 
+    //Relasi ke Sop
     public function sop(): BelongsTo
     {
-        return $this->belongsTo(Sop::class, 'id_sop', 'id_sop');
+        return $this->belongsTo(Sop::class, 'sop_id', 'id_sop');
     }
 
-    public function tanggapanPjkp(): HasMany
+    //Relasi ke Tanggapan PJKP
+    public function tanggapanPjkps(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->hasMany(TanggapanPjkp::class, 'id_lp', 'id_lp');
+        return $this->hasMany(TanggapanPjkp::class, 'lp_id', 'id_lp');
     }
 }

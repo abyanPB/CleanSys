@@ -16,10 +16,10 @@ class TanggapanPJKP extends Model
     protected $primaryKey='id_tp';
     protected $keyType = 'string';
     protected $fillable=[
-        'id_lp',
+        'lp_id',
         'tgl_tp',
         'tanggapan_pjkp',
-        'id_users'
+        'user_id'
     ];
 
     protected static function boot()
@@ -30,13 +30,15 @@ class TanggapanPJKP extends Model
         });
     }
 
-    public function laporanPjkp(): BelongsTo
+    //Relasi ke Laporan PJKP
+    public function laporanPjkp(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(LaporanPjkp::class, 'id_lp', 'id_lp');
+        return $this->belongsTo(LaporanPjkp::class, 'lp_id', 'id_lp');
     }
 
+    //Relasi ke User
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_users', 'id_users');
+        return $this->belongsTo(User::class, 'user_id', 'id_users');
     }
 }

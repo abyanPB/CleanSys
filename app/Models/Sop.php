@@ -29,13 +29,15 @@ class Sop extends Model
         });
     }
 
-    public function laporanGrooming(): HasMany
+    //Relasi ke Laporan Grooming
+    public function laporanGroomings(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->hasMany(LaporanGrooming::class, 'id_sop', 'id_sop');
+        return $this->hasMany(LaporanGrooming::class, 'sop_id', 'id_sop');
     }
 
-    public function laporanPjkp(): HasMany
+    //Relasi ke Laporan Pjkp
+    public function laporanPjkps(): HasMany
     {
-        return $this->hasMany(LaporanPjkp::class, 'id_sop', 'id_sop');
+        return $this->hasMany(LaporanPjkp::class, 'sop_id', 'id_sop');
     }
 }

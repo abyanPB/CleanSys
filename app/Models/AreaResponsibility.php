@@ -4,25 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class LaporanGrooming extends Model
+
+class AreaResponsibility extends Model
 {
     use HasFactory;
 
-    protected $table='laporan_grooming';
-    protected $primaryKey='id_lg';
+    protected $table='area_responsibility';
+    protected $primaryKey='id_ar';
     protected $keyType = 'string';
     protected $fillable=[
         'user_id',
         'area_id',
-        'sop_id',
-        'tgl_lg',
-        'image_lg',
-        'status_lg',
     ];
 
     protected static function boot()
@@ -34,7 +30,7 @@ class LaporanGrooming extends Model
     }
 
     //Relasi ke User
-    public function user(): BelongsTo //BelongsTo (Foreign Key, Owner Key)
+    public function user(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
         return $this->belongsTo(User::class, 'user_id', 'id_users');
     }
@@ -43,17 +39,5 @@ class LaporanGrooming extends Model
     public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class, 'area_id', 'id_area');
-    }
-
-    //Relasi ke SOP
-    public function sop(): BelongsTo
-    {
-        return $this->belongsTo(Sop::class, 'sop_id', 'id_sop');
-    }
-
-    //Relasi ke Tanggapan Grooming
-    public function tanggapanGroomings(): HasMany //HasMany (Foreign Key, Local Key)
-    {
-        return $this->hasMany(TanggapanGrooming::class, 'lg_id', 'id_lg');
     }
 }

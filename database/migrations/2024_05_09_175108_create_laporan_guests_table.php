@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('laporan_guest', function (Blueprint $table) {
-            $table->uuid('id_lguest')->primary();
-            $table->uuid('id_area')->nullable();
+            $table->uuid('id_guest')->primary();
+            $table->uuid('area_id')->nullable();
             $table->string('nama_guest');
-            $table->string('level_guest');
+            $table->string('level_guest')->nullable();
             $table->string('image_guest');
             $table->datetime('tgl_guest');
             $table->text('ket_guest')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::table('laporan_guest', function (Blueprint $table) {
-            $table->foreign('id_area')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('area_id')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

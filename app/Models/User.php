@@ -51,39 +51,46 @@ class User extends Authenticatable
         });
     }
 
-    //Relasi ke Laporan Grooming
-    public function laporanGrooming(): HasMany
-    {
-        return $this->hasMany(LaporanGrooming::class, 'id_users', 'id_users');
-    }
-
-    //Relasi ke Laporan Pjkp
-    public function laporanPjkp(): HasMany
-    {
-        return $this->hasMany(LaporanPjkp::class, 'id_users', 'id_users');
-    }
-
-    //Relasi ke Tanggapan Grooming
-    public function tanggapanGrooming(): HasMany
-    {
-        return $this->hasMany(TanggapanGrooming::class, 'id_users', 'id_users');
-    }
-
-    //Relasi ke Tanggapan Pjkp
-    public function tanggapanPjkp(): HasMany
-    {
-        return $this->hasMany(TanggapanPjkp::class, 'id_users', 'id_users');
-    }
-
-    // Relasi ke supervisor
-    public function supervisor(): BelongsTo
+    // Relasi ke Supervisor
+    public function supervisor(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
         return $this->belongsTo(User::class, 'supervisor_id', 'id_users');
     }
 
-    public function areaResponsibilities(): BelongsToMany
+    //Relasi ke Supervisor
+    public function supervisorUsers(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->belongsToMany(Area::class, 'area_responsibilities', 'user_id', 'area_id');
+        return $this->hasMany(User::class, 'supervisor_id', 'id_users');
+    }
+
+    //Relasi ke Laporan Grooming
+    public function laporanGroomings(): HasMany
+    {
+        return $this->hasMany(LaporanGrooming::class, 'user_id', 'id_users');
+    }
+
+    //Relasi ke Laporan Pjkp
+    public function laporanPjkps(): HasMany
+    {
+        return $this->hasMany(LaporanPjkp::class, 'user_id', 'id_users');
+    }
+
+    //Relasi ke Tanggapan Grooming
+    public function tanggapanGroomings(): HasMany
+    {
+        return $this->hasMany(TanggapanGrooming::class, 'user_id', 'id_users');
+    }
+
+    //Relasi ke Tanggapan Pjkp
+    public function tanggapanPjkps(): HasMany
+    {
+        return $this->hasMany(TanggapanPjkp::class, 'user_id', 'id_users');
+    }
+
+    //Relasi ke Area Responsibility
+    public function areaResponsibilities(): HasMany
+    {
+        return $this->hasMany(AreaResponsibility::class, 'user_id', 'id_users');
     }
 
     /**

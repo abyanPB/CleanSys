@@ -27,9 +27,9 @@ return new class extends Migration
     {
         Schema::create('laporan_grooming', function (Blueprint $table) {
             $table->uuid('id_lg')->primary();
-            $table->uuid('id_users')->nullable();
-            $table->uuid('id_area')->nullable();
-            $table->uuid('id_sop')->nullable();
+            $table->uuid('user_id')->nullable();
+            $table->uuid('area_id')->nullable();
+            $table->uuid('sop_id')->nullable();
             $table->datetime('tgl_lg');
             $table->string('image_lg')->nullable();
             $table->enum('status_lg',['sebelum','proses','hasil']);
@@ -37,12 +37,11 @@ return new class extends Migration
         });
 
         Schema::table('laporan_grooming', function (Blueprint $table) {
-            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_area')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_sop')->references('id_sop')->on('sop')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('area_id')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sop_id')->references('id_sop')->on('sop')->onDelete('cascade')->onUpdate('cascade');
         });
     }
-
 
     /**
      * Reverse the migrations.

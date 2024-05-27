@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('area_responsibilities', function (Blueprint $table) {
-            $table->id();
+        Schema::create('area_responsibility', function (Blueprint $table) {
+            $table->uuid('id_ar')->primary();
             $table->uuid('user_id');
             $table->uuid('area_id');
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('area_responsibilities');
+        Schema::dropIfExists('area_responsibility');
     }
 };

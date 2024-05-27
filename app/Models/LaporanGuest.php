@@ -13,11 +13,10 @@ class LaporanGuest extends Model
     use HasFactory;
 
     protected $table = 'laporan_guest';
-    protected $primaryKey = 'id_lguest';
+    protected $primaryKey = 'id_guest';
     protected $ketType = 'string';
     protected $fillable = [
-        'id_lguest',
-        'id_area',
+        'area_id',
         'nama_guest',
         'level_guest',
         'image_guest',
@@ -33,8 +32,9 @@ class LaporanGuest extends Model
         });
     }
 
-    public function area(): BelongsTo
+    //Relasi ke Area
+    public function area(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(Area::class, 'id_area', 'id_area');
+        return $this->belongsTo(Area::class, 'area_id', 'id_area');
     }
 }
