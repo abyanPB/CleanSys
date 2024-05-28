@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AreaResponsibility;
 use App\Models\LaporanGrooming;
+use App\Models\LaporanGuest;
 use App\Models\LaporanPJKP;
 use App\Models\TanggapanGrooming;
 use App\Models\TanggapanPJKP;
@@ -17,7 +19,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        //Inisialisasi Waktu
+        // Inisialisasi Waktu
         $startOfMonth = now()->startOfMonth();
         $endOfMonth = now()->endOfMonth();
         $todayDate = now()->toDateString();
@@ -31,7 +33,7 @@ class DashboardController extends Controller
                     $query->where('status_lg', '=', 'hasil');
                 })->count(),
             'totalSelesaiPjkp' => TanggapanPJKP::whereBetween('tgl_tp', [$startOfMonth, $endOfMonth])
-                ->whereHas('laporanPjkp', function ($query){
+                ->whereHas('laporanPjkp', function ($query) {
                     $query->where('status_lp', '=', 'hasil');
                 })->count(),
             'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
@@ -40,29 +42,70 @@ class DashboardController extends Controller
         $SpvFilter = function ($query) use ($user) {
             $query->where('supervisor_id', $user->id_users);
         };
+
+        // Mendapatkan id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh SPV yang sedang login
+        $areaIds = AreaResponsibility::whereHas('user', $SpvFilter)->pluck('area_id');
+
+        // Menghitung jumlah laporan pengaduan berdasarkan id_area untuk hari ini
+        $laporanPengaduanToday = LaporanGuest::whereIn('area_id', $areaIds)
+            ->whereDate('tgl_guest', $todayDate)
+            ->count();
+
         // Data Supervisor
         $dataSpv = [
             'monthYearNow' => now()->format('F Y'),
             'totalAkunCleaner' => User::where('level', 'cleaner')->where('supervisor_id', $user->id_users)->count(),
-            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkps')->count(),
-            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGroomings')->count(),
-            'laporanGroomingSebelum' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'sebelum')->count(),
-            'laporanGroomingProses' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'proses')->count(),
-            'laporanGroomingHasil' => LaporanGrooming::whereHas('user', $SpvFilter)->whereDate('tgl_lg', $todayDate)->where('status_lg', 'hasil')->count(),
-            'laporanPjkpSebelum' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'sebelum')->count(),
-            'laporanPjkpProses' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'proses')->count(),
-            'laporanPjkpHasil' => LaporanPjkp::whereHas('user', $SpvFilter)->whereDate('tgl_lp', $todayDate)->where('status_lp', 'hasil')->count(),
+            'laporanPengaduanToday' => $laporanPengaduanToday,
+            'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lp', $todayDate)
+                ->whereDoesntHave('tanggapanPjkps')
+                ->count(),
+            'laporanGroomingBelumDitanggapi' => LaporanGrooming::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lg', $todayDate)
+                ->whereDoesntHave('tanggapanGroomings')
+                ->count(),
+            'laporanGroomingSebelum' => LaporanGrooming::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lg', $todayDate)
+                ->where('status_lg', 'sebelum')
+                ->count(),
+            'laporanGroomingProses' => LaporanGrooming::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lg', $todayDate)
+                ->where('status_lg', 'proses')
+                ->count(),
+            'laporanGroomingHasil' => LaporanGrooming::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lg', $todayDate)
+                ->where('status_lg', 'hasil')
+                ->count(),
+            'laporanPjkpSebelum' => LaporanPjkp::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lp', $todayDate)
+                ->where('status_lp', 'sebelum')
+                ->count(),
+            'laporanPjkpProses' => LaporanPjkp::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lp', $todayDate)
+                ->where('status_lp', 'proses')
+                ->count(),
+            'laporanPjkpHasil' => LaporanPjkp::whereHas('user', $SpvFilter)
+                ->whereDate('tgl_lp', $todayDate)
+                ->where('status_lp', 'hasil')
+                ->count(),
         ];
 
         // Data Cleaner
         $dataCleaner = [
-            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('user_id', $user->id_users)->whereDate('tgl_lg', $todayDate)->whereDoesntHave('tanggapanGroomings')->count(),
-            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('user_id', $user->id_users)->whereDate('tgl_lp', $todayDate)->whereDoesntHave('tanggapanPjkps')->count(),
+            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('user_id', $user->id_users)
+                ->whereDate('tgl_lg', $todayDate)
+                ->whereDoesntHave('tanggapanGroomings')
+                ->count(),
+            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('user_id', $user->id_users)
+                ->whereDate('tgl_lp', $todayDate)
+                ->whereDoesntHave('tanggapanPjkps')
+                ->count(),
         ];
 
         $title = 'Dashboard Sistem Monitoring Cleaning Service';
         return view('dashboard', compact('title', 'dataAdmin', 'dataSpv', 'dataCleaner'));
     }
+
 
     public function defaultPass(Request $request)
     {
