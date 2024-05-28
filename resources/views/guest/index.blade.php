@@ -23,50 +23,58 @@
 </div>
 @endif
 
-<div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h6 class="card-title">Daftar Penanggung Jawab Area Kerja</h6>
-        <div class="table-responsive">
-          <table id="dataTableExample" class="table">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama Cleaner</th>
-                <th>Area Tanggungan</th>
-              </tr>
-            </thead>
-            <tbody>
-                @php
-                    $no=1;
-                @endphp
-                @foreach ($cleaners  as $cleaner)
-              <tr>
-                <th scope="row">{{ $no++ }}</th>
-                <td>{{$cleaner->name}}</td>
-                <td>
-                    @foreach ($cleaner->areaResponsibilities as $ar)
-                        <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
-                    @endforeach
-                </td>
-                {{-- <td>
-                    <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info"><i data-feather="edit"></i></a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}"><i data-feather="trash-2"></i></button>
+@if (Auth::check())
+    @php
+        header("Location: " . route('dashboard'));
+        exit();
+    @endphp
+@else
+    <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+        <div class="card-body">
+            <h6 class="card-title">Daftar Penanggung Jawab Area Kerja</h6>
+            <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Cleaner</th>
+                    <th>Area Tanggungan</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $no=1;
+                    @endphp
+                    @foreach ($cleaners  as $cleaner)
+                <tr>
+                    <th scope="row">{{ $no++ }}</th>
+                    <td>{{$cleaner->name}}</td>
+                    <td>
+                        @foreach ($cleaner->areaResponsibilities as $ar)
+                            <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
+                        @endforeach
+                    </td>
+                    {{-- <td>
+                        <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}"><i data-feather="trash-2"></i></button>
 
-                    <!-- Modal -->
-                    @include('modals')
+                        <!-- Modal -->
+                        @include('modals')
 
-                </td> --}}
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+                    </td> --}}
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
+@endif
+
 @endsection
 
 @push('plugin-scripts')
