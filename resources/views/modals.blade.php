@@ -46,69 +46,69 @@
                 </div>
             {{-- End Cetak Pdf --}}
             @foreach ($adminGroomingReport as $aGr)
-                {{-- Modal Detail --}}
-                    <div class="modal fade" id="adminGroomingReportDetail{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->lg_id}}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->lg_id}}">Detail Laporan Grooming</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            Nama Petugas : {{$aGr->laporanGrooming->user->name}}
-                            <hr>
-                            Area Kerja : {{$aGr->laporanGrooming->area->nama_area}} {{$aGr->laporanGrooming->area->desc_area}}
-                            <hr>
-                            Sop Kerja : {{$aGr->laporanGrooming->sop->nama_sop}}
-                            <hr>
-                            Nama Supervisor : {{ $aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}
-                            <hr>
-                            Isi Tanggapan : {{$aGr->tanggapan_grooming}}
-                            <hr>
-                            Waktu Masuk : {{$aGr->laporanGrooming->tgl_lg}}
-                            <hr>
-                            Waktu Ditanggapi : {{$aGr->tgl_tg}}
-                            <hr>
-                            Status : {{$aGr->laporanGrooming->status_lg}}
-                            <hr>
-                            Foto :
-                            <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto;">
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            </div>
+            {{-- Modal Detail --}}
+                <div class="modal fade" id="adminGroomingReportDetail{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->lg_id}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->lg_id}}">Detail Laporan Grooming</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
+                        <div class="modal-body">
+                        Nama Petugas : {{$aGr->laporanGrooming->user->name}}
+                        <hr>
+                        Area Kerja : {{$aGr->laporanGrooming->area->nama_area}} {{$aGr->laporanGrooming->area->desc_area}}
+                        <hr>
+                        Sop Kerja : {{$aGr->laporanGrooming->sop->nama_sop}}
+                        <hr>
+                        Nama Supervisor : {{ $aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}
+                        <hr>
+                        Isi Tanggapan : {{$aGr->tanggapan_grooming}}
+                        <hr>
+                        Waktu Masuk : {{$aGr->laporanGrooming->tgl_lg}}
+                        <hr>
+                        Waktu Ditanggapi : {{$aGr->tgl_tg}}
+                        <hr>
+                        Status : {{$aGr->laporanGrooming->status_lg}}
+                        <hr>
+                        Foto :
+                        <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:1%">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         </div>
                     </div>
-                {{-- End Modal Detail --}}
+                    </div>
+                </div>
+            {{-- End Modal Detail --}}
 
-                {{-- Modal Hapus --}}
-                    <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->lg_id}}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->lg_id}}">Konfirmasi</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            Apakah anda yakin ingin menghapus data ini?
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form action="{{route('laporan-grooming.destroy',$aGr->lg_id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                            </div>
+            {{-- Modal Hapus --}}
+                <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->lg_id}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->lg_id}}">Konfirmasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
+                        <div class="modal-body">
+                        Apakah anda yakin ingin menghapus data ini?
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <form action="{{route('laporan-grooming.destroy',$aGr->lg_id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
                         </div>
                     </div>
-                {{-- End Modal Hapus --}}
+                    </div>
+                </div>
+            {{-- End Modal Hapus --}}
             @endforeach
         @endif
     {{-- End Laporan Grooming --}}
@@ -259,9 +259,9 @@
                             <hr>
                             Foto :
                             @if ($user->image_profile == null)
-                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto;">
+                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:1%">
                             @else
-                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto;">
+                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:1%">
                             @endif
                         </div>
                         <div class="modal-footer">

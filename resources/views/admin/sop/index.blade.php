@@ -53,7 +53,7 @@
                     @if ($sop->image_sop == null)
                     <i>Empty</i>
                     @else
-                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
+                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5% border-radius:1%">
                     @endif
                 </td>
                 <td>{{$sop->nama_sop}}</td>

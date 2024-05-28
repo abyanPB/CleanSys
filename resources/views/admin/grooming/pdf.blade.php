@@ -34,7 +34,7 @@
                         <td>{{ $aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
                         <td>{{ date("d-m-Y", strtotime($aGr->laporanGrooming->tgl_lg)); }}</td>
                         <td>{{ date("d-m-Y", strtotime($aGr->tgl_tg)) }}</td>
-                        <td><img src="{{public_path('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="" style="width: 100%; height: auto;"></td>
+                        <td><img src="{{public_path('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="" style="width: 80%; height: auto;border-radius:1%"></td>
                         <td>{{ $aGr->tanggapan_grooming }}</td>
                     </tr>
                 @endforeach
