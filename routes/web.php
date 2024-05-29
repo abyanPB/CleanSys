@@ -110,6 +110,7 @@ use Illuminate\Validation\Rules;
                     Route::get('Penanggung-Jawab-Area/Edit/{id_users}', [AreaResponsibilityController::class, 'editAreaResponsibilities'])->name('Penanggung-Jawab-Area.edit');
                     Route::put('Penanggung-Jawab-Area/Update/{id_users}', [AreaResponsibilityController::class,'updateAreaResponsibilities'])->name('Penanggung-Jawab-Area.update');
                     Route::delete('Penanggung-Jawab-Area/Delete', [AreaResponsibilityController::class,'resetAreaResponsibilities'])->name('Penanggung-Jawab-Area.reset');
+                    Route::post('Penanggung-Jawab-Area/Cetakpdf',[AreaResponsibilityController::class, 'generatePdf'])->name('cetakpdfAreaResponsibilities');
 
                 //Route for Laporan Grooming
                     Route::post('/Laporan-Grooming/Cetakpdf',[GroomingController::class, 'generatePdf'])->name('cetakpdfGrooming');

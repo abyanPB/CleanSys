@@ -357,30 +357,64 @@
 
     {{-- Start Area Responsibilities --}}
         @if(isset($cleanersArea))
-        {{-- Modal Hapus --}}
-            <div class="modal fade" id="deleteAreaResponsibilities" tabindex="-1" role="dialog" aria-labelledby="deleteAreaResponsibilities" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteAreaResponsibilities">Konfirmasi</h5>
+            {{-- Start Cetak Pdf --}}
+                <div class="modal fade" id="adminPrintAreaResponsibilities" tabindex="-1" role="dialog" aria-labelledby="adminPrintAreaResponsibilities" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="adminPrintAreaResponsibilities">Konfirmasi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                        <div class="modal-body">
-                            Apakah anda yakin ingin mereset semua data ini?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form action="{{route('Penanggung-Jawab-Area.reset')}}" method="POST">
+                            </div>
+                            <form action="{{ route('cetakpdfAreaResponsibilities') }}" method="POST" >
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Pilih Nama Pekerja :</label>
+                                        <br>
+                                        <select class="js-example-basic-multiple" style="width: 100%" name="selected_users[]" multiple>
+                                            @foreach ($cleanersArea as $user)
+                                                <option value="{{$user->id_users}}">{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <br>
+                                        <span class="text-danger">*kosongkan kolom ini jika ingin cetak semua</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="cancelButtonGrooming" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger" id="print_button">Cetak</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            {{-- End Cetak Pdf --}}
+            {{-- Modal Hapus --}}
+                <div class="modal fade" id="deleteAreaResponsibilities" tabindex="-1" role="dialog" aria-labelledby="deleteAreaResponsibilities" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteAreaResponsibilities">Konfirmasi</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah anda yakin ingin mereset semua data ini?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <form action="{{route('Penanggung-Jawab-Area.reset')}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {{-- Modal Hapus --}}
         @endif
     {{-- End Area Responsibilities --}}
@@ -578,9 +612,8 @@
                 </div>
             {{-- End Modal Tanggapan --}}
         @endif
-{{-- End Laporan Pjkp --}}
+    {{-- End Laporan Pjkp --}}
 {{-- END SUPERVISOR --}}
-
 
 {{-- START CLEANER --}}
     {{-- Start Laporan Grooming --}}

@@ -2,6 +2,8 @@
 
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -27,8 +29,9 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div style="padding-bottom: 1%">
+        <div style="padding-bottom: 10px">
             <button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteAreaResponsibilities"><i data-feather="refresh-cw"></i> RESET ALL DATA</button>
+            <button type="button" class="btn btn-primary btn-sm float-right" style="margin-right:10px" data-toggle="modal" data-target="#adminPrintAreaResponsibilities"><i data-feather="printer"></i> CETAK PDF</button>
         </div>
         <h6 class="card-title">Daftar Penanggung Jawab Area Kerja</h6>
         <div class="table-responsive">
@@ -47,7 +50,7 @@
                 @endphp
                 @foreach ($cleanersArea as $cleaner)
               <tr>
-                <th scope="row">{{ $no++ }}</th>
+                <td scope="row">{{ $no++ }}</td>
                 <td>{{$cleaner->name}}</td>
                 <td>
                     @if ($cleaner->areaResponsibilities->isEmpty())
@@ -76,8 +79,15 @@
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script>
+    $(".js-example-basic-multiple").select2({
+        tags: true,
+    });
+  </script>
 @endpush
