@@ -316,7 +316,7 @@
                             <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('showPengaduanSpv')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('showPelayananSpv')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
                             </div>
                         </div>
                         </div>

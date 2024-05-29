@@ -38,7 +38,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-                <h6 class="card-title">Silahkan Inputkan Pengaduan Anda</h6>
+                <h6 class="card-title">Silahkan Inputkan Laporan Anda</h6>
                 <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">

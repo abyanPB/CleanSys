@@ -88,8 +88,8 @@ use Illuminate\Validation\Rules;
                     Route::get('/Laporan-PJKP', [PjkpController::class, 'indexPjkpResponseSupervisor'])->name('showTanggapanPjkp');
                     Route::post('/Laporan-PJKP', [PjkpController::class, 'storePjkpResponseSupervisor'])->name('inputTanggapanPjkp');
 
-                //Route for Menampilkan Laporan Pengaduan
-                    Route::get('/Laporan-Pengaduan', [GuestController::class, 'showPengaduanSpv'])->name('showPengaduanSpv');
+                //Route for Menampilkan Laporan Pelayanan
+                    Route::get('/Laporan-Pelayanan', [GuestController::class, 'showPelayananSpv'])->name('showPelayananSpv');
             });
         //End Route Supervisor
 

@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Penanggung Jawab Ruang</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar Penanggung Area Kerja</li>
+    <li class="breadcrumb-item"><a href="#">Pelayanan</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Laporan Pelayanan</li>
   </ol>
 </nav>
 
@@ -27,7 +27,7 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Daftar Penanggung Jawab Area Kerja</h6>
+        <h6 class="card-title">Daftar Laporan Pelayanan</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>

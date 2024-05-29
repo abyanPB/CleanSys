@@ -88,7 +88,7 @@ class GuestController extends Controller
     //End Guest
 
     //Start Supervisor
-        public function showPengaduanSpv()
+        public function showPelayananSpv()
         {
             $user = Auth::user();
             $currentDate = now()->toDateString();

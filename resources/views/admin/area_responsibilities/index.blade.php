@@ -9,8 +9,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Area Kerja</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar Area Kerja</li>
+    <li class="breadcrumb-item"><a href="#">Penanggung Jawab Area</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Penanggung Jawab Area Kerja</li>
   </ol>
 </nav>
 

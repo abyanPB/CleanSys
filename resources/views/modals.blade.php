@@ -577,14 +577,14 @@
         @endif
     {{-- End Laporan Pjkp --}}
 
-    {{-- Start Laporan Pjkp --}}
+    {{-- Start Laporan Pelayanan --}}
         @if(isset($lGs))
-            {{-- Modal Tanggapan --}}
+            {{-- Modal Detail --}}
                 <div class="modal fade" id="supervisorGuestReport{{$lGs->id_guest}}" tabindex="-1" role="dialog" aria-labelledby="supervisorGuestReport" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="supervisorGuestReport">Detail Laporan Pjkp</h5>
+                                <h5 class="modal-title" id="supervisorGuestReport">Detail Laporan Pelayanan</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -610,9 +610,9 @@
                         </div>
                     </div>
                 </div>
-            {{-- End Modal Tanggapan --}}
+            {{-- End Modal Detail --}}
         @endif
-    {{-- End Laporan Pjkp --}}
+    {{-- End Laporan Pelayanan --}}
 {{-- END SUPERVISOR --}}
 
 {{-- START CLEANER --}}

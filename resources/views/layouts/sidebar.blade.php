@@ -71,9 +71,10 @@
                             <span class="link-title">Dashboard</span>
                         </a>
                     </li>
+                    <li class="nav-item nav-category">Laporan</li>
                     <li class="nav-item {{ active_class(['Supervisor/Laporan-Grooming*']) }}">
                         <a href="{{ route('showTanggapanGrooming') }}" class="nav-link">
-                            <i class="link-icon" data-feather="file-plus"></i>
+                            <i class="link-icon" data-feather="folder-plus"></i>
                             <span class="link-title">Grooming</span>
                         </a>
                     </li>
@@ -83,10 +84,10 @@
                             <span class="link-title">PJKP</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ active_class(['Supervisor/Laporan-Pengaduan*']) }}">
-                        <a href="{{ route('showPengaduanSpv') }}" class="nav-link">
+                    <li class="nav-item {{ active_class(['Supervisor/Laporan-Pelayanan*']) }}">
+                        <a href="{{ route('showPelayananSpv') }}" class="nav-link">
                         <i class="link-icon" data-feather="folder-plus"></i>
-                        <span class="link-title">Laporan Pengaduan</span>
+                        <span class="link-title">Pelayanan</span>
                         </a>
                     </li>
                 </div>
@@ -100,6 +101,7 @@
                             <span class="link-title">Dashboard</span>
                         </a>
                     </li>
+                    <li class="nav-item nav-category">Laporan</li>
                     <li class="nav-item {{ active_class(['Cleaner/Laporan-Grooming*']) }}">
                         <a href="{{ route('showLaporanGroomingCleaner') }}" class="nav-link">
                             <i class="link-icon" data-feather="file-plus"></i>
@@ -112,6 +114,7 @@
                             <span class="link-title">PJKP</span>
                         </a>
                     </li>
+                    <li class="nav-item nav-category">Tabel</li>
                     <li class="nav-item {{ active_class(['Cleaner/Sop*']) }}">
                         <a href="{{ route('showSopCleaner') }}" class="nav-link">
                             <i class="link-icon" data-feather="activity"></i>
@@ -164,7 +167,7 @@
                 <li class="nav-item {{ active_class(['Guest/create*']) }}">
                     <a href="{{ route('Guest.create') }}" class="nav-link">
                     <i class="link-icon" data-feather="folder-plus"></i>
-                    <span class="link-title">Laporan Pengaduan</span>
+                    <span class="link-title">Laporan Pelayanan</span>
                     </a>
                 </li>
                 <li class="nav-item nav-category">Tabel</li>
