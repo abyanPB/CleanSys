@@ -46,6 +46,7 @@
                         Login As Guest
                   </a>
                 </div>
+                <a href="{{ url('/forgot-password') }}" class="d-block mt-3 text-muted">Lupa Password?</a>
                 {{-- <a href="{{ url('/register') }}" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
               </form>
             </div>

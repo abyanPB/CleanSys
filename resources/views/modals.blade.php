@@ -273,7 +273,7 @@
             {{-- End Modal Detail --}}
 
             {{-- Modal Reset --}}
-                <div class="modal fade" id="resetPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="resetPengguna" aria-hidden="true">
+                {{-- <div class="modal fade" id="resetPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="resetPengguna" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -294,7 +294,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             {{-- End Modal Reset --}}
 
             {{-- Modal Hapus --}}
