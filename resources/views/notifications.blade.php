@@ -88,13 +88,13 @@
             var userId = '{{ $userId }}';
 
             if (userLevel === 'spv' && data.userId == userId) {
-                toastr.info('Guest dengan nama ' + data.name + ', baru saja memasukkan Laporan Guest, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
+                toastr.info('Visitor dengan nama ' + data.name + ', baru saja memasukkan Laporan Pelayanan, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
                 // Refresh halaman setelah 1 detik
                 setTimeout(function() {
                         location.reload();
                     }, 5000);
             } else if (userLevel === 'cleaner' && data.userId == userId) {
-                toastr.info('Guest dengan nama ' + data.name + ', baru saja memberikan tanggapan pada Laporan Guest, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
+                toastr.info('Visitor dengan nama ' + data.name + ', baru saja memberikan tanggapan pada Laporan Pelayanan, silahkan periksa pengaduan tersebut.', { timeOut: 4000 });
                 // Refresh halaman setelah 1 detik
                 setTimeout(function() {
                         location.reload();

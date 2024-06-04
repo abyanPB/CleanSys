@@ -58,7 +58,8 @@ use Illuminate\Validation\Rules;
 
         //Routes for Cleaner
             Route::middleware(['cleaner'])->prefix('Cleaner')->group(function () {
-                Route::get('/Sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
+                //Route for SOP
+                    Route::get('/Sop',[SopController::class, 'showSopCleaner'])->name('showSopCleaner');
 
                 //Routes for Grooming
                     Route::get('/Laporan-Grooming/Index',[GroomingController::class, 'indexGroomingDailyReportCleaner'])->name('showLaporanGroomingCleaner');
@@ -75,6 +76,9 @@ use Illuminate\Validation\Rules;
                     Route::get('/Laporan-PJKP/Edit/{id_lp}',[PjkpController::class, 'editPjkpDailyReportCleaner'])->name('editLaporanPjkpCleaner');
                     Route::put('/Laporan-PJKP/Update/{id_lp}',[PjkpController::class, 'updatePjkpDailyReportCleaner'])->name('updateLaporanPjkpCleaner');
                     Route::delete('/Laporan-PJKP/{id_lp}',[PjkpController::class, 'destroyPjkpDailyReportCleaner'])->name('destroyLaporanPjkpCleaner');
+
+                //Route for Menampilkan Laporan Pelayanan
+                    Route::get('/Laporan-Pelayanan', [GuestController::class, 'showPelayananCleaner'])->name('showPelayananCleaner');
             });
         //End Route Cleaner
 

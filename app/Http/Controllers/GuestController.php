@@ -61,14 +61,16 @@ class GuestController extends Controller
                 'g-recaptcha-response.required' => 'Captcha tidak boleh kosong',
             ]);
 
-            $supervisors = User::whereHas('areaResponsibilities', function ($query) use ($request) {
+            $Users = User::whereHas('areaResponsibilities', function ($query) use ($request) {
                 $query->where('area_id', $request->area_id);
             })->get();
 
-            $firstSupervisorId = $supervisors->first()->supervisor_id;
+            $firstSupervisorId = $Users->first()->supervisor_id;
+            $firstCleanerId = $Users->first()->id_users;
 
             if ($this->check_internet_connection()) {
                 event(new GuestEvent($request->nama_guest, $firstSupervisorId));
+                event(new GuestEvent($request->nama_guest, $firstCleanerId));
             }
 
             $imageName = $request->image_guest->getClientOriginalName();
@@ -102,10 +104,32 @@ class GuestController extends Controller
             // Dapatkan semua laporan pengaduan berdasarkan id_area
             $laporanGuestSpv = LaporanGuest::whereIn('area_id', $areaIds)
                                         ->whereDate('tgl_guest', $currentDate)
-                                        ->orderByDesc('created_at')
+                                        ->orderByDesc('tgl_guest')
                                         ->get();
 
             return view('supervisor.guest.index', compact('laporanGuestSpv', 'title'));
         }
     //End Supervisor
+
+    //Start Cleaner
+        public function showPelayananCleaner()
+        {
+            $user = Auth::user();
+            $currentDate = now()->toDateString();
+            $title = 'Daftar Laporan Pengaduan SPV';
+
+            // Dapatkan semua id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh SPV yang sedang login
+            $areaIds = AreaResponsibility::whereHas('user', function ($query) use ($user) {
+                $query->where('id_users', $user->id_users);
+            })->pluck('area_id');
+
+            // Dapatkan semua laporan pengaduan berdasarkan id_area
+            $laporanGuestCleaner = LaporanGuest::whereIn('area_id', $areaIds)
+                                        ->whereDate('tgl_guest', $currentDate)
+                                        ->orderByDesc('tgl_guest')
+                                        ->get();
+
+            return view('cleaner.guest.index', compact('laporanGuestCleaner', 'title'));
+        }
+    //End Cleaner
 }

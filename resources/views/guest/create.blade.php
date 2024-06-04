@@ -14,7 +14,7 @@
 
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
-    <h4 class="mb-3 mb-md-0">Selamat Datang Pengunjung</h4>
+    <h4 class="mb-3 mb-md-0">Selamat Datang Visitor</h4>
   </div>
   <div class="d-flex align-items-center flex-wrap text-nowrap">
     @php
@@ -42,10 +42,10 @@
                 <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area Kerja<span class="text-danger">*</span></label>
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Pilih Area<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="js-example-basic-single" id="area_id" name="area_id">
-                                <option value="">Pilih Area Kerja</option>
+                                <option value="">Tempat Yang Ingin Di Laporankan</option>
                                 @foreach ($areas as $area)
                                     <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                                 @endforeach
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-3 col-form-label">Nama Guest<span class="text-danger">*</span></label>
+                        <label class="col-sm-3 col-form-label">Nama Visitor<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Masukkan Nama Anda" name="nama_guest" id="nama_guest" value="{{ old('nama_guest') }}">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-3 col-form-label">Jabatan Guest</label>
+                        <label class="col-sm-3 col-form-label">Jabatan Visitor</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Masukkan Posisi Anda, Contoh: Dosen/Mahasiswa" name="level_guest" id="level_guest" value="{{ old('level_guest') }}">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-3 col-form-label">Foto Pekerjaan<span class="text-danger">*</span></label>
+                        <label class="col-sm-3 col-form-label">Foto Tempat<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">

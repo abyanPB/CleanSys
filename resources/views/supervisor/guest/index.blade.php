@@ -35,7 +35,7 @@
                 <th>No</th>
                 <th>Waktu Laporan</th>
                 <th>Area Kerja</th>
-                <th>Nama Guest</th>
+                <th>Nama Visitor</th>
                 <th>Aksi</th>
               </tr>
             </thead>

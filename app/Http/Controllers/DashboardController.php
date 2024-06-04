@@ -39,6 +39,7 @@ class DashboardController extends Controller
             'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
         ];
 
+        // Mendapatkan supervisor_id dari tabel User
         $SpvFilter = function ($query) use ($user) {
             $query->where('supervisor_id', $user->id_users);
         };
@@ -47,7 +48,7 @@ class DashboardController extends Controller
         $areaIds = AreaResponsibility::whereHas('user', $SpvFilter)->pluck('area_id');
 
         // Menghitung jumlah laporan pengaduan berdasarkan id_area untuk hari ini
-        $laporanPengaduanToday = LaporanGuest::whereIn('area_id', $areaIds)
+        $laporanPengaduanTodaySpv = LaporanGuest::whereIn('area_id', $areaIds)
             ->whereDate('tgl_guest', $todayDate)
             ->count();
 
@@ -55,7 +56,7 @@ class DashboardController extends Controller
         $dataSpv = [
             'monthYearNow' => now()->format('F Y'),
             'totalAkunCleaner' => User::where('level', 'cleaner')->where('supervisor_id', $user->id_users)->count(),
-            'laporanPengaduanToday' => $laporanPengaduanToday,
+            'laporanPengaduanTodaySpv' => $laporanPengaduanTodaySpv,
             'laporanPjkpBelumDitanggapi' => LaporanPjkp::whereHas('user', $SpvFilter)
                 ->whereDate('tgl_lp', $todayDate)
                 ->whereDoesntHave('tanggapanPjkps')
@@ -90,6 +91,19 @@ class DashboardController extends Controller
                 ->count(),
         ];
 
+        // Mendapatkan id cleaner dari tabel User
+        $CleanerFilter = function ($query) use ($user) {
+            $query->where('id_users', $user->id_users);
+        };
+
+        // Mendapatkan id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh Cleaner yang sedang login
+        $areaIds = AreaResponsibility::whereHas('user', $CleanerFilter)->pluck('area_id');
+
+        // Menghitung jumlah laporan pengaduan berdasarkan id_area untuk hari ini
+        $laporanPengaduanTodayCleaner = LaporanGuest::whereIn('area_id', $areaIds)
+            ->whereDate('tgl_guest', $todayDate)
+            ->count();
+
         // Data Cleaner
         $dataCleaner = [
             'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('user_id', $user->id_users)
@@ -100,6 +114,7 @@ class DashboardController extends Controller
                 ->whereDate('tgl_lp', $todayDate)
                 ->whereDoesntHave('tanggapanPjkps')
                 ->count(),
+            'laporanPengaduanTodayCleaner' => $laporanPengaduanTodayCleaner,
         ];
 
         $title = 'Dashboard Sistem Monitoring Cleaning Service';

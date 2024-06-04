@@ -41,6 +41,7 @@
                     <th>No</th>
                     <th>Nama Cleaner</th>
                     <th>Area Tanggungan</th>
+                    <th>No Telepon</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,9 +53,20 @@
                     <th scope="row">{{ $no++ }}</th>
                     <td>{{$cleaner->name}}</td>
                     <td>
-                        @foreach ($cleaner->areaResponsibilities as $ar)
-                            <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
-                        @endforeach
+                        @if ($cleaner->areaResponsibilities->isEmpty())
+                            -
+                        @else
+                            @foreach ($cleaner->areaResponsibilities as $ar)
+                                <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
+                            @endforeach
+                        @endif
+                    </td>
+                    <td>
+                        @if ($cleaner->no_telepon == null)
+                            -
+                        @else
+                            {{$cleaner->no_telepon}}
+                        @endif
                     </td>
                     {{-- <td>
                         <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info"><i data-feather="edit"></i></a>

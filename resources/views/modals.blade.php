@@ -74,7 +74,7 @@
                         Status : {{$aGr->laporanGrooming->status_lg}}
                         <hr>
                         Foto :
-                        <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:1%">
+                        <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:5%">
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -259,9 +259,9 @@
                             <hr>
                             Foto :
                             @if ($user->image_profile == null)
-                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:1%">
+                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:5%">
                             @else
-                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:1%">
+                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:5%">
                             @endif
                         </div>
                         <div class="modal-footer">
@@ -273,7 +273,7 @@
             {{-- End Modal Detail --}}
 
             {{-- Modal Reset --}}
-                {{-- <div class="modal fade" id="resetPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="resetPengguna" aria-hidden="true">
+                <div class="modal fade" id="resetPengguna{{$user->id_users}}" tabindex="-1" role="dialog" aria-labelledby="resetPengguna" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -294,7 +294,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             {{-- End Modal Reset --}}
 
             {{-- Modal Hapus --}}
@@ -500,7 +500,7 @@
                                         Status : {{$sGrt->status_lg}}
                                         <hr>
                                         Foto :
-                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -563,7 +563,7 @@
                                     Status : {{$sPrt->status_lp}}
                                     <hr>
                                     Foto :
-                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -592,16 +592,16 @@
                             <div class="modal-body">
                                     Area Kerja : {{$lGs->area->nama_area}} {{$lGs->area->desc_area}}
                                     <hr>
-                                    Nama Guest : {{$lGs->nama_guest}}
+                                    Nama Visitor : {{$lGs->nama_guest}}
                                     <hr>
-                                    Posisi Guest : {{$lGs->level_guest}}
+                                    Posisi Visitor : {{$lGs->level_guest}}
                                     <hr>
                                     Keterangan : {{$lGs->ket_guest}}
                                     <hr>
                                     Waktu Pengaduan : {{$lGs->tgl_guest}}
                                     <hr>
                                     Foto :
-                                    <img src="{{asset('images/laporan_guest/'.$lGs->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                                    <img src="{{asset('images/laporan_guest/'.$lGs->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -654,7 +654,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_grooming)){{ $tanggapan_grooming }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -730,7 +730,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_pjkp)){{ $tanggapan_pjkp }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:1%">
+                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

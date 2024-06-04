@@ -43,7 +43,7 @@
                   </button>
 
                   <a href="{{ route('Guest.create') }}" class="btn btn-info mr-2 mb-2 mb-md-0">
-                        Login As Guest
+                        Login As Visitor
                   </a>
                 </div>
                 <a href="{{ url('/forgot-password') }}" class="d-block mt-3 text-muted">Lupa Password?</a>
