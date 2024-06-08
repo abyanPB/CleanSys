@@ -10,7 +10,7 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Grooming</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Laporan Grooming</li>
+          <li class="breadcrumb-item active" aria-current="page">Laporan Grooming Supervisor</li>
         </ol>
       </nav>
     <div class="d-flex align-items-center flex-wrap text-nowrap">

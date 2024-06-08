@@ -8,7 +8,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">SOP</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar SOP</li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar SOP Cleaner</li>
   </ol>
 </nav>
 

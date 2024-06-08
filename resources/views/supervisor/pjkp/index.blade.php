@@ -9,7 +9,7 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Pjkp</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Laporan Pjkp</li>
+          <li class="breadcrumb-item active" aria-current="page">Laporan Pjkp Supervisor</li>
         </ol>
       </nav>
     <div class="d-flex align-items-center flex-wrap text-nowrap">
