@@ -31,27 +31,27 @@
         <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
+            <label>Area Kerja</label>
             <div class="form-group">
-                <label>Area Kerja</label>
-                <select class="js-example-basic-single w-100" id="area_id" name="area_id">
+                <select class="js-example-basic-single id="area_id" name="area_id">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
                     <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                     @endforeach
                 </select>
             </div>
+            <label>Sop Kerja</label>
             <div class="form-group">
-                <label>Sop Kerja</label>
-                <select class="js-example-basic-single w-100" id="sop_id" name="sop_id">
+                <select class="js-example-basic-single" id="sop_id" name="sop_id">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
                     <option value="{{$sop->id_sop}}">{{$sop->nama_sop}} </option>
                     @endforeach
                 </select>
             </div>
+            <label>Status Pekerjaan</label>
             <div class="form-group">
-                <label>Status Pekerjaan</label>
-                <select class="js-example-basic-single w-100" id="status_lg" name="status_lg">
+                <select class="js-example-basic-single" id="status_lg" name="status_lg">
                     <option value="">Pilih Status Pekerjaan</option>
                     <option value="sebelum">Sebelum</option>
                     <option value="proses">Proses</option>

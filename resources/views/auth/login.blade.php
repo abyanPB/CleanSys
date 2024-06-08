@@ -34,7 +34,12 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
-                  <input type="password" name="password" id="password" class="form-control" autocomplete="current-password" placeholder="Password">
+                  <div class="input-group">
+                    <input type="password" name="password" id="password" class="form-control" autocomplete="password" placeholder="Password">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password' )">
+                        <i data-feather="eye"></i>
+                    </button>
+                  </div>
                   <span class="form-bar text-danger">@error('password'){{$message}}@enderror</span>
                 </div>
                 <div class="mt-3">
@@ -58,3 +63,16 @@
 
 </div>
 @endsection
+
+@push('custom-scripts')
+  <script>
+    function togglePassword(inputId) {
+        var input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+        } else {
+            input.type = "password";
+        }
+    }
+  </script>
+@endpush

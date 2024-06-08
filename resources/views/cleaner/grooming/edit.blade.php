@@ -31,8 +31,8 @@
         <form id="take" class="forms-sample" action="{{route('updateLaporanGroomingCleaner',$lg->id_lg)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <label>Area Kerja</label>
             <div class="form-group">
-                <label>Area Kerja</label>
                 <select class="js-example-basic-single w-100" id="area_id" name="area_id">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
@@ -42,8 +42,8 @@
                     @endforeach
                 </select>
             </div>
+            <label>Sop Kerja</label>
             <div class="form-group">
-                <label>Sop Kerja</label>
                 <select class="js-example-basic-single w-100" id="sop_id" name="sop_id">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
@@ -53,8 +53,8 @@
                     @endforeach
                 </select>
             </div>
+            <label>Status Pekerjaan</label>
             <div class="form-group">
-                <label>Status Pekerjaan</label>
                 <select class="js-example-basic-single w-100" id="status_lg" name="status_lg">
                     <option value="">Pilih Status Pekerjaan</option>
                     <option value="sebelum" {{ $lg->status_lg == 'sebelum'?'selected' : '' }}>Sebelum</option>

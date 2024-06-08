@@ -13,6 +13,9 @@ License: You must have a valid license purchased only from https://themeforest.n
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="icon" href="{{ asset('images/logo/logo.ico') }}" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo/logo.png') }}">
+
   <!-- CSRF Token -->
   <meta name="_token" content="{{ csrf_token() }}">
 
