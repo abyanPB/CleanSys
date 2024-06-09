@@ -458,7 +458,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="supervisorGroomingReportResponse">Detail Laporan Grooming</h5>
+                                <h5 class="modal-title" id="supervisorGroomingReportResponse">Detail Laporan Grooming Supervisor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -521,7 +521,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="supervisorPjkpReportResponse">Detail Laporan Pjkp</h5>
+                                <h5 class="modal-title" id="supervisorPjkpReportResponse">Detail Laporan Pjkp Supervisor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -584,7 +584,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="supervisorGuestReport">Detail Laporan Pelayanan</h5>
+                                <h5 class="modal-title" id="supervisorGuestReport">Detail Laporan Pelayanan Supervisor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -594,7 +594,7 @@
                                     <hr>
                                     Nama Visitor : {{$lGs->nama_guest}}
                                     <hr>
-                                    Posisi Visitor : {{$lGs->level_guest}}
+                                    Jabatan Visitor : {{$lGs->level_guest}}
                                     <hr>
                                     Keterangan : {{$lGs->ket_guest}}
                                     <hr>
@@ -769,4 +769,41 @@
             {{-- End Modal Hapus Laporan --}}
         @endif
     {{-- End Laporan Pjkp --}}
+
+    {{-- Start Laporan Pelayanan --}}
+        @if(isset($lGc))
+        {{-- Modal Detail --}}
+            <div class="modal fade" id="cleanerGuestReport{{$lGc->id_guest}}" tabindex="-1" role="dialog" aria-labelledby="cleanerGuestReport" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cleanerGuestReport">Detail Laporan Pelayanan Cleaner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                Area Kerja : {{$lGc->area->nama_area}} {{$lGc->area->desc_area}}
+                                <hr>
+                                Nama Visitor : {{$lGc->nama_guest}}
+                                <hr>
+                                Jabatan Visitor : {{$lGc->level_guest}}
+                                <hr>
+                                Keterangan : {{$lGc->ket_guest}}
+                                <hr>
+                                Waktu Pengaduan : {{$lGc->tgl_guest}}
+                                <hr>
+                                Foto :
+                                <img src="{{asset('images/laporan_guest/'.$lGc->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{-- End Modal Detail --}}
+        @endif
+    {{-- End Laporan Pelayanan --}}
 {{-- END CLEANER --}}

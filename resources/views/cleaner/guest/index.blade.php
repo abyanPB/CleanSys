@@ -33,28 +33,28 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Waktu Laporan</th>
                 <th>Area Kerja</th>
                 <th>Nama Visitor</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
                 @php
                     $no=1;
                 @endphp
-                @foreach ($laporanGuestCleaner  as $lGs)
+                @foreach ($laporanGuestCleaner  as $lGc)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$lGs->tgl_guest}}</td>
                 <td>
-                    <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
-                <td>{{$lGs->nama_guest}}</td>
-                <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGuestReport{{$lGc->id_guest}}"><i data-feather="info"></i></button>
                     <!-- Modal -->
                     @include('modals')
                 </td>
+                <td>{{$lGc->tgl_guest}}</td>
+                <td>
+                    <span class="badge badge-primary">{{ $lGc->area->nama_area }} {{ $lGc->area->desc_area }}  </span>
+                <td>{{$lGc->nama_guest}}</td>
               </tr>
               @endforeach
             </tbody>

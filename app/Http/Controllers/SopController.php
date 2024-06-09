@@ -37,12 +37,12 @@ class SopController extends Controller
             $request->validate([
                 'nama_sop' => 'required|unique:sop',
                 'ket_sop' => 'required',
-                'image_sop' => 'required','mimes:jpg,bmp,png,jpeg,svg|max:2048',
+                'image_sop' => 'mimes:jpg,bmp,png,jpeg,svg|max:2048',
             ],[
                 'nama_sop.required' => 'Harap masukan nama SOP',
                 'nama_sop.unique' => 'Nama SOP sudah ada',
                 'ket_sop.required' => 'Harap masukan keterangan SOP',
-                'image_sop.required' => 'Harap masukan foto SOP',
+                // 'image_sop.required' => 'Harap masukan foto SOP',
                 'image_sop.mimes' => 'File yang anda masukan bukan file jpg,bmp,png,jpeg,svg',
                 'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
             ]);
