@@ -60,13 +60,13 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerPjkpReportDetail{{$cPrt->id_lp}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerPjkpReportDetail{{$cPrt->id_lp}}">Info</button>
 
                     @if ($cPrt->tanggapanPjkps()->exists())
 
                     @else
-                        <a href="{{route('editLaporanPjkpCleaner', $cPrt->id_lp)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeletePjkpReport{{$cPrt->id_lp}}"><i data-feather="trash-2"></i></button>
+                        <a href="{{route('editLaporanPjkpCleaner', $cPrt->id_lp)}}" class="btn btn-secondary">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeletePjkpReport{{$cPrt->id_lp}}">Hapus</button>
                     @endif
 
                     <!-- Modal -->
@@ -74,7 +74,7 @@
 
                 </td>
                 <td>
-                    <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto Pjkp" style="height: 75px; width:75px; border-radius:5%">
+                    <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto Pjkp" class="p-1 bg-light" style="height: 75px; width:75px; border-radius:5%">
                 </td>
                 <td>{{$cPrt->area->nama_area}}</td>
                 <td>{{$cPrt->tgl_lp}}</td>

@@ -69,8 +69,8 @@
                         @endif
                     </td>
                     {{-- <td>
-                        <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-info"><i data-feather="edit"></i></a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}"><i data-feather="trash-2"></i></button>
+                        <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}">Hapus</button>
 
                         <!-- Modal -->
                         @include('modals')

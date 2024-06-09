@@ -60,18 +60,18 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGroomingReportDetail{{$cGrt->id_lg}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGroomingReportDetail{{$cGrt->id_lg}}">Info</button>
                     @if ($cGrt->tanggapanGroomings()->exists())
 
                     @else
-                        <a href="{{route('editLaporanGroomingCleaner', $cGrt->id_lg)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeleteGroomingReport{{$cGrt->id_lg}}"><i data-feather="trash-2"></i></button>
+                        <a href="{{route('editLaporanGroomingCleaner', $cGrt->id_lg)}}" class="btn btn-secondary">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cleanerDeleteGroomingReport{{$cGrt->id_lg}}">Hapus</button>
                     @endif
                     <!-- Modal -->
                     @include('modals')
                 </td>
                 <td>
-                    <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto Grooming" style="height: 75px; width:75px; border-radius:5%">
+                    <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto Grooming" class="p-1 bg-light" style="height: 75px; width:75px; border-radius:5%">
                 </td>
                 <td>{{$cGrt->area->nama_area}}</td>
                 <td>{{$cGrt->tgl_lg}}</td>

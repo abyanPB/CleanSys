@@ -62,7 +62,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{route('Penanggung-Jawab-Area.edit', $cleaner->id_users)}}" class="btn btn-info"><i data-feather="edit"></i></a>
+                    <a href="{{route('Penanggung-Jawab-Area.edit', $cleaner->id_users)}}" class="btn btn-warning">Edit</a>
                     @include('modals')
                 </td>
               </tr>

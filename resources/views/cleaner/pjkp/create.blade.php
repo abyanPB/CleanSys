@@ -83,7 +83,22 @@
   </div>
 </div>
 
-<script>
+@endsection
+
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+@endpush
+
+
+@push('custom-scripts')
+  <script src="{{ asset('assets/js/file-upload.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script>
+    $(".js-example-basic-single").select2({
+        tags: true
+    });
+  </script>
+  <script>
     // Function to show submit button and photo preview after selecting photo
     function showSubmitButtonAndPreview() {
         var btnSubmit = document.getElementById("btnSubmit");
@@ -106,20 +121,4 @@
     var photoInput = document.getElementById("photoInput");
     photoInput.addEventListener("change", showSubmitButtonAndPreview);
 </script>
-
-@endsection
-
-@push('plugin-scripts')
-  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-@endpush
-
-
-@push('custom-scripts')
-  <script src="{{ asset('assets/js/file-upload.js') }}"></script>
-  <script src="{{ asset('assets/js/select2.js') }}"></script>
-  <script>
-    $(".js-example-basic-single").select2({
-        tags: true
-    });
-  </script>
 @endpush

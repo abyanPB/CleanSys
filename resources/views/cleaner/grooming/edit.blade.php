@@ -75,7 +75,7 @@
             <div id="photoPreview" class="form-group">
                 <label>Hasil Foto</label>
                 <figure>
-                    <img src="{{asset('images/laporan_grooming/'.$lg->image_lg)}}" alt="Foto SOP" style="width: 30%; height: auto; border-radius:5%">
+                    <img src="{{asset('images/laporan_grooming/'.$lg->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 30%; height: auto; border-radius:5%">
                 </figure>
             </div>
 

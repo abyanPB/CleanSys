@@ -57,9 +57,9 @@
                       {{-- <td>{{$lp->tgl_tp}}</td> --}}
                       {{-- <td>{{$lp->laporanPjkp->status_lp}}</td> --}}
                       <td>
-                          {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGrooming{{$lp->id_lp}}"><i data-feather="info"></i></button>
-                          <a href="{{route('laporan-grooming.edit', $lp->id_lp)}}" class="btn btn-secondary"><i data-feather="edit"></i></a>
-                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGrooming{{$lp->id_lp}}"><i data-feather="trash-2"></i></button> --}}
+                          {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailLaporanGrooming{{$lp->id_lp}}">Info</button>
+                          <a href="{{route('laporan-grooming.edit', $lp->id_lp)}}" class="btn btn-secondary">Edit</a>
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusLaporanGrooming{{$lp->id_lp}}">Hapus</button> --}}
 
                           <!-- Modal -->
                           @include('modals')

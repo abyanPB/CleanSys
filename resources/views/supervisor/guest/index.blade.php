@@ -51,7 +51,7 @@
                     <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
                 <td>{{$lGs->nama_guest}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}">Info</button>
                     <!-- Modal -->
                     @include('modals')
                 </td>

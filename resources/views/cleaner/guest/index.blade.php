@@ -47,7 +47,7 @@
               <tr>
                 <th scope="row">{{ $no++ }}</th>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGuestReport{{$lGc->id_guest}}"><i data-feather="info"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGuestReport{{$lGc->id_guest}}">Info</button>
                     <!-- Modal -->
                     @include('modals')
                 </td>

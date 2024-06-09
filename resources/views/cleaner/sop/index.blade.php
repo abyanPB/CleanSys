@@ -33,6 +33,7 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Foto</th>
                 <th>Nama</th>
                 <th>Keterangan</th>
@@ -46,14 +47,19 @@
               <tr>
                 <th scope="row">{{ $no++ }}</th>
                 <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailSopCleaner{{$sop->id_sop}}">Detail</i></button>
+                    <!-- Modal -->
+                    @include('modals', ['sop' => $sop])
+                </td>
+                <td>
                     @if ($sop->image_sop == null)
                     <i>Empty</i>
                     @else
-                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
+                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="height: 75px; width:75px; border-radius:5%">
                     @endif
                 </td>
                 <td>{{$sop->nama_sop}}</td>
-                <td>{{$sop->ket_sop}}</td>
+                <td>{{ \Illuminate\Support\Str::words($sop->ket_sop, 5, '...') }}</td>
               </tr>
               @endforeach
             </tbody>

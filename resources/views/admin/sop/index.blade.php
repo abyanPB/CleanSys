@@ -36,10 +36,10 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Foto</th>
                 <th>Nama</th>
                 <th>Keterangan</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -50,22 +50,21 @@
               <tr>
                 <th scope="row">{{ $no++ }}</th>
                 <td>
+                    <a href="{{route('sop.edit', $sop->id_sop)}}" class="btn btn-warning">Edit</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusSOP{{$sop->id_sop}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailSopAdmin{{$sop->id_sop}}">Info</button>
+                    <!-- Modal -->
+                    @include('modals', ['sop' => $sop])
+                </td>
+                <td>
                     @if ($sop->image_sop == null)
                         <i>Empty</i>
                     @else
-                        <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" style="height: 75px; width:75px; border-radius:5%">
+                        <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="height: 75px; width:75px; border-radius:5%">
                     @endif
                 </td>
                 <td>{{$sop->nama_sop}}</td>
-                <td>{{$sop->ket_sop}}</td>
-                <td>
-                    <a href="{{route('sop.edit', $sop->id_sop)}}" class="btn btn-info"><i data-feather="edit"></i></a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusSOP{{$sop->id_sop}}"><i data-feather="trash-2"></i></button>
-
-                    <!-- Modal -->
-                    @include('modals')
-
-                </td>
+                <td>{{ \Illuminate\Support\Str::words($sop->ket_sop, 5, '...') }}</td>
               </tr>
               @endforeach
             </tbody>
@@ -84,4 +83,14 @@
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <script>
+    $(document).ready(function() {
+      var table = $('#dataTableExample').DataTable();
+
+      // Inisialisasi ulang feather icons setiap kali tabel digambar ulang
+      table.on('draw', function() {
+        feather.replace();
+      });
+    });
+  </script>
 @endpush

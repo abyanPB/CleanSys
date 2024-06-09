@@ -67,8 +67,8 @@
                   <td>{{$aPr->tgl_tp}}</td>
                   <td>{{$aPr->laporanPjkp->status_lp}}</td>
                   <td>
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminPjkpReportDetail{{$aPr->lp_id}}"><i data-feather="info"></i></button>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeletePjkpReport{{$aPr->lp_id}}"><i data-feather="trash-2"></i></button>
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminPjkpReportDetail{{$aPr->lp_id}}">Info</button>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeletePjkpReport{{$aPr->lp_id}}">Hapus</button>
 
                       <!-- Modal -->
                       @include('modals')

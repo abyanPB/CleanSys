@@ -74,7 +74,7 @@
                         Status : {{$aGr->laporanGrooming->status_lg}}
                         <hr>
                         Foto :
-                        <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:5%">
+                        <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 80%; height: auto; border-radius:5%">
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -189,7 +189,7 @@
                                 Status : {{$aPr->laporanPjkp->status_lp}}
                                 <hr>
                                 Foto :
-                                <img src="{{asset('images/laporan_pjkp/'.$aPr->laporanPjkp->image_lp)}}" alt="Foto SOP" style="width: 80%; height: auto; border-radius:1px">
+                                <img src="{{asset('images/laporan_pjkp/'.$aPr->laporanPjkp->image_lp)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 80%; height: auto; border-radius:1px">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -259,9 +259,9 @@
                             <hr>
                             Foto :
                             @if ($user->image_profile == null)
-                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:5%">
+                                <img src="{{ url('https://ui-avatars.com/api/?name='.$user->name)}}" alt="Foto Pengguna" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
                             @else
-                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" style="width: 50%; height: auto; border-radius:5%">
+                                <img src="{{asset('images/pengguna/'.$user->image_profile)}}" alt="Foto Pengguna" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
                             @endif
                         </div>
                         <div class="modal-footer">
@@ -421,6 +421,43 @@
 
     {{-- Start SOP --}}
         @if(isset($sop))
+            {{-- Modal Detail --}}
+                <div class="modal fade" id="detailSopAdmin{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="detailSopAdmin" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="detailSopAdmin">Detail SOP</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="mb-3">
+                                <strong>Nama SOP:</strong>
+                                <p>{{$sop->nama_sop}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Keterangan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Foto:</strong>
+                                <div>
+                                    @if ($sop->image_sop == null)
+                                        <img src="" alt="Belum Memasukkan Foto" style="width: 50%; height: auto; border-radius:5%">
+                                    @else
+                                        <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {{-- End Modal Detail --}}
             {{-- Modal Hapus --}}
                 <div class="modal fade" id="hapusSOP{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="hapusSOPLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -500,7 +537,7 @@
                                         Status : {{$sGrt->status_lg}}
                                         <hr>
                                         Foto :
-                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                                        <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -563,7 +600,7 @@
                                     Status : {{$sPrt->status_lp}}
                                     <hr>
                                     Foto :
-                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                                    <img src="{{asset('images/laporan_pjkp/'.$sPrt->image_lp)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -601,7 +638,7 @@
                                     Waktu Pengaduan : {{$lGs->tgl_guest}}
                                     <hr>
                                     Foto :
-                                    <img src="{{asset('images/laporan_guest/'.$lGs->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                                    <img src="{{asset('images/laporan_guest/'.$lGs->image_guest)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -654,7 +691,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_grooming)){{ $tanggapan_grooming }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -730,7 +767,7 @@
                             Isi Tanggapan : @if (isset($tanggapan_pjkp)){{ $tanggapan_pjkp }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                            <img src="{{asset('images/laporan_pjkp/'.$cPrt->image_lp)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -794,7 +831,7 @@
                                 Waktu Pengaduan : {{$lGc->tgl_guest}}
                                 <hr>
                                 Foto :
-                                <img src="{{asset('images/laporan_guest/'.$lGc->image_guest)}}" alt="Foto SOP" style="width: 60%; height: 45%; border-radius:5%">
+                                <img src="{{asset('images/laporan_guest/'.$lGc->image_guest)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
                         </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -806,4 +843,46 @@
         {{-- End Modal Detail --}}
         @endif
     {{-- End Laporan Pelayanan --}}
+
+    {{-- Start SOP --}}
+    @if(isset($sop))
+        {{-- Modal Detail --}}
+            <div class="modal fade" id="detailSopCleaner{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="detailSopCleaner" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="detailSopCleaner">Detail SOP</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="mb-3">
+                            <strong>Nama SOP:</strong>
+                            <p>{{$sop->nama_sop}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Keterangan SOP:</strong>
+                            <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Foto:</strong>
+                            <div>
+                                @if ($sop->image_sop == null)
+                                    <img src="" alt="Belum Memasukkan Foto" style="width: 50%; height: auto; border-radius:5%">
+                                @else
+                                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {{-- End Modal Detail --}}
+    @endif
+    {{-- End SOP --}}
 {{-- END CLEANER --}}

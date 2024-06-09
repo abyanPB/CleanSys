@@ -50,10 +50,10 @@
                 <td>{{$user->email}}</td>
                 <td>{{$user->level}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailPengguna{{$user->id_users}}"><i data-feather="info"></i></button>
-                    <a href="{{route('user.edit', $user->id_users)}}" class="btn btn-info"><i data-feather="edit"></i></a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetPengguna{{$user->id_users}}"><i data-feather="refresh-cw"></i></button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPengguna{{$user->id_users}}"><i data-feather="trash-2"></i></button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailPengguna{{$user->id_users}}">Info</button>
+                    <a href="{{route('user.edit', $user->id_users)}}" class="btn btn-warning">Edit</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetPengguna{{$user->id_users}}">Reset</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPengguna{{$user->id_users}}">Hapus</button>
 
                     <!-- Modal -->
                     @include('modals')

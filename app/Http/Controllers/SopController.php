@@ -47,14 +47,22 @@ class SopController extends Controller
                 'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
             ]);
 
-            $imageName = $request->image_sop->getClientOriginalName();
-            $request->image_sop->move(public_path('images/sop/'), $imageName);
+            // Inisialisasi $imageName sebagai null
+            $imageName = null;
 
-            $q = Sop::where('image_sop','=',$request->image_sop)->count();
-            if ($q > 0) {
-                return redirect()->back();
+            // Jika image_sop ada dan valid
+            if ($request->hasFile('image_sop') && $request->file('image_sop')->isValid()) {
+                $imageName = $request->image_sop->getClientOriginalName();
+                $request->image_sop->move(public_path('images/sop/'), $imageName);
+
+                // Periksa apakah nama file sudah ada di database
+                $q = Sop::where('image_sop', '=', $imageName)->count();
+                if ($q > 0) {
+                    return redirect()->back()->withErrors(['image_sop' => 'File gambar sudah ada']);
+                }
             }
 
+            // Buat entri baru di database
             Sop::create([
                 'nama_sop' => $request->nama_sop,
                 'ket_sop' => $request->ket_sop,
