@@ -7,8 +7,8 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">User</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edit Data User</li>
+    <li class="breadcrumb-item"><a href="#">Pengguna</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Pengguna Provice Group</li>
   </ol>
 </nav>
 
@@ -26,7 +26,7 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Edit Data User Pekerjaan Cleaning Service</h6>
+        <h6 class="card-title">Edit Data Pengguna Provice Group</h6>
         <form class="forms-sample" action="{{route('user.update',$user->id_users)}}" method="POST">
             @csrf
             @method('PUT')
@@ -48,6 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="jk">Jenis Kelamin</label>
+                <br>
                 <select class="js-example-basic-single" id="jk" name="jk">
                     <option value="">Pilih Jenis Kelamin</option>
                     <option value="laki-laki" {{ $user->jk == 'laki-laki'?'selected' : '' }}>Laki-Laki</option>
@@ -56,6 +57,7 @@
             </div>
             <div class="form-group">
                 <label for="jk">Jabatan</label>
+                <br>
                 <select class="js-example-basic-single" id="level" name="level">
                     <option value="">Pilih Jabatan</option>
                     <option value="admin" {{ $user->level == 'admin'?'selected' : '' }}>Admin</option>
@@ -66,6 +68,7 @@
             @if ($user->level == 'cleaner')
                 <div class="form-group">
                     <label for="supervisor_id">Supervisor</label>
+                    <br>
                     <select class="js-example-basic-single" id="supervisor_id" name="supervisor_id">
                         <option value="" selected disabled>Pilih Supervisor</option>
                         @foreach ($supervisors as $supervisor)

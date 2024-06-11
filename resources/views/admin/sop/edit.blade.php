@@ -4,7 +4,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">SOP</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edit Data SOP</li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Data SOP Pekerjaan</li>
   </ol>
 </nav>
 
@@ -28,17 +28,17 @@
             @method('PUT')
             {{-- <input type="hidden" name="id_sop" value="{{$sop->id_sop}}"> --}}
             <div class="form-group">
-                <label for="nama_sop">Nama SOP</label>
+                <label for="nama_sop">Nama SOP<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="nama_sop" name="nama_sop" value="{{ $sop->nama_sop }}" autocomplete="off" placeholder="Nama SOP  : Swipping" required>
                 <span class="form-bar text-danger">@error('nama_sop'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
-                <label for="ket_sop">Keterangan SOP</label>
+                <label for="ket_sop">Keterangan SOP<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="ket_sop" name="ket_sop" value="{{ $sop->ket_sop }}" placeholder="Keterangan SOP : Melakukan pembersihan pada lantai dengan sapu" required>
                 <span class="form-bar text-danger">@error('ket_sop'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
-                <label>File upload</label>
+                <label>File upload<span class="text-danger">*</span></label>
                 <input type="file" name="image_sop" id="photoInput" class="file-upload-default">
                 <div class="input-group col-xs-12">
                 <input type="text" class="form-control file-upload-info" disabled="" value="{{$sop->image_sop}}">

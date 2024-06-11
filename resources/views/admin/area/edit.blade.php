@@ -28,13 +28,13 @@
             @method('PUT')
             {{-- <input type="hidden" name="id_area" value="{{$area->id_area}}"> --}}
             <div class="form-group">
-                <label for="nama_area">Nama Area Kerja</label>
+                <label for="nama_area">Nama Area Kerja<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="nama_area" name="nama_area" value="{{ $area->nama_area }}" autocomplete="off" placeholder="Nama area kerja : J 1.1" required>
                 <span class="form-bar text-danger">@error('nama_area'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
-                <label for="desc_area">Keterangan Area Kerja</label>
-                <input type="text" class="form-control" id="desc_area" name="desc_area" value="{{ $area->desc_area }}" placeholder="Keterangan area kerja : Lobby" required>
+                <label for="desc_area">Deskripsi Area Kerja<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="desc_area" name="desc_area" value="{{ $area->desc_area }}" placeholder="Deskripsi area kerja : Lobby" required>
                 <span class="form-bar text-danger">@error('desc_area'){{$message}}@enderror</span>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Update</button>

@@ -521,7 +521,7 @@
                                             </div>
                                         @else
                                             <div class="mb-3">
-                                                <label for="tanggapan_grooming" class="form-label">Masukan Tanggapan:</label>
+                                                <label for="tanggapan_grooming" class="form-label">Masukan Tanggapan: <span class="text-danger">!!! Jika sudah mengisi tidak dapat diubah !!!</span></label>
                                                 <textarea class="form-control" id="tanggapan_grooming" name="tanggapan_grooming"></textarea>
                                             </div>
                                         @endif
@@ -541,7 +541,11 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-danger">Kirim</button>
+                                    @if (!empty($tanggapanData))
+
+                                    @else
+                                        <button type="submit" class="btn btn-danger">Kirim</button>
+                                    @endif
                                 </div>
                             </form>
                         </div>
@@ -584,7 +588,7 @@
                                         </div>
                                     @else
                                         <div class="mb-3">
-                                            <label for="tanggapan_pjkp" class="form-label">Masukan Tanggapan:</label>
+                                            <label for="tanggapan_pjkp" class="form-label">Masukan Tanggapan: <span class="text-danger">!!! Jika sudah mengisi tidak dapat diubah !!!</span></label>
                                             <textarea class="form-control" id="tanggapan_pjkp" name="tanggapan_pjkp"></textarea>
                                         </div>
                                     @endif
@@ -604,7 +608,11 @@
                             </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-danger">Kirim</button>
+                                    @if (!empty($tanggapanData))
+
+                                    @else
+                                        <button type="submit" class="btn btn-danger">Kirim</button>
+                                    @endif
                                 </div>
                             </form>
                         </div>
@@ -845,44 +853,44 @@
     {{-- End Laporan Pelayanan --}}
 
     {{-- Start SOP --}}
-    @if(isset($sop))
-        {{-- Modal Detail --}}
-            <div class="modal fade" id="detailSopCleaner{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="detailSopCleaner" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="detailSopCleaner">Detail SOP</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="mb-3">
-                            <strong>Nama SOP:</strong>
-                            <p>{{$sop->nama_sop}}</p>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Keterangan SOP:</strong>
-                            <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Foto:</strong>
-                            <div>
-                                @if ($sop->image_sop == null)
-                                    <img src="" alt="Belum Memasukkan Foto" style="width: 50%; height: auto; border-radius:5%">
-                                @else
-                                    <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
-                                @endif
+        @if(isset($sop))
+            {{-- Modal Detail --}}
+                <div class="modal fade" id="detailSopCleaner{{$sop->id_sop}}" tabindex="-1" role="dialog" aria-labelledby="detailSopCleaner" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="detailSopCleaner">Detail SOP Cleaner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="mb-3">
+                                <strong>Nama SOP:</strong>
+                                <p>{{$sop->nama_sop}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Keterangan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Foto:</strong>
+                                <div>
+                                    @if ($sop->image_sop == null)
+                                        <img src="" alt="Belum Memasukkan Foto" style="width: 50%; height: auto; border-radius:5%">
+                                    @else
+                                        <img src="{{asset('images/sop/'.$sop->image_sop)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {{-- End Modal Detail --}}
-    @endif
+            {{-- End Modal Detail --}}
+        @endif
     {{-- End SOP --}}
 {{-- END CLEANER --}}

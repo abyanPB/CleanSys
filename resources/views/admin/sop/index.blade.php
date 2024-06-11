@@ -8,7 +8,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">SOP</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar SOP</li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar SOP Pekerjaan</li>
   </ol>
 </nav>
 
@@ -30,7 +30,7 @@
         <a href="{{route('sop.create')}}">
             <button type="submit" class="btn btn-primary float-right">+ Tambah SOP</button>
         </a>
-        <h6 class="card-title">Daftar SOP</h6>
+        <h6 class="card-title">Daftar SOP Pekerjaan</h6>
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>

@@ -52,7 +52,7 @@
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailPengguna{{$user->id_users}}">Info</button>
                     <a href="{{route('user.edit', $user->id_users)}}" class="btn btn-warning">Edit</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetPengguna{{$user->id_users}}">Reset</button>
+                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetPengguna{{$user->id_users}}">Reset</button> --}}
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPengguna{{$user->id_users}}">Hapus</button>
 
                     <!-- Modal -->

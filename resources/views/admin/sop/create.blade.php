@@ -4,7 +4,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">SOP</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Tambah Data SOP</li>
+    <li class="breadcrumb-item active" aria-current="page">Tambah Data SOP Pekerjaan</li>
   </ol>
 </nav>
 
@@ -27,17 +27,17 @@
         <form class="forms-sample" action="{{route('sop.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
           <div class="form-group">
-            <label for="nama_sop">Nama SOP</label>
+            <label for="nama_sop">Nama SOP<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="nama_sop" name="nama_sop" placeholder="Nama SOP : Swipping">
             <span class="form-bar text-danger">@error('nama_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
-            <label for="ket_sop">Keterangan SOP</label>
+            <label for="ket_sop">Keterangan SOP<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="ket_sop" name="ket_sop" placeholder="Keterangan SOP : Melakukan pembersihan pada lantai dengan sapu">
             <span class="form-bar text-danger">@error('ket_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
-            <label>File upload</label>
+            <label>File upload<span class="text-danger">*</span></label>
             <input type="file" name="image_sop" id="photoInput" class="file-upload-default">
             <div class="input-group col-xs-12">
               <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">

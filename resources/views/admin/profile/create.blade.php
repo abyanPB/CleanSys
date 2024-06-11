@@ -41,20 +41,8 @@
                 <span class="form-bar text-danger">@error('email'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
-                <label for="no_telepon">Nomor Telepon</label>
-                <input type="text" class="form-control" id="no_telepon" placeholder="Nomor Telepon" name="no_telepon" value="{{old('no_telepon')}}">
-                <span class="form-bar text-danger">@error('no_telepon'){{$message}}@enderror</span>
-            </div>
-            <div class="form-group">
-                <label for="jk">Jenis Kelamin</label>
-                <select class="js-example-basic-single" id="jk" name="jk">
-                  <option selected disabled>Pilih Jenis Kelamin</option>
-                  <option value="laki-laki">Laki-Laki</option>
-                  <option value="perempuan">Perempuan</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="level">Jabatan</label>
+                <label for="level">Jabatan<span class="text-danger">*</span></label>
+                <br>
                 <select class="js-example-basic-single" id="level" name="level">
                   <option selected disabled>Pilih Jabatan Pekerja, Jika dikosongkan otomatis terisi "Cleaner"</option>
                   <option value="admin">Admin</option>
@@ -70,6 +58,20 @@
                         <option value="{{ $supervisor->id_users }}">{{ $supervisor->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="jk">Jenis Kelamin</label>
+                <br>
+                <select class="js-example-basic-single" id="jk" name="jk">
+                  <option selected disabled>Pilih Jenis Kelamin</option>
+                  <option value="laki-laki">Laki-Laki</option>
+                  <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="no_telepon">Nomor Telepon</label>
+                <input type="text" class="form-control" id="no_telepon" placeholder="Nomor Telepon" name="no_telepon" value="{{old('no_telepon')}}">
+                <span class="form-bar text-danger">@error('no_telepon'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

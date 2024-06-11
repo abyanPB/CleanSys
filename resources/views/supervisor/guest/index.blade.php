@@ -33,10 +33,10 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Aksi</th>
                 <th>Waktu Laporan</th>
                 <th>Area Kerja</th>
                 <th>Nama Visitor</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -46,15 +46,15 @@
                 @foreach ($laporanGuestSpv  as $lGs)
               <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{$lGs->tgl_guest}}</td>
-                <td>
-                    <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
-                <td>{{$lGs->nama_guest}}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}">Info</button>
                     <!-- Modal -->
                     @include('modals')
                 </td>
+                <td>{{$lGs->tgl_guest}}</td>
+                <td>
+                    <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
+                <td>{{$lGs->nama_guest}}</td>
               </tr>
               @endforeach
             </tbody>

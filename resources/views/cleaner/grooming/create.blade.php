@@ -31,7 +31,7 @@
         <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
-            <label>Area Kerja</label>
+            <label>Area Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
                 <select class="js-example-basic-single" id="area_id" name="area_id">
                     <option value="">Pilih Area Kerja</option>
@@ -40,7 +40,7 @@
                     @endforeach
                 </select>
             </div>
-            <label>Sop Kerja</label>
+            <label>Sop Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
                 <select class="js-example-basic-single" id="sop_id" name="sop_id">
                     <option value="">Pilih Sop Kerja</option>
@@ -49,7 +49,7 @@
                     @endforeach
                 </select>
             </div>
-            <label>Status Pekerjaan</label>
+            <label>Status Pekerjaan<span class="text-danger">*</span></label>
             <div class="form-group">
                 <select class="js-example-basic-single" id="status_lg" name="status_lg">
                     <option value="">Pilih Status Pekerjaan</option>
@@ -59,7 +59,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Foto Pekerjaan</label>
+                <label>Foto Pekerjaan<span class="text-danger">*</span></label>
                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">
                 <div class="input-group col-xs-12">
                   <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">

@@ -38,7 +38,7 @@
             <span class="form-bar text-danger">@error('user_id'){{ $message }}@enderror</span>
           </div>
           <div class="form-group">
-            <label for="area_id">Area Tanggungan</label>
+            <label for="area_id">Area Tanggungan<span class="text-danger">*</span></label>
             <select class="js-example-basic-multiple" style="width: 100%" name="area_id[]" id="area_id" multiple>
                 <option value="">Pilih Area Tanggungan</option>
                 @foreach ($availableAreas as $area)
@@ -49,7 +49,7 @@
             </select>
             <span class="form-bar text-danger">@error('area_id'){{ $message }}@enderror</span>
           </div>
-          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button type="submit" class="btn btn-primary mr-2">Update</button>
           <a href="{{route('Penanggung-Jawab-Area.index')}}" class="btn btn-light">Cancel</a>
         </form>
       </div>
