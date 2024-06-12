@@ -222,6 +222,124 @@
         @endif
     {{-- End Laporan Pjkp --}}
 
+    {{-- Start Laporan Pelayanan --}}
+        @if(isset($lGa))
+        {{-- Start Cetak Pdf --}}
+            <div class="modal fade" id="adminPrintPelayananReport" tabindex="-1" role="dialog" aria-labelledby="adminPrintPelayananReport" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="adminPrintPelayananReport">Konfirmasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <form target="_blank" action="{{ route('cetakpdfPelayanan') }}" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto">
+                                    <label for="startdate">Dari Tanggal :</label>
+                                    <input type="date" name="start_date" class="form-control mb-2" id="start_date">
+                                    </div>
+                                    <div class="col-auto">
+                                    <label for="enddate">Hingga Tanggal :</label>
+                                    <input type="date" name="end_date" class="form-control mb-2" id="end_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="cancelButtonPjkp" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-danger" id="print_button">Cetak</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{-- End Cetak Pdf --}}
+
+        @foreach ($laporanGuestAdmin as $lGa)
+        {{-- Modal Detail --}}
+            <div class="modal fade" id="adminPelayananReportDetail{{$lGa->id_guest}}" tabindex="-1" role="dialog" aria-labelledby="adminPelayananReportDetail{{$lGa->id_guest}}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="adminPelayananReportDetail{{$lGa->id_guest}}">Detail Laporan Pelayanan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <strong>Waktu Pengaduan Pelayanan :</strong>
+                                <p>
+                                    {{$lGa->tgl_guest}}
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Lokasi Pengaduan Pelayanan :</strong>
+                                <p>
+                                    <span class="badge badge-primary"> {{$lGa->area->nama_area}} {{$lGa->area->desc_area}} </span>
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nama Visitor :</strong>
+                                <p>
+                                    {{$lGa->nama_guest}}
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Jabatan Visitor :</strong>
+                                <p>
+                                    {{$lGa->level_guest}}
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Keterangan Laporan :</strong>
+                                <p>
+                                    {{$lGa->ket_guest}}
+                                </p>
+                            </div>
+                            Foto :
+                            <img src="{{asset('images/laporan_guest/'.$lGa->image_guest)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 60%; border-radius:1px">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{-- End Modal Detail --}}
+
+        {{-- Modal Hapus --}}
+            <div class="modal fade" id="adminDeletePelayananReport{{$lGa->id_guest}}" tabindex="-1" role="dialog" aria-labelledby="adminDeletePelayananReport{{$lGa->id_guest}}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="adminDeletePelayananReport{{$lGa->id_guest}}">Konfirmasi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah anda yakin ingin menghapus data ini?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <form action="{{route('laporan-pelayanan.destroy', $lGa->id_guest)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{-- End Modal Hapus --}}
+        @endforeach
+    @endif
+    {{-- End Laporan Pelayanan --}}
+
     {{-- Start Profile --}}
         @if(isset($user))
             {{-- Modal Detail --}}

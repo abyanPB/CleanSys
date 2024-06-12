@@ -137,7 +137,7 @@ class AreaResponsibilityController extends Controller
             }
             $title = 'Daftar Penanggung Jawab Area Kerja';
             $pdf = Pdf::loadView('admin.area_responsibilities.pdf',compact('printData', 'title'));
-            return $pdf->stream("$title");
+            return $pdf->download("$title");
         }
     //End Admin
 }

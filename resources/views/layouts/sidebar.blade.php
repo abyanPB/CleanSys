@@ -34,6 +34,12 @@
                             <span class="link-title">PJKP</span>
                             </a>
                         </li>
+                        <li class="nav-item {{ active_class(['Admin/Laporan-Pelayanan*']) }}">
+                            <a href="{{ route('laporan-pelayanan.index') }}" class="nav-link">
+                            <i class="link-icon" data-feather="folder-plus"></i>
+                            <span class="link-title">Pelayanan</span>
+                            </a>
+                        </li>
                         <li class="nav-item nav-category">Kelola</li>
                         <li class="nav-item {{ active_class(['Admin/User*']) }}">
                             <a href="{{ route('user.index') }}" class="nav-link">

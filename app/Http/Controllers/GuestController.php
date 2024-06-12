@@ -8,8 +8,11 @@ use App\Models\Area;
 use App\Models\AreaResponsibility;
 use App\Models\LaporanGuest;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class GuestController extends Controller
 {
@@ -26,6 +29,62 @@ class GuestController extends Controller
             return false; // Tidak terhubung ke internet
         }
     }
+
+    //Start Admin
+    /**
+         * Display a listing of the resource.
+         */
+        public function index()
+        {
+            $title = 'Daftar Laporan Pengaduan Pelayanan Admin';
+            $laporanGuestAdmin = LaporanGuest::orderByDesc('tgl_guest')->get();
+            return view('admin.guest.index', compact('laporanGuestAdmin', 'title'));
+        }
+
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy(string $id)
+        {
+            $pelayanan = LaporanGuest::findOrFail($id);
+            $path = 'images/laporan_guest/';
+            File::delete(public_path($path . $pelayanan['image_guest']));
+            $pelayanan->delete();
+            return redirect()->route('laporan-pelayanan.index')->with('success', 'Laporan Pelayanan berhasil dihapus');
+        }
+
+        function getMonthYearName($startDate, $endDate) {
+            $startMonth = date('F', strtotime($startDate)); // Ambil nama bulan dari tanggal awal
+            $startYear = date('Y', strtotime($startDate)); // Ambil tahun dari tanggal awal
+
+            $endMonth = date('F', strtotime($endDate)); // Ambil nama bulan dari tanggal akhir
+            $endYear = date('Y', strtotime($endDate)); // Ambil tahun dari tanggal akhir
+
+            if ($startMonth == $endMonth && $startYear == $endYear) {
+                // Jika bulan dan tahun sama, tampilkan hanya satu bulan dan tahun
+                return "$startMonth $startYear";
+            } else {
+                // Jika berbeda, tampilkan rentang bulan dan tahun
+                return "$startMonth $startYear - $endMonth $endYear";
+            }
+        }
+
+        //Fungsi untuk mencetak PDF
+        public function generatePdf(Request $request){
+            $selectedUsers = $request->input('selected_users',[]);//Mendaparkan inputan user dari inputan
+
+            //Validasi tanggal
+            if (($request->start_date == '') || ($request->end_date == '')) {
+                return redirect()->route('laporan-pelayanan.index')->with('error','Cetak gagal ! Harap isi kedua tanggal !');
+            }else{
+                $printData = LaporanGuest::whereBetween('tgl_guest', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
+                $title = 'Laporan Pengaduan Pelayanan Provice Group';
+                $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
+                $pdf = Pdf::loadView('admin.guest.pdf',compact('printData', 'title', 'nameMonthYear'));
+                return $pdf->download("$title - $request->start_date - $request->end_date");
+            }
+        }
+    //End Admin
 
     //Start Guest
         /**

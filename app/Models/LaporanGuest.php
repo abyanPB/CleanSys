@@ -14,7 +14,7 @@ class LaporanGuest extends Model
 
     protected $table = 'laporan_guest';
     protected $primaryKey = 'id_guest';
-    protected $ketType = 'string';
+    protected $keyType = 'string';
     protected $fillable = [
         'area_id',
         'nama_guest',

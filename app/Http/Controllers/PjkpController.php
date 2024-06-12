@@ -99,7 +99,7 @@ class PjkpController extends Controller
                 $title = 'Laporan PJKP Provice Group';
                 $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
                 $pdf = Pdf::loadView('admin.pjkp.pdf',compact('printData', 'title', 'nameMonthYear'));
-                return $pdf->stream("$title - $request->start_date - $request->end_date");
+                return $pdf->download("$title - $request->start_date - $request->end_date");
             }
         }
     //End Admin

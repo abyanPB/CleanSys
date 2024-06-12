@@ -92,7 +92,7 @@ class GroomingController extends Controller
                 $title = 'Laporan Grooming Provice Group';
                 $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
                 $pdf = Pdf::loadView('admin.grooming.pdf',compact('printData', 'title', 'nameMonthYear'));
-                return $pdf->stream("$title - $request->start_date - $request->end_date");
+                return $pdf->download("$title - $request->start_date - $request->end_date");
             }
         }
     //End Admin

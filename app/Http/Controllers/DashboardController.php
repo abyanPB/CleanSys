@@ -36,6 +36,7 @@ class DashboardController extends Controller
                 ->whereHas('laporanPjkp', function ($query) {
                     $query->where('status_lp', '=', 'hasil');
                 })->count(),
+            'totalPelayanan' => LaporanGuest::whereBetween('tgl_guest', [$startOfMonth, $endOfMonth])->count(),
             'totalAkunCleaner' => User::where('level', 'cleaner')->count(),
         ];
 

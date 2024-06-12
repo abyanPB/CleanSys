@@ -130,6 +130,13 @@ use Illuminate\Validation\Rules;
                         'destroy' => 'laporan-pjkp.destroy',
                     ]);
 
+                //Route for Laporan Pelayanan
+                    Route::post('/Laporan-Pelayanan/Cetakpdf',[GuestController::class, 'generatePdf'])->name('cetakpdfPelayanan');
+                    Route::resource('Laporan-Pelayanan', GuestController::class)->names([
+                        'index' => 'laporan-pelayanan.index',
+                        'destroy' => 'laporan-pelayanan.destroy',
+                    ]);
+
                 //Route for Area
                     Route::resource('Area', areaController::class)->names([
                         'index' => 'area.index',
