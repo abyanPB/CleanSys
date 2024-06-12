@@ -29,9 +29,7 @@ class DashboardController extends Controller
         $dataAdmin = [
             'monthYearNow' => now()->format('F Y'),
             'totalSelesaiGrooming' => TanggapanGrooming::whereBetween('tgl_tg', [$startOfMonth, $endOfMonth])
-                ->whereHas('laporanGrooming', function ($query) {
-                    $query->where('status_lg', '=', 'hasil');
-                })->count(),
+                ->whereHas('laporanGrooming')->count(),
             'totalSelesaiPjkp' => TanggapanPJKP::whereBetween('tgl_tp', [$startOfMonth, $endOfMonth])
                 ->whereHas('laporanPjkp', function ($query) {
                     $query->where('status_lp', '=', 'hasil');
