@@ -39,7 +39,8 @@
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Cleaner</th>
+                    <th>Aksi</th>
+                    <th>Nama Petugas</th>
                     <th>Area Tanggungan</th>
                     <th>No Telepon</th>
                 </tr>
@@ -48,34 +49,41 @@
                     @php
                         $no=1;
                     @endphp
-                    @foreach ($cleaners  as $cleaner)
+                    @foreach ($cleaners  as $guest)
                 <tr>
                     <th scope="row">{{ $no++ }}</th>
-                    <td>{{$cleaner->name}}</td>
                     <td>
-                        @if ($cleaner->areaResponsibilities->isEmpty())
-                            -
-                        @else
-                            @foreach ($cleaner->areaResponsibilities as $ar)
-                                <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
-                            @endforeach
-                        @endif
-                    </td>
-                    <td>
-                        @if ($cleaner->no_telepon == null)
-                            -
-                        @else
-                            {{$cleaner->no_telepon}}
-                        @endif
-                    </td>
-                    {{-- <td>
-                        <a href="{{route('area.edit', $area->id_area)}}" class="btn btn-warning">Edit</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusArea{{$area->id_area}}">Hapus</button>
-
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailAreaResponsibilitiesGuest{{$guest->id_users}}">Detail</i></button>
                         <!-- Modal -->
                         @include('modals')
+                    </td>
+                    <td>{{$guest->name}}</td>
+                    <td>
+                        @if ($guest->areaResponsibilities->isEmpty())
+                            -
+                        @else
+                            @php
+                                $areas = $guest->areaResponsibilities;
+                                $displayAreas = $areas->slice(0, 2);
+                                $remainingCount = $areas->count() - $displayAreas->count();
+                            @endphp
 
-                    </td> --}}
+                            @foreach ($displayAreas as $ar)
+                                <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}</span>
+                            @endforeach
+
+                            @if ($remainingCount > 0)
+                                <span class="badge badge-secondary">... {{ $remainingCount }} more</span>
+                            @endif
+                        @endif
+                    </td>
+                    <td>
+                        @if ($guest->no_telepon == null)
+                            -
+                        @else
+                            {{$guest->no_telepon}}
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -96,4 +104,14 @@
 
 @push('custom-scripts')
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <style>
+    .badge-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .badge-container .badge {
+        margin: 2px;
+    }
+</style>
 @endpush

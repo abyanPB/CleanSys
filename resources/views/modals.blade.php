@@ -176,7 +176,7 @@
                                 <hr>
                                 Isi Tanggapan : {{$aPr->tanggapan_pjkp}}
                                 <hr>
-                                Waktu Laporan Masuk : {{$aPr->laporanPjkp->tgl_lp}}
+                                Waktu Masuk : {{$aPr->laporanPjkp->tgl_lp}}
                                 <hr>
                                 Waktu Laporan di Tanggapi : {{$aPr->tgl_tp}}
                                 <hr>
@@ -385,6 +385,40 @@
                     </div>
                 </div>
             {{-- End Cetak Pdf --}}
+            {{-- Modal Detail --}}
+                <div class="modal fade" id="detailAreaResponsibilitiesAdmin{{ $cleaner->id_users }}" tabindex="-1" role="dialog" aria-labelledby="detailAreaResponsibilitiesAdmin{{ $cleaner->id_users }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detailAreaResponsibilitiesAdmin{{ $cleaner->id_users }}">Detail Penanggung Jawab Area Kerja</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <strong>Nama Petugas:</strong>
+                                    <p>{{ $cleaner->name }}</p>
+                                </div>
+                                <strong>Area Tanggungan:</strong>
+                                <div class="badge-container">
+                                    <br>
+                                    @if ($cleaner->areaResponsibilities->isEmpty())
+                                        -
+                                    @else
+                                        @foreach ($cleaner->areaResponsibilities as $ar)
+                                            <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{-- End Modal Detail --}}
             {{-- Modal Hapus --}}
                 <div class="modal fade" id="deleteAreaResponsibilities" tabindex="-1" role="dialog" aria-labelledby="deleteAreaResponsibilities" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -876,3 +910,52 @@
         @endif
     {{-- End SOP --}}
 {{-- END CLEANER --}}
+
+{{-- Start Guest --}}
+    {{-- Start Penanggung Jawab Area Kerja --}}
+        @if(isset($guest))
+        {{-- Modal Detail --}}
+        <div class="modal fade" id="detailAreaResponsibilitiesGuest{{ $guest->id_users }}" tabindex="-1" role="dialog" aria-labelledby="detailAreaResponsibilitiesGuest{{ $guest->id_users }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailAreaResponsibilitiesGuest{{ $guest->id_users }}">Detail Penanggung Jawab Area Kerja</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <strong>Nama Petugas:</strong>
+                            <p>{{ $guest->name }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Nomor Telepon Petugas:</strong>
+                            @if ($guest->no_telepon == null)
+                                <p>-</p>
+                            @else
+                                <p>{{ $guest->no_telepon }}</p>
+                            @endif
+                        </div>
+                        <strong>Area Tanggungan:</strong>
+                        <div class="badge-container">
+                            <br>
+                            @if ($guest->areaResponsibilities->isEmpty())
+                                -
+                            @else
+                                @foreach ($guest->areaResponsibilities as $ar)
+                                    <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}</span>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End Modal Detail --}}
+        @endif
+    {{-- End Penanggung Jawab Area Kerja --}}
+{{-- Start Guest --}}

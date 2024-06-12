@@ -62,6 +62,7 @@
                     @endif
                 </td>
                 <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailAreaResponsibilitiesAdmin{{$cleaner->id_users}}">Detail</i></button>
                     <a href="{{route('Penanggung-Jawab-Area.edit', $cleaner->id_users)}}" class="btn btn-warning">Edit</a>
                     @include('modals')
                 </td>
@@ -90,4 +91,14 @@
         tags: true,
     });
   </script>
+    <style>
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .badge-container .badge {
+            margin: 2px;
+        }
+    </style>
 @endpush
