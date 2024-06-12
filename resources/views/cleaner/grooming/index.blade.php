@@ -49,10 +49,8 @@
               <tr>
                 <th>No</th>
                 <th>Aksi</th>
-                <th>Foto Pekerjaan</th>
-                <th>Area Kerja</th>
-                <th>Waktu Laporan</th>
-                <th>Status</th>
+                <th>Foto Diri</th>
+                <th>Supervisor</th>
               </tr>
             </thead>
             <tbody>
@@ -73,10 +71,7 @@
                 <td>
                     <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto Grooming" class="p-1 bg-light" style="height: 75px; width:75px; border-radius:5%">
                 </td>
-                <td>{{$cGrt->area->nama_area}}</td>
-                <td>{{$cGrt->tgl_lg}}</td>
-                <td>{{$cGrt->status_lg}}</td>
-                {{-- <td>{{$lg->status_lg}}</td> --}}
+                <td>{{$cGrt->user->supervisor->name}}</td>
               </tr>
               @endforeach
             </tbody>

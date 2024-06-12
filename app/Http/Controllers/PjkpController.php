@@ -93,7 +93,7 @@ class PjkpController extends Controller
                 else{
                     $printData = TanggapanPJKP::whereHas('laporanPjkp', function ($query) use ($selectedUsers){
                         $query->where('status_lp', '=', 'hasil');
-                        $query->whereIn('id_users', $selectedUsers);
+                        $query->whereIn('user_id', $selectedUsers);
                     })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
                 $title = 'Laporan PJKP Provice Group';

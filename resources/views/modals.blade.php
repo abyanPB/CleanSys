@@ -11,7 +11,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
-                            <form action="{{ route('cetakpdfGrooming') }}" method="POST" >
+                            <form target="_blank" action="{{ route('cetakpdfGrooming') }}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -59,19 +59,13 @@
                         <div class="modal-body">
                         Nama Petugas : {{$aGr->laporanGrooming->user->name}}
                         <hr>
-                        Area Kerja : {{$aGr->laporanGrooming->area->nama_area}} {{$aGr->laporanGrooming->area->desc_area}}
-                        <hr>
-                        Sop Kerja : {{$aGr->laporanGrooming->sop->nama_sop}}
-                        <hr>
                         Nama Supervisor : {{ $aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}
                         <hr>
                         Isi Tanggapan : {{$aGr->tanggapan_grooming}}
                         <hr>
-                        Waktu Masuk : {{$aGr->laporanGrooming->tgl_lg}}
+                        Waktu Laporan Masuk : {{$aGr->laporanGrooming->tgl_lg}}
                         <hr>
-                        Waktu Ditanggapi : {{$aGr->tgl_tg}}
-                        <hr>
-                        Status : {{$aGr->laporanGrooming->status_lg}}
+                        Waktu Laporan di Tanggapi : {{$aGr->tgl_tg}}
                         <hr>
                         Foto :
                         <img src="{{asset('images/laporan_grooming/'.$aGr->laporanGrooming->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 80%; height: auto; border-radius:5%">
@@ -125,7 +119,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
-                            <form action="{{ route('cetakpdfPjkp') }}" method="POST">
+                            <form target="_blank" action="{{ route('cetakpdfPjkp') }}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -182,9 +176,9 @@
                                 <hr>
                                 Isi Tanggapan : {{$aPr->tanggapan_pjkp}}
                                 <hr>
-                                Waktu Masuk : {{$aPr->laporanPjkp->tgl_lp}}
+                                Waktu Laporan Masuk : {{$aPr->laporanPjkp->tgl_lp}}
                                 <hr>
-                                Waktu Ditanggapi : {{$aPr->tgl_tp}}
+                                Waktu Laporan di Tanggapi : {{$aPr->tgl_tp}}
                                 <hr>
                                 Status : {{$aPr->laporanPjkp->status_lp}}
                                 <hr>
@@ -528,13 +522,7 @@
                                         <hr>
                                         Nama Petugas : {{$sGrt->user->name}}
                                         <hr>
-                                        Area Kerja : {{$sGrt->area->nama_area}} {{$sGrt->area->desc_area}}
-                                        <hr>
-                                        Sop Kerja : {{$sGrt->sop->nama_sop}}
-                                        <hr>
-                                        Waktu Masuk : {{$sGrt->tgl_lg}}
-                                        <hr>
-                                        Status : {{$sGrt->status_lg}}
+                                        Waktu Laporan Masuk : {{$sGrt->tgl_lg}}
                                         <hr>
                                         Foto :
                                         <img src="{{asset('images/laporan_grooming/'.$sGrt->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
@@ -684,22 +672,16 @@
                                         }
                                     @endphp
 
-                            Nama Petugas : {{$cGrt->user->name}}
+                            Nama Supervisor : {{$cGrt->user->supervisor->name}}
                             <hr>
-                            Area Kerja : {{$cGrt->area->nama_area}} {{$cGrt->area->desc_area}}
+                            Waktu Laporan Masuk : {{$cGrt->tgl_lg}}
                             <hr>
-                            Sop Kerja : {{$cGrt->sop->nama_sop}}
-                            <hr>
-                            Waktu Masuk : {{$cGrt->tgl_lg}}
-                            <hr>
-                            Waktu Tanggapan : @if (isset($waktu_tanggapan)){{ $waktu_tanggapan }} @else Belum ditanggapi @endif
-                            <hr>
-                            Status : {{$cGrt->status_lg}}
+                            Waktu Laporan di Tanggapi : @if (isset($waktu_tanggapan)){{ $waktu_tanggapan }} @else Belum ditanggapi @endif
                             <hr>
                             Isi Tanggapan : @if (isset($tanggapan_grooming)){{ $tanggapan_grooming }} @else Belum ditanggapi @endif
                             <hr>
                             Foto :
-                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 45%; border-radius:5%">
+                            <img src="{{asset('images/laporan_grooming/'.$cGrt->image_lg)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 60%; border-radius:5%">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

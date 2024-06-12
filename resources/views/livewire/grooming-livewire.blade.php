@@ -9,7 +9,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Petugas</th>
-                    <th>Waktu Laporan</th>
+                    <th>Waktu Laporan Masuk</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>

@@ -27,39 +27,12 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Tambah Laporan Grooming Pekerjaan Cleaning Service</h6>
+        <h6 class="card-title">Tambah Laporan Grooming</h6>
         <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
-            <label>Area Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
-                <select class="js-example-basic-single" id="area_id" name="area_id">
-                    <option value="">Pilih Area Kerja</option>
-                    @foreach ($areas as $area)
-                    <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <label>Sop Kerja<span class="text-danger">*</span></label>
-            <div class="form-group">
-                <select class="js-example-basic-single" id="sop_id" name="sop_id">
-                    <option value="">Pilih Sop Kerja</option>
-                    @foreach ($sops as $sop)
-                    <option value="{{$sop->id_sop}}">{{$sop->nama_sop}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <label>Status Pekerjaan<span class="text-danger">*</span></label>
-            <div class="form-group">
-                <select class="js-example-basic-single" id="status_lg" name="status_lg">
-                    <option value="">Pilih Status Pekerjaan</option>
-                    <option value="sebelum">Sebelum</option>
-                    <option value="proses">Proses</option>
-                    <option value="hasil">Hasil</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Foto Pekerjaan<span class="text-danger">*</span></label>
+                <label>Foto Diri<span class="text-danger">*</span></label>
                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">
                 <div class="input-group col-xs-12">
                   <input type="text" class="form-control file-upload-info" disabled="" placeholder="Masukan Foto">

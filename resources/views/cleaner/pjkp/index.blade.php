@@ -51,7 +51,7 @@
                 <th>Aksi</th>
                 <th>Foto Pekerjaan</th>
                 <th>Area Kerja</th>
-                <th>Waktu Laporan</th>
+                <th>Waktu Laporan Masuk</th>
                 <th>Status</th>
               </tr>
             </thead>

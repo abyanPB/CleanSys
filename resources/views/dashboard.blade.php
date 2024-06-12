@@ -111,58 +111,15 @@
 
     @elseif (request()->user()->level == 'spv')
         <h4 style="text-align: center;" >LAPORAN GROOMING</h4>
+        <hr>
         <div class="row">
             <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
                 <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                        <h6 class="card-title mb-0">Total Laporan Grooming (Sebelum) Hari Ini</h6>
-                        <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('showTanggapanGrooming')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{$dataSpv['laporanGroomingSebelum']}}</h3>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                        <h6 class="card-title mb-0">Total Laporan Grooming (Proses) Hari Ini</h6>
-                        <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('showTanggapanGrooming')}}"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{$dataSpv['laporanGroomingProses']}}</h3>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <h6 class="card-title mb-0">Total Laporan Grooming (Hasil) Hari Ini</h6>
+                        <h6 class="card-title mb-0">Total Laporan Grooming Masuk Hari Ini</h6>
                         <div class="dropdown mb-2">
                             <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -174,7 +131,7 @@
                         </div>
                         <div class="row">
                         <div class="col-6 col-md-12 col-xl-5">
-                            <h3 class="mb-2">{{$dataSpv['laporanGroomingHasil']}}</h3>
+                            <h3 class="mb-2">{{$dataSpv['laporanGroomingMasuk']}}</h3>
                         </div>
                         </div>
                     </div>
@@ -207,6 +164,7 @@
         </div>
 
         <h4 style="text-align:center">LAPORAN PJKP</h4>
+        <hr>
         <div class="row">
             <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
@@ -303,6 +261,7 @@
         </div>
 
         <h4 style="text-align:center">LAPORAN PELAYANAN</h4>
+        <hr>
         <div class="row">
             <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
@@ -333,6 +292,7 @@
         </div>
 
         <h4 style="text-align: center">AKUN CLEANER</h4>
+        <hr>
         <div class="row">
             <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">

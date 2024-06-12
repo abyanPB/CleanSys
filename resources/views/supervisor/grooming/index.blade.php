@@ -49,8 +49,6 @@
                 <th>Status Tanggapan</th>
                 <th>Aksi</th>
                 <th>Nama Petugas</th>
-                <th>Waktu Laporan</th>
-                <th>Status Pekerjaan</th>
               </tr>
             </thead>
             <tbody>
@@ -72,8 +70,6 @@
 
                 </td>
                 <td>{{$sGrt->user->name}}</td>
-                <td>{{$sGrt->tgl_lg}}</td>
-                <td>{{$sGrt->status_lg}}</td>
               </tr>
               @endforeach
             </tbody>

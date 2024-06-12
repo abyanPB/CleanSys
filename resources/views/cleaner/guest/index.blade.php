@@ -34,7 +34,7 @@
               <tr>
                 <th>No</th>
                 <th>Aksi</th>
-                <th>Waktu Laporan</th>
+                <th>Waktu Laporan Masuk</th>
                 <th>Area Kerja</th>
                 <th>Nama Visitor</th>
               </tr>

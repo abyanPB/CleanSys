@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\LaporanGroomingEvent;
-use App\Models\Area;
 use App\Models\LaporanGrooming;
-use App\Models\Sop;
 use App\Models\TanggapanGrooming;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -39,9 +37,7 @@ class GroomingController extends Controller
          */
         public function index()
         {
-            $adminGroomingReport = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
-                $query->where('status_lg', '=', 'hasil');
-            })->orderBy('tgl_tg', 'desc')->get();
+            $adminGroomingReport = TanggapanGrooming::whereHas('laporanGrooming')->orderBy('tgl_tg', 'desc')->get();
             $Users = User::where('level', '=', 'cleaner')->get();
             $title = 'Laporan Grooming Provice Group';
             return view('admin.grooming.index', compact('adminGroomingReport' , 'title', 'Users'));
@@ -85,15 +81,12 @@ class GroomingController extends Controller
             }else{
                 //Jika tidak ada pekerja dipilih, maka cetak semua
                 if ($selectedUsers == null){
-                    $printData = TanggapanGrooming::whereHas('laporanGrooming', function ($query){
-                        $query->where('status_lg', '=', 'hasil');
-                    })->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
+                    $printData = TanggapanGrooming::whereHas('laporanGrooming')->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
                 //Cetak berdasarkan nama pekerja yang dipilih
                 else{
                     $printData = TanggapanGrooming::whereHas('laporanGrooming', function ($query) use ($selectedUsers){
-                        $query->where('status_lg', '=', 'hasil');
-                        $query->whereIn('id_users', $selectedUsers);
+                        $query->whereIn('user_id', $selectedUsers);
                     })->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
                 $title = 'Laporan Grooming Provice Group';
@@ -169,10 +162,8 @@ class GroomingController extends Controller
 
         public function createGroomingDailyReportCleaner()
         {
-            $sops = Sop::all();
-            $areas = Area::all();
             $title = 'Tambah Data Laporan Harian Grooming - Provice Group';
-            return view('cleaner.grooming.create',compact('title', 'areas', 'sops'));
+            return view('cleaner.grooming.create',compact('title'));
         }
 
         public function storeGroomingDailyReportCleaner(Request $request)
@@ -184,14 +175,8 @@ class GroomingController extends Controller
             }
 
             $request->validate([
-                'area_id' =>'required',
-                'sop_id' =>'required',
-                'status_lg' =>'required',
                 'image_lg' =>'required|image|mimes:jpeg,png,jpg,gif',
             ],[
-                'area_id.required' => 'Area kerja tidak boleh kosong',
-                'sop_id.required' => 'SOP kerja tidak boleh kosong',
-                'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lg.required' => 'Foto pekerjaan tidak boleh kosong',
                 'image_lg.image' => 'File harus berupa gambar',
                 'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
@@ -202,11 +187,8 @@ class GroomingController extends Controller
             $currentDateTime = Carbon::now();
             LaporanGrooming::create([
                 'user_id' => $request->user_id,
-                'area_id' => $request->area_id,
-                'sop_id' => $request->sop_id,
                 'tgl_lg' => $currentDateTime,
                 'image_lg' => $imageName,
-                'status_lg' => $request->status_lg,
             ]);
             return redirect()->route('showLaporanGroomingCleaner')->with('success', 'Berhasil Tambah Laporan Grooming');
         }
@@ -216,11 +198,9 @@ class GroomingController extends Controller
          */
         public function editGroomingDailyReportCleaner(string $id)
         {
-            $sops = Sop::all();
-            $areas = Area::all();
             $lg = LaporanGrooming::findOrFail($id);
             $title = 'Ubah Data Laporan Harian Grooming - Provice Group';
-            return view('cleaner.grooming.edit', compact('lg', 'title', 'areas', 'sops'));
+            return view('cleaner.grooming.edit', compact('lg', 'title'));
         }
 
         /**
@@ -231,21 +211,11 @@ class GroomingController extends Controller
             $lg = LaporanGrooming::findOrFail($id);
 
             $request->validate([
-                'area_id' =>'required',
-                'sop_id' =>'required',
-                'status_lg' =>'required',
                 'image_lg' => $request->hasFile('image_lg') ? 'image|mimes:jpeg,png,jpg,gif' : '',
             ],[
-                'area_id.required' => 'Area kerja tidak boleh kosong',
-                'sop_id.required' => 'SOP kerja tidak boleh kosong',
-                'status_lg.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lg.image' => 'File harus berupa gambar',
                 'image_lg.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
             ]);
-
-            $lg->area_id = $request->area_id;
-            $lg->sop_id = $request->sop_id;
-            $lg->status_lg = $request->status_lg;
 
             if($request->hasFile('image_lg')){
                 // Delete the old image before uploading the new one

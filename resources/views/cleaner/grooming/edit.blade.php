@@ -27,41 +27,10 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Edit Laporan Grooming Pekerjaan Cleaning Service</h6>
+        <h6 class="card-title">Edit Laporan Grooming</h6>
         <form id="take" class="forms-sample" action="{{route('updateLaporanGroomingCleaner',$lg->id_lg)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <label>Area Kerja<span class="text-danger">*</span></label>
-            <div class="form-group">
-                <select class="js-example-basic-single w-100" id="area_id" name="area_id">
-                    <option value="">Pilih Area Kerja</option>
-                    @foreach ($areas as $area)
-                    <option value="{{ $area->id_area }}" {{ $area->id_area == $lg->area_id ? 'selected' : '' }}>
-                        {{ $area->nama_area }} {{ $area->desc_area }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-            <label>Sop Kerja<span class="text-danger">*</span></label>
-            <div class="form-group">
-                <select class="js-example-basic-single w-100" id="sop_id" name="sop_id">
-                    <option value="">Pilih Sop Kerja</option>
-                    @foreach ($sops as $sop)
-                    <option value="{{ $sop->id_sop }}" {{ $sop->id_sop == $lg->sop_id ? 'selected' : '' }}>
-                        {{ $sop->nama_sop }}</option>
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-            <label>Status Pekerjaan<span class="text-danger">*</span></label>
-            <div class="form-group">
-                <select class="js-example-basic-single w-100" id="status_lg" name="status_lg">
-                    <option value="">Pilih Status Pekerjaan</option>
-                    <option value="sebelum" {{ $lg->status_lg == 'sebelum'?'selected' : '' }}>Sebelum</option>
-                    <option value="proses" {{ $lg->status_lg == 'proses'?'selected' : '' }}>Proses</option>
-                    <option value="hasil" {{ $lg->status_lg == 'hasil'?'selected' : '' }}>Hasil</option>
-                </select>
-            </div>
             <div class="form-group">
                 <label>Foto Pekerjaan<span class="text-danger">*</span></label>
                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">

@@ -48,7 +48,7 @@
                 <th>No</th>
                 <th>Status Tanggapan</th>
                 <th>Nama Petugas</th>
-                <th>Waktu Laporan</th>
+                <th>Waktu Laporan Masuk</th>
                 <th>Status Pekerjaan</th>
                 <th>Aksi</th>
               </tr>

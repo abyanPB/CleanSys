@@ -18,11 +18,8 @@ class LaporanGrooming extends Model
     protected $keyType = 'string';
     protected $fillable=[
         'user_id',
-        'area_id',
-        'sop_id',
         'tgl_lg',
         'image_lg',
-        'status_lg',
     ];
 
     protected static function boot()
@@ -37,18 +34,6 @@ class LaporanGrooming extends Model
     public function user(): BelongsTo //BelongsTo (Foreign Key, Owner Key)
     {
         return $this->belongsTo(User::class, 'user_id', 'id_users');
-    }
-
-    //Relasi ke Area
-    public function area(): BelongsTo
-    {
-        return $this->belongsTo(Area::class, 'area_id', 'id_area');
-    }
-
-    //Relasi ke SOP
-    public function sop(): BelongsTo
-    {
-        return $this->belongsTo(Sop::class, 'sop_id', 'id_sop');
     }
 
     //Relasi ke Tanggapan Grooming

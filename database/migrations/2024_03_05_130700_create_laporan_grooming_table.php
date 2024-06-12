@@ -28,18 +28,13 @@ return new class extends Migration
         Schema::create('laporan_grooming', function (Blueprint $table) {
             $table->uuid('id_lg')->primary();
             $table->uuid('user_id')->nullable();
-            $table->uuid('area_id')->nullable();
-            $table->uuid('sop_id')->nullable();
             $table->datetime('tgl_lg');
             $table->string('image_lg')->nullable();
-            $table->enum('status_lg',['sebelum','proses','hasil']);
             $table->timestamps();
         });
 
         Schema::table('laporan_grooming', function (Blueprint $table) {
             $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('area_id')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('sop_id')->references('id_sop')->on('sop')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

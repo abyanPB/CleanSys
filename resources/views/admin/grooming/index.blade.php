@@ -53,9 +53,8 @@
                 <th>No</th>
                 <th>Nama Petugas</th>
                 <th>Nama Supervisor</th>
-                <th>Waktu Laporan</th>
-                <th>Waktu Ditanggapi</th>
-                <th>Status</th>
+                <th>Waktu Laporan Masuk</th>
+                <th>Waktu Laporan di Tanggapi</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -67,7 +66,6 @@
                 <td>{{$aGr->user->level == 'spv' ? $aGr->user->name : 'Tidak Ada Penanggung Jawab' }}</td>
                 <td>{{$aGr->laporanGrooming->tgl_lg}}</td>
                 <td>{{$aGr->tgl_tg}}</td>
-                <td>{{$aGr->laporanGrooming->status_lg}}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminGroomingReportDetail{{$aGr->lg_id}}">Info</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeleteGroomingReport{{$aGr->lg_id}}">Hapus</button>

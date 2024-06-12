@@ -20,10 +20,10 @@
                     <th >No</th>
                     <th>Nama Petugas</th>
                     <th>Nama Supervisor</th>
-                    <th>Waktu Laporan</th>
-                    <th>Waktu Ditanggapi</th>
+                    <th>Waktu Laporan Masuk</th>
+                    <th>Waktu Laporan di Tanggapi</th>
                     <th>Foto</th>
-                    <th>Keterangan</th>
+                    <th>Isi Tanggapan</th>
                 </tr>
             </thead>
             <tbody>

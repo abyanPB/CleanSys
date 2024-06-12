@@ -65,17 +65,9 @@ class DashboardController extends Controller
                 ->whereDate('tgl_lg', $todayDate)
                 ->whereDoesntHave('tanggapanGroomings')
                 ->count(),
-            'laporanGroomingSebelum' => LaporanGrooming::whereHas('user', $SpvFilter)
+            'laporanGroomingMasuk' => LaporanGrooming::whereHas('user', $SpvFilter)
                 ->whereDate('tgl_lg', $todayDate)
-                ->where('status_lg', 'sebelum')
-                ->count(),
-            'laporanGroomingProses' => LaporanGrooming::whereHas('user', $SpvFilter)
-                ->whereDate('tgl_lg', $todayDate)
-                ->where('status_lg', 'proses')
-                ->count(),
-            'laporanGroomingHasil' => LaporanGrooming::whereHas('user', $SpvFilter)
-                ->whereDate('tgl_lg', $todayDate)
-                ->where('status_lg', 'hasil')
+                // ->where('status_lg', 'hasil')
                 ->count(),
             'laporanPjkpSebelum' => LaporanPjkp::whereHas('user', $SpvFilter)
                 ->whereDate('tgl_lp', $todayDate)
