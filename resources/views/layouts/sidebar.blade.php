@@ -96,6 +96,13 @@
                         <span class="link-title">Pelayanan</span>
                         </a>
                     </li>
+                    <li class="nav-item nav-category">Tabel</li>
+                    <li class="nav-item {{ active_class(['Supervisor/CleanerSpv*']) }}">
+                        <a href="{{ route('showCleanerSpv') }}" class="nav-link">
+                            <i class="link-icon" data-feather="users"></i>
+                            <span class="link-title">Akun Cleaner</span>
+                        </a>
+                    </li>
                 </div>
             @elseif (Auth::user()->level == 'cleaner')
                 <div class="sidebar-body">

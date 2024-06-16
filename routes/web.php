@@ -94,6 +94,9 @@ use Illuminate\Validation\Rules;
 
                 //Route for Menampilkan Laporan Pelayanan
                     Route::get('/Laporan-Pelayanan', [GuestController::class, 'showPelayananSpv'])->name('showPelayananSpv');
+
+                //Route for Menampilkan Akun Cleaner
+                    Route::get('/CleanerSpv/Index', [ProfileController::class, 'indexSpv'])->name('showCleanerSpv');
             });
         //End Route Supervisor
 

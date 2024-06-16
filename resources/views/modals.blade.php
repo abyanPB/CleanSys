@@ -337,7 +337,7 @@
             </div>
         {{-- End Modal Hapus --}}
         @endforeach
-    @endif
+        @endif
     {{-- End Laporan Pelayanan --}}
 
     {{-- Start Profile --}}
@@ -798,6 +798,52 @@
             {{-- End Modal Detail --}}
         @endif
     {{-- End Laporan Pelayanan --}}
+
+    {{-- Start Akun Cleaner --}}
+        {{-- Modal Detail --}}
+            @if (isset($cSpv))
+                <div class="modal fade" id="detailPenggunaCleanerSpv{{$cSpv->id_users}}" tabindex="-1" role="dialog" aria-labelledby="detailPenggunaCleanerSpv" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="detailPenggunaCleanerSpv">Detail Akun Cleaner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            Nama : {{$cSpv->name}}
+                            <hr>
+                            Email : {{$cSpv->email}}
+                            <hr>
+                            Nomor Telepon : {{$cSpv->no_telepon ?? '-'}}
+                            <hr>
+                            Jenis Kelamin : {{$cSpv->jk ?? '-'}}
+                            <hr>
+                            Jabatan : {{$cSpv->level}}
+                            <hr>
+                            @if ($cSpv->level == 'cleaner' && $cSpv->supervisor)
+                                <p>Supervisor: {{ $cSpv->supervisor->name }}</p>
+                            @else
+                                <p>Supervisor: Tidak ada</p>
+                            @endif
+                            <hr>
+                            Foto :
+                            @if ($cSpv->image_profile == null)
+                                <img src="{{ url('https://ui-avatars.com/api/?name='.$cSpv->name)}}" alt="Foto Pengguna" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
+                            @else
+                                <img src="{{asset('images/pengguna/'.$cSpv->image_profile)}}" alt="Foto Pengguna" class="p-1 bg-light" style="width: 50%; height: auto; border-radius:5%">
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        {{-- End Modal Detail --}}
+    {{-- End Akun Cleaner --}}
 {{-- END SUPERVISOR --}}
 
 {{-- START CLEANER --}}
@@ -1049,11 +1095,7 @@
                         </div>
                         <div class="mb-3">
                             <strong>Nomor Telepon Petugas:</strong>
-                            @if ($guest->no_telepon == null)
-                                <p>-</p>
-                            @else
-                                <p>{{ $guest->no_telepon }}</p>
-                            @endif
+                            <p>{{ $guest->no_telepon ?? '-' }}</p>
                         </div>
                         <strong>Area Tanggungan:</strong>
                         <div class="badge-container">

@@ -145,6 +145,16 @@ class ProfileController extends Controller
         }
     //End Admin
 
+    //Start Supervisor
+        public function indexSpv()
+        {
+            $user = Auth::user();
+            $cleanerSpv = User::where('level', 'cleaner')->where('supervisor_id', $user->id_users)->get();
+            $title = 'Pengguna Provice Group';
+            return view('supervisor.profile.index', compact('cleanerSpv', 'title'));
+        }
+    //End Supervisor
+
     //Start All Role
         /**
          * Display the user's profile form.

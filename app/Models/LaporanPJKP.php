@@ -54,6 +54,6 @@ class LaporanPJKP extends Model
     //Relasi ke Tanggapan PJKP
     public function tanggapanPjkps(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->hasMany(TanggapanPjkp::class, 'lp_id', 'id_lp');
+        return $this->hasMany(TanggapanPJKP::class, 'lp_id', 'id_lp');
     }
 }

@@ -33,7 +33,7 @@ class TanggapanPJKP extends Model
     //Relasi ke Laporan PJKP
     public function laporanPjkp(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(LaporanPjkp::class, 'lp_id', 'id_lp');
+        return $this->belongsTo(LaporanPJKP::class, 'lp_id', 'id_lp');
     }
 
     //Relasi ke User
