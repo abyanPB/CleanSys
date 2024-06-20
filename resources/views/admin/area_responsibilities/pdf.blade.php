@@ -10,6 +10,7 @@
 </head>
 <body>
     <h5 class="text-center text-uppercase">{{$title}}</h5>
+    <h6 class="text-center text-uppercase">{{$currentMonthYear}}</h6>
 
     <div>
         <table class="table table-bordered">

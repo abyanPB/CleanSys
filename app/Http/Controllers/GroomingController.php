@@ -55,7 +55,7 @@ class GroomingController extends Controller
             return redirect()->route('laporan-grooming.index')->with('success', 'Laporan Grooming berhasil dihapus');
         }
 
-        function getMonthYearName($startDate, $endDate) {
+        private function getMonthYearName($startDate, $endDate) {
             $startMonth = date('F', strtotime($startDate)); // Ambil nama bulan dari tanggal awal
             $startYear = date('Y', strtotime($startDate)); // Ambil tahun dari tanggal awal
 

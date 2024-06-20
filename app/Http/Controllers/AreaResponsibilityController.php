@@ -7,6 +7,7 @@ use App\Models\AreaResponsibility;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class AreaResponsibilityController extends Controller
 {
@@ -85,7 +86,7 @@ class AreaResponsibilityController extends Controller
         }
 
         //Edit Penanggung Jawab Area Kerja
-        public function editAreaResponsibilities(Request $request){
+        public function editAreaResponsibilitiesAdmin(Request $request){
             $cleanersArea = User::findOrFail($request->id_users);
             $assignedAreas = AreaResponsibility::where('user_id', '!=', $request->id_users)->pluck('area_id')->toArray();
             $availableAreas = Area::whereNotIn('id_area', $assignedAreas)->get();
@@ -94,7 +95,7 @@ class AreaResponsibilityController extends Controller
             return view('admin.area_responsibilities.edit', compact('cleanersArea', 'availableAreas', 'title'));
         }
 
-        public function updateAreaResponsibilities(Request $request)
+        public function updateAreaResponsibilitiesAdmin(Request $request)
         {
             $request->validate([
                 'area_id' =>'required',
@@ -116,7 +117,7 @@ class AreaResponsibilityController extends Controller
         }
 
         //Reset Data Penanggung Jawab Area Kerja
-        public function resetAreaResponsibilities()
+        public function resetAreaResponsibilitiesAdmin()
         {
             AreaResponsibility::truncate();
 
@@ -128,16 +129,16 @@ class AreaResponsibilityController extends Controller
             $selectedUsers = $request->input('selected_users',[]);//Mendaparkan inputan user dari inputan
 
             //Jika tidak ada pekerja dipilih, maka cetak semua
-            if ($selectedUsers == null){
+            if (empty($selectedUsers)){
                 $printData = User::where('level', 'cleaner')->get();
-            }
-            //Cetak berdasarkan nama pekerja yang dipilih
-            else{
+            }else{ //Cetak berdasarkan nama pekerja yang dipilih
                 $printData = User::where('level', 'cleaner')->whereIn('id_users', $selectedUsers)->get();
             }
             $title = 'Daftar Penanggung Jawab Area Kerja';
-            $pdf = Pdf::loadView('admin.area_responsibilities.pdf',compact('printData', 'title'));
-            return $pdf->download("$title");
+            $currentMonthYear = Carbon::now()->format('F Y');
+            $fileName = "{$title}_{$currentMonthYear}.pdf";
+            $pdf = Pdf::loadView('admin.area_responsibilities.pdf',compact('printData', 'title','currentMonthYear'));
+            return $pdf->download("$fileName");
         }
     //End Admin
 }

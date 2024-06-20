@@ -114,9 +114,9 @@ use Illuminate\Validation\Rules;
 
                 //Route for Mengelola Penanggung Jawab Area
                     Route::get('Penanggung-Jawab-Area', [AreaResponsibilityController::class, 'showAreaResponsibilitiesAdmin'])->name('Penanggung-Jawab-Area.index');
-                    Route::get('Penanggung-Jawab-Area/Edit/{id_users}', [AreaResponsibilityController::class, 'editAreaResponsibilities'])->name('Penanggung-Jawab-Area.edit');
-                    Route::put('Penanggung-Jawab-Area/Update/{id_users}', [AreaResponsibilityController::class,'updateAreaResponsibilities'])->name('Penanggung-Jawab-Area.update');
-                    Route::delete('Penanggung-Jawab-Area/Delete', [AreaResponsibilityController::class,'resetAreaResponsibilities'])->name('Penanggung-Jawab-Area.reset');
+                    Route::get('Penanggung-Jawab-Area/Edit/{id_users}', [AreaResponsibilityController::class, 'editAreaResponsibilitiesAdmin'])->name('Penanggung-Jawab-Area.edit');
+                    Route::put('Penanggung-Jawab-Area/Update/{id_users}', [AreaResponsibilityController::class,'updateAreaResponsibilitiesAdmin'])->name('Penanggung-Jawab-Area.update');
+                    Route::delete('Penanggung-Jawab-Area/Delete', [AreaResponsibilityController::class,'resetAreaResponsibilitiesAdmin'])->name('Penanggung-Jawab-Area.reset');
                     Route::post('Penanggung-Jawab-Area/Cetakpdf',[AreaResponsibilityController::class, 'generatePdf'])->name('cetakpdfAreaResponsibilities');
 
                 //Route for Laporan Grooming
