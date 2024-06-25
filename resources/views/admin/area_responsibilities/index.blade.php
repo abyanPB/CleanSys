@@ -56,9 +56,14 @@
                     @if ($cleaner->areaResponsibilities->isEmpty())
                         Belum Memasukan Penanggung Jawab Area
                     @else
-                        @foreach ($cleaner->areaResponsibilities as $ar)
-                            <span class="badge badge-primary">{{ $ar->area->nama_area }} {{ $ar->area->desc_area }}  </span>
+                        @foreach ($cleaner->areaResponsibilities->take(4) as $ar)
+                            <span class="badge badge-primary">
+                                {{ $ar->area->nama_area }} {{ $ar->area->desc_area }}
+                            </span>
                         @endforeach
+                        @if ($cleaner->areaResponsibilities->count() > 4)
+                            ...
+                        @endif
                     @endif
                 </td>
                 <td>

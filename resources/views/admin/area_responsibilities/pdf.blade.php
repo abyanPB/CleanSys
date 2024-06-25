@@ -6,6 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>{{$title}}</title>
+    <style>
+        @media print {
+            table {
+                page-break-after: auto;
+                width: 100%;
+                table-layout: fixed;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            td, th {
+                page-break-inside: avoid;
+                page-break-after: auto;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+            thead {
+                display: table-header-group;
+            }
+            tfoot {
+                display: table-footer-group;
+            }
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        td, th {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
 
 </head>
 <body>
