@@ -17,6 +17,35 @@ use Illuminate\Support\Facades\Log;
 class GuestController extends Controller
 {
     /**
+     * Fungsi untuk memeriksa apakah IP address pengunjung ada dalam rentang yang diizinkan.
+     */
+    // private function ip_in_range($ip, $range) {
+    //     if (strpos($range, '/') === false) {
+    //         $range .= '/32';
+    //     }
+    //     list($subnet, $bits) = explode('/', $range);
+    //     $ip = ip2long($ip);
+    //     $subnet = ip2long($subnet);
+    //     $mask = -1 << (32 - $bits);
+    //     $subnet &= $mask;
+
+    //     Log::info("IP: $ip, Subnet: $subnet, Mask: $mask");  // Log untuk debugging
+
+    //     return ($ip & $mask) == $subnet;
+    // }
+
+    // private function isAllowedIp($ip) {
+    //     $allowedIpRange = '192.168.68.0';
+    //     $result = $this->ip_in_range($ip, $allowedIpRange);
+    //     dd($result);
+    //     Log::info("Checking IP: $ip against range: $allowedIpRange - Allowed: " . ($result ? 'Yes' : 'No'));  // Log untuk debugging
+
+    //     return $result;
+    // }
+
+
+
+    /**
      * Fungsi untuk memeriksa koneksi internet.
      * Mengembalikan true jika terhubung ke internet, dan false jika tidak.
      */
@@ -102,6 +131,9 @@ class GuestController extends Controller
          */
         public function store(Request $request)
         {
+            // $ipAddress = $request->ip();
+            
+
             $request->validate([
                 'area_id' => 'required',
                 'nama_guest' => 'required|string',

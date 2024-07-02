@@ -37,7 +37,7 @@ use Illuminate\Validation\Rules;
 
 //Route for Guest
     Route::get('Guest/Penanggung-Jawab-Area', [AreaResponsibilityController::class, 'showAreaResponsibilitiesGuest'])->name('showGuest');
-    Route::resource('Guest', GuestController::class)->names([
+    Route::resource('Guest', GuestController::class)->middleware(['allowedIP'])->names([
         'create' => 'Guest.create',
         'store' => 'Guest.store',
     ]);

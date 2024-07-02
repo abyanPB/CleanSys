@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\isAdmin::class,
         'spv' => \App\Http\Middleware\isSpv::class,
         'cleaner' => \App\Http\Middleware\isCleaner::class,
+        'allowedIP' => \App\Http\Middleware\AllowedIPMiddleware::class,
     ];
 }
