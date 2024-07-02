@@ -186,7 +186,7 @@
                 <li class="nav-item {{ active_class(['Guest/create*']) }}">
                     <a href="{{ route('Guest.create') }}" class="nav-link">
                     <i class="link-icon" data-feather="folder-plus"></i>
-                    <span class="link-title">Laporan Pelayanan</span>
+                    <span class="link-title">Laporan Visitor</span>
                     </a>
                 </li>
                 <li class="nav-item nav-category">Tabel</li>

@@ -79,6 +79,7 @@ use Illuminate\Validation\Rules;
 
                 //Route for Menampilkan Laporan Pelayanan
                     Route::get('/Laporan-Pelayanan', [GuestController::class, 'showPelayananCleaner'])->name('showPelayananCleaner');
+                    Route::post('/Laporan-Pelayanan', [GuestController::class, 'storePelayananCleaner'])->name('inputPelayananCleaner');
             });
         //End Route Cleaner
 

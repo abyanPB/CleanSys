@@ -47,6 +47,17 @@
                 <form class="forms-sample" action="{{ route('Guest.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Laporan<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="js-example-basic-single" id="jenis_laporan" name="jenis_laporan">
+                                <option value="">Laporan Yang Akan Dikirimkan</option>
+                                <option value="pelayanan">Laporan Pelayanan (Bantuan / Kebersihan)</option>
+                                <option value="pengaduan">Laporan Pengaduan (Jika terdapat pelanggaran dengan petugas Cleaning Service) </option>
+                            </select>
+                            <span class="form-bar text-danger">@error('jenis_laporan'){{$message}}@enderror</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Pilih Area<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="js-example-basic-single" id="area_id" name="area_id">
@@ -85,7 +96,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-3 col-form-label">Foto Tempat<span class="text-danger">*</span></label>
+                        <label class="col-sm-3 col-form-label">Bukti Foto<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_guest" class="file-upload-default">

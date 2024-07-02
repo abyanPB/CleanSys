@@ -17,35 +17,6 @@ use Illuminate\Support\Facades\Log;
 class GuestController extends Controller
 {
     /**
-     * Fungsi untuk memeriksa apakah IP address pengunjung ada dalam rentang yang diizinkan.
-     */
-    // private function ip_in_range($ip, $range) {
-    //     if (strpos($range, '/') === false) {
-    //         $range .= '/32';
-    //     }
-    //     list($subnet, $bits) = explode('/', $range);
-    //     $ip = ip2long($ip);
-    //     $subnet = ip2long($subnet);
-    //     $mask = -1 << (32 - $bits);
-    //     $subnet &= $mask;
-
-    //     Log::info("IP: $ip, Subnet: $subnet, Mask: $mask");  // Log untuk debugging
-
-    //     return ($ip & $mask) == $subnet;
-    // }
-
-    // private function isAllowedIp($ip) {
-    //     $allowedIpRange = '192.168.68.0';
-    //     $result = $this->ip_in_range($ip, $allowedIpRange);
-    //     dd($result);
-    //     Log::info("Checking IP: $ip against range: $allowedIpRange - Allowed: " . ($result ? 'Yes' : 'No'));  // Log untuk debugging
-
-    //     return $result;
-    // }
-
-
-
-    /**
      * Fungsi untuk memeriksa koneksi internet.
      * Mengembalikan true jika terhubung ke internet, dan false jika tidak.
      */
@@ -60,7 +31,7 @@ class GuestController extends Controller
     }
 
     //Start Admin
-    /**
+        /**
          * Display a listing of the resource.
          */
         public function index()
@@ -100,18 +71,30 @@ class GuestController extends Controller
 
         //Fungsi untuk mencetak PDF
         public function generatePdf(Request $request){
-            $selectedUsers = $request->input('selected_users',[]);//Mendaparkan inputan user dari inputan
+            $selectedJenis = $request->input('selected_jenis',[]);//Mendaparkan inputan jenis laporan dari inputan
+            if (!is_array($selectedJenis)) {
+                $selectedJenis = explode(',', $selectedJenis); // Pastikan $selectedJenis adalah array
+            }
 
             //Validasi tanggal
             if (($request->start_date == '') || ($request->end_date == '')) {
                 return redirect()->route('laporan-pelayanan.index')->with('error','Cetak gagal ! Harap isi kedua tanggal !');
-            }else{
-                $printData = LaporanGuest::whereBetween('tgl_guest', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
-                $title = 'Laporan Pengaduan Pelayanan Provice Group';
-                $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
-                $pdf = Pdf::loadView('admin.guest.pdf',compact('printData', 'title', 'nameMonthYear'));
-                return $pdf->download("$title - $request->start_date - $request->end_date");
             }
+
+            $startDate = $request->start_date;
+            $endDate = now()->parse($request->end_date)->addDay();
+
+            if (empty($selectedJenis)) {
+                $printData = LaporanGuest::whereBetween('tgl_guest', [$startDate, $endDate])->get();
+            } else {
+                $printData = LaporanGuest::whereIn('jenis_laporan', $selectedJenis)
+                                        ->whereBetween('tgl_guest', [$startDate, $endDate])
+                                        ->get();
+            }
+                $title = 'Laporan Pengaduan Pelayanan PT Provice Group';
+                $nameMonthYear = $this->getMonthYearName($request->start_date, $request->end_date);
+                $pdf = Pdf::loadView('admin.guest.pdf',compact('printData', 'title', 'nameMonthYear'))->setPaper('A4', 'landscape');
+                return $pdf->download("$title - $request->start_date - $request->end_date");
         }
     //End Admin
 
@@ -131,16 +114,15 @@ class GuestController extends Controller
          */
         public function store(Request $request)
         {
-            // $ipAddress = $request->ip();
-            
-
             $request->validate([
+                'jenis_laporan' => 'required',
                 'area_id' => 'required',
                 'nama_guest' => 'required|string',
                 'ket_guest' => 'required|string',
                 'image_guest' =>'required|image|mimes:jpeg,png,jpg,gif',
                 'g-recaptcha-response' => 'required|captcha',
             ],[
+                'jenis_laporan.required' => 'Jenis Laporan tidak boleh kosong',
                 'area_id.required' => 'Area kerja tidak boleh kosong',
                 'nama_guest.required' => 'Nama guest tidak boleh kosong',
                 'nama_guest.string' => 'Nama guest harus berupa string',
@@ -152,29 +134,56 @@ class GuestController extends Controller
                 'g-recaptcha-response.required' => 'Captcha tidak boleh kosong',
             ]);
 
+            // Periksa apakah ada laporan lain dari area yang sama dalam 1 jam atau 30 Menit terakhir
+            $oneHourAgo = Carbon::now()->subHour(); //Kalau 1 Jam
+            // $halfHourAgo = Carbon::now()->subMinutes(30); //Kalau 30 Menit
+            $existingReport = LaporanGuest::where('area_id', $request->area_id)
+                                        ->where('tgl_guest', '>=', $oneHourAgo)
+                                        ->first();
+
+            if ($existingReport) {
+                $remainingTime = Carbon::parse($existingReport->tgl_guest)->addHour()->diffForHumans([
+                // $remainingTime = Carbon::parse($existingReport->tgl_guest)->addMinutes(30)->diffForHumans([
+                    'parts' => 2,
+                    'join' => ', ',
+                    'syntax' => Carbon::DIFF_RELATIVE_TO_NOW,
+                    'options' => Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
+                ]);
+
+                return redirect()->route('Guest.create')->with('error', 'Laporan sudah dibuat dalam waktu 1 jam terakhir. Anda dapat membuat laporan baru dalam ' . $remainingTime . '.');
+                // return redirect()->route('Guest.create')->with('error', 'Laporan sudah dibuat dalam waktu 30 menit terakhir. Anda dapat membuat laporan baru dalam ' . $remainingTime . '.');
+            }
+
+            // Mengambil user dengan tanggung jawab di area yang dipilih
             $Users = User::whereHas('areaResponsibilities', function ($query) use ($request) {
                 $query->where('area_id', $request->area_id);
             })->get();
 
+            // Ambil id supervisor dan cleaner pertama
             $firstSupervisorId = $Users->first()->supervisor_id;
             $firstCleanerId = $Users->first()->id_users;
 
+            // Kirim event jika terhubung ke internet
             if ($this->check_internet_connection()) {
                 event(new GuestEvent($request->nama_guest, $firstSupervisorId));
                 event(new GuestEvent($request->nama_guest, $firstCleanerId));
             }
 
+            // Simpan gambar
             $imageName = $request->image_guest->getClientOriginalName();
             $request->image_guest->move(public_path('images/laporan_guest/'), $imageName);
 
+            // Simpan laporan
             $currentDateTime = Carbon::now();
             LaporanGuest::create([
+                'jenis_laporan' => $request->jenis_laporan,
                 'area_id' => $request->area_id,
                 'nama_guest' => $request->nama_guest,
                 'level_guest' => $request->filled('level_guest')? $request->level_guest : null,
                 'image_guest' => $imageName,
                 'tgl_guest' => $currentDateTime,
                 'ket_guest' => $request->ket_guest,
+                'status_laporan' => 'belum',
             ]);
             return redirect()->route('Guest.create')->with('success', 'Berhasil Tambah Laporan Guest');
         }
@@ -218,9 +227,18 @@ class GuestController extends Controller
             $laporanGuestCleaner = LaporanGuest::whereIn('area_id', $areaIds)
                                         ->whereDate('tgl_guest', $currentDate)
                                         ->orderByDesc('tgl_guest')
+                                        ->where('jenis_laporan', 'pelayanan')
                                         ->get();
 
             return view('cleaner.guest.index', compact('laporanGuestCleaner', 'title'));
+        }
+
+        public function storePelayananCleaner(Request $request)
+        {
+            $lGc = LaporanGuest::findOrFail($request->id_guest);
+            $lGc->status_laporan = 'terbaca';
+            $lGc->save();
+            return redirect()->route('showPelayananCleaner')->with('success', 'Berhasil Tandai Laporan Pelayanan Menjadi Terbaca');
         }
     //End Cleaner
 }

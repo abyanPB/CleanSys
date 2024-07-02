@@ -33,6 +33,7 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Status</th>
                 <th>Aksi</th>
                 <th>Waktu Laporan Masuk</th>
                 <th>Area Kerja</th>
@@ -47,7 +48,14 @@
               <tr>
                 <th scope="row">{{ $no++ }}</th>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGuestReport{{$lGc->id_guest}}">Info</button>
+                    @if ($lGc->status_laporan == 'belum')
+                        <button type="button" class="btn btn-warning" title="Cleaner belum memeriksa laporan"><i data-feather="alert-circle"></i></button>
+                    @else
+                        <button type="button" class="btn btn-success" title="Cleaner sudah memeriksa laporan"><i data-feather="check"></i></button>
+                    @endif
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cleanerGuestReport{{$lGc->id_guest}}">Periksa</button>
                     <!-- Modal -->
                     @include('modals')
                 </td>

@@ -34,7 +34,7 @@
               <tr>
                 <th>No</th>
                 <th>Aksi</th>
-                <th>Waktu Laporan Masuk</th>
+                <th>Jenis Laporan</th>
                 <th>Area Kerja</th>
                 <th>Nama Visitor</th>
               </tr>
@@ -47,13 +47,24 @@
               <tr>
                 <th scope="row">{{ $no++ }}</th>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}">Info</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supervisorGuestReport{{$lGs->id_guest}}">Detail</button>
                     <!-- Modal -->
                     @include('modals')
-                </td>
-                <td>{{$lGs->tgl_guest}}</td>
+                </td>   
+                    @if ($lGs->jenis_laporan == 'pengaduan')
+                        <td>
+                            <span class="badge badge-danger">PENGADUAN</span>
+                        </td>
+                    @elseif ($lGs->jenis_laporan == 'pelayanan')
+                        @if ($lGs->status_laporan == 'terbaca')
+                            <td><span class="badge badge-success">PELAYANAN TERBACA CLEANER</span></td>
+                        @else
+                            <td><span class="badge badge-warning">PELAYANAN BELUM TERBACA CLEANER</span></td>
+                        @endif
+                    @endif
                 <td>
                     <span class="badge badge-primary">{{ $lGs->area->nama_area }} {{ $lGs->area->desc_area }}  </span>
+                </td>
                 <td>{{$lGs->nama_guest}}</td>
               </tr>
               @endforeach

@@ -51,7 +51,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Waktu Pengaduan</th>
+                <th>Jenis Laporan</th>
                 <th>Lokasi Pengaduan</th>
                 <th>Nama Visitor</th>
                 <th>Jabatan Visitor</th>
@@ -62,7 +62,17 @@
                 @foreach ($laporanGuestAdmin as $lGa)
               <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$lGa->tgl_guest}}</td>
+                    @if ($lGa->jenis_laporan == 'pengaduan')
+                        <td>
+                            <span class="badge badge-danger">PENGADUAN</span>
+                        </td>
+                    @elseif ($lGa->jenis_laporan == 'pelayanan')
+                        @if ($lGa->status_laporan == 'terbaca')
+                            <td><span class="badge badge-success">PELAYANAN TERBACA CLEANER</span></td>
+                        @else
+                            <td><span class="badge badge-warning">PELAYANAN BELUM TERBACA CLEANER</span></td>
+                        @endif
+                    @endif
                 <td> <span class="badge badge-primary"> {{$lGa->area->nama_area}} {{$lGa->area->desc_area}} </span></td>
                 <td>{{$lGa->nama_guest}}</td>
                 <td>

@@ -17,11 +17,13 @@ class LaporanGuest extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'area_id',
+        'jenis_laporan',
         'nama_guest',
         'level_guest',
         'image_guest',
         'tgl_guest',
         'ket_guest',
+        'status_laporan',
     ];
 
     protected static function boot()

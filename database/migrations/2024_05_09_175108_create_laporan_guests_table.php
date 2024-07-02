@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('laporan_guest', function (Blueprint $table) {
             $table->uuid('id_guest')->primary();
             $table->uuid('area_id')->nullable();
+            $table->enum('jenis_laporan', ['pengaduan', 'pelayanan']);
             $table->string('nama_guest');
             $table->string('level_guest')->nullable();
             $table->string('image_guest');
             $table->datetime('tgl_guest');
             $table->text('ket_guest')->nullable();
+            $table->enum('status_laporan', ['terbaca', 'belum'])->nullable();
             $table->timestamps();
         });
 

@@ -41,8 +41,8 @@
                     <th>No</th>
                     <th>Aksi</th>
                     <th>Nama Petugas</th>
-                    <th>Area Tanggungan</th>
                     <th>No Telepon</th>
+                    <th>Area Tanggungan</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,12 +59,19 @@
                     </td>
                     <td>{{$guest->name}}</td>
                     <td>
+                        @if ($guest->no_telepon == null)
+                            -
+                        @else
+                            {{$guest->no_telepon}}
+                        @endif
+                    </td>
+                    <td>
                         @if ($guest->areaResponsibilities->isEmpty())
                             -
                         @else
                             @php
                                 $areas = $guest->areaResponsibilities;
-                                $displayAreas = $areas->slice(0, 2);
+                                $displayAreas = $areas->slice(0, 3);
                                 $remainingCount = $areas->count() - $displayAreas->count();
                             @endphp
 
@@ -75,13 +82,6 @@
                             @if ($remainingCount > 0)
                                 <span class="badge badge-secondary">... {{ $remainingCount }} more</span>
                             @endif
-                        @endif
-                    </td>
-                    <td>
-                        @if ($guest->no_telepon == null)
-                            -
-                        @else
-                            {{$guest->no_telepon}}
                         @endif
                     </td>
                 </tr>

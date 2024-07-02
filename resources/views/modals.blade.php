@@ -237,6 +237,17 @@
                         <form target="_blank" action="{{ route('cetakpdfPelayanan') }}" method="POST">
                             @csrf
                             <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Pilih Jenis Laporan :</label>
+                                    <br>
+                                    <select class="js-example-basic-multiple" style="width: 100%" name="selected_jenis" multiple>
+                                        @foreach ($laporanGuestAdmin as $lGa)
+                                            <option value="{{$lGa->jenis_laporan}}">{{$lGa->jenis_laporan}}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                    <span class="text-danger">*kosongkan kolom ini jika ingin cetak semua</span>
+                                </div>
                                 <div class="form-row align-items-center">
                                     <div class="col-auto">
                                     <label for="startdate">Dari Tanggal :</label>
@@ -271,6 +282,20 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
+                                <strong>Jenis Laporan :</strong>
+                                <p>
+                                    @if ($lGa->jenis_laporan == 'pengaduan')
+                                            <span class="badge badge-danger">PENGADUAN</span>
+                                    @elseif ($lGa->jenis_laporan == 'pelayanan')
+                                        @if ($lGa->status_laporan == 'terbaca')
+                                            <span class="badge badge-success">PELAYANAN TERBACA CLEANER</span>
+                                        @else
+                                            <span class="badge badge-warning">PELAYANAN BELUM TERBACA CLEANER</span>
+                                        @endif
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="mb-3">
                                 <strong>Waktu Pengaduan Pelayanan :</strong>
                                 <p>
                                     {{$lGa->tgl_guest}}
@@ -291,7 +316,7 @@
                             <div class="mb-3">
                                 <strong>Jabatan Visitor :</strong>
                                 <p>
-                                    {{$lGa->level_guest}}
+                                    {{$lGa->level_guest ?? '-'}}
                                 </p>
                             </div>
                             <div class="mb-3">
@@ -300,8 +325,10 @@
                                     {{$lGa->ket_guest}}
                                 </p>
                             </div>
-                            Foto :
-                            <img src="{{asset('images/laporan_guest/'.$lGa->image_guest)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 60%; border-radius:1px">
+                            <div class="mb-3">
+                                <strong>Foto :</strong>
+                                <img src="{{asset('images/laporan_guest/'.$lGa->image_guest)}}" alt="Foto SOP" class="p-1 bg-light" style="width: 60%; height: 60%; border-radius:1px">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -791,7 +818,7 @@
                                     <hr>
                                     Nama Visitor : {{$lGs->nama_guest}}
                                     <hr>
-                                    Jabatan Visitor : {{$lGs->level_guest}}
+                                    Jabatan Visitor : {{$lGs->level_guest ?? '-'}}
                                     <hr>
                                     Keterangan : {{$lGs->ket_guest}}
                                     <hr>
@@ -1024,7 +1051,7 @@
                                 <hr>
                                 Nama Visitor : {{$lGc->nama_guest}}
                                 <hr>
-                                Jabatan Visitor : {{$lGc->level_guest}}
+                                Jabatan Visitor : {{$lGc->level_guest ?? '-'}}
                                 <hr>
                                 Keterangan : {{$lGc->ket_guest}}
                                 <hr>
@@ -1035,6 +1062,15 @@
                         </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                @if ($lGc->status_laporan == 'terbaca')
+
+                                @else
+                                    <form action="{{route('inputPelayananCleaner',$lGc->id_guest)}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id_guest" value="{{$lGc->id_guest}}">
+                                        <button type="submit" class="btn btn-danger">Kirim</button>
+                                    </form>
+                                @endif
                             </div>
                         </form>
                     </div>
