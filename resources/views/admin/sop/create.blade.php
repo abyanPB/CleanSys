@@ -8,17 +8,6 @@
   </ol>
 </nav>
 
-
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
@@ -28,13 +17,28 @@
             @csrf
           <div class="form-group">
             <label for="nama_sop">Nama SOP<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="nama_sop" name="nama_sop" placeholder="Nama SOP : Swipping">
+            <input type="text" class="form-control" id="nama_sop" name="nama_sop" placeholder="Nama SOP : PENYAPUAN">
             <span class="form-bar text-danger">@error('nama_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
-            <label for="ket_sop">Keterangan SOP<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="ket_sop" name="ket_sop" placeholder="Keterangan SOP : Melakukan pembersihan pada lantai dengan sapu">
-            <span class="form-bar text-danger">@error('ket_sop'){{$message}}@enderror</span>
+            <label for="tujuan_sop">Tujuan SOP<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="tujuan_sop" name="tujuan_sop" placeholder="Tujuan SOP : Membersihkan permukaan lantai yang luas, kering dan rata, dari kotoran dan debu untuk with broom untuk lantai tidak rata ( basah dan kering )">
+            <span class="form-bar text-danger">@error('tujuan_sop'){{$message}}@enderror</span>
+          </div>
+          <div class="form-group">
+            <label for="cara_penggunaan_sop">Cara Melakukan SOP<span class="text-danger">*</span></label></label>
+            <textarea class="form-control" id="cara_penggunaan_sop" name="cara_penggunaan_sop" rows="3" placeholder="Mohon diisi dengan langkah-langkah cara melakukan pekerjaan SOP"></textarea>
+            <span class="form-bar text-danger">@error('cara_penggunaan_sop'){{$message}}@enderror</span>
+          </div>
+          <div class="form-group">
+            <label for="perawatan_peralatan_sop">Perawatan Peralatan<span class="text-danger">*</span></label></label>
+            <textarea class="form-control" id="perawatan_peralatan_sop" name="perawatan_peralatan_sop" rows="3" placeholder="Mohon diisi dengan langkah-langkah cara melakukan perawatan peralatan"></textarea>
+            <span class="form-bar text-danger">@error('perawatan_peralatan_sop'){{$message}}@enderror</span>
+          </div>
+          <div class="form-group">
+            <label for="keselamatan_kerja_sop">Keselamatan Kerja<span class="text-danger">*</span></label></label>
+            <textarea class="form-control" id="keselamatan_kerja_sop" name="keselamatan_kerja_sop" rows="3" placeholder="Mohon diisi dengan langkah-langkah cara melakukan keselamatan kerja dalam melakukan SOP"></textarea>
+            <span class="form-bar text-danger">@error('keselamatan_kerja_sop'){{$message}}@enderror</span>
           </div>
           <div class="form-group">
             <label>File upload<span class="text-danger">*</span></label>

@@ -59,7 +59,7 @@
                     @endif
                 </td>
                 <td>{{$sop->nama_sop}}</td>
-                <td>{{ \Illuminate\Support\Str::words($sop->ket_sop, 5, '...') }}</td>
+                <td>{{ \Illuminate\Support\Str::words($sop->tujuan_sop, 5, '...') }}</td>
               </tr>
               @endforeach
             </tbody>

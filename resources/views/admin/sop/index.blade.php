@@ -39,7 +39,7 @@
                 <th>Aksi</th>
                 <th>Foto</th>
                 <th>Nama</th>
-                <th>Keterangan</th>
+                <th>Tujuan</th>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
                     @endif
                 </td>
                 <td>{{$sop->nama_sop}}</td>
-                <td>{{ \Illuminate\Support\Str::words($sop->ket_sop, 5, '...') }}</td>
+                <td>{{ \Illuminate\Support\Str::words($sop->tujuan_sop, 5, '...') }}</td>
               </tr>
               @endforeach
             </tbody>

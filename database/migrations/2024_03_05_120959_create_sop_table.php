@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('sop', function (Blueprint $table) {
             $table->uuid('id_sop')->primary();
             $table->string('nama_sop');
-            $table->string('ket_sop');
+            $table->string('tujuan_sop');
+            $table->text('cara_penggunaan_sop');
+            $table->text('perawatan_peralatan_sop');
+            $table->text('keselamatan_kerja_sop');
             $table->string('image_sop')->nullable();
             $table->timestamps();
         });

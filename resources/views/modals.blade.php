@@ -583,8 +583,20 @@
                                 <p>{{$sop->nama_sop}}</p>
                             </div>
                             <div class="mb-3">
-                                <strong>Keterangan SOP:</strong>
-                                <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
+                                <strong>Tujuan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->tujuan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Cara Melakukan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->cara_penggunaan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Perawatan Peralatan:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->perawatan_peralatan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Keselamatan Kerja:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->keselamatan_kerja_sop ?? '-'}}</p>
                             </div>
                             <div class="mb-3">
                                 <strong>Foto:</strong>
@@ -1050,8 +1062,20 @@
                                 <p>{{$sop->nama_sop}}</p>
                             </div>
                             <div class="mb-3">
-                                <strong>Keterangan SOP:</strong>
-                                <p style="white-space: pre-wrap;">{{$sop->ket_sop}}</p>
+                                <strong>Tujuan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->tujuan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Cara Melakukan SOP:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->cara_penggunaan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Perawatan Peralatan:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->perawatan_peralatan_sop ?? '-'}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Keselamatan Kerja:</strong>
+                                <p style="white-space: pre-wrap;">{{$sop->keselamatan_kerja_sop ?? '-'}}</p>
                             </div>
                             <div class="mb-3">
                                 <strong>Foto:</strong>

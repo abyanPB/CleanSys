@@ -36,15 +36,21 @@ class SopController extends Controller
         {
             $request->validate([
                 'nama_sop' => 'required|unique:sop',
-                'ket_sop' => 'required',
-                'image_sop' => 'mimes:jpg,bmp,png,jpeg,svg|max:2048',
+                'tujuan_sop' => 'required',
+                'cara_penggunaan_sop' => 'required',
+                'perawatan_peralatan_sop' => 'required',
+                'keselamatan_kerja_sop' => 'required',
+                'image_sop' => 'required|mimes:jpg,bmp,png,jpeg,svg',
             ],[
                 'nama_sop.required' => 'Harap masukan nama SOP',
                 'nama_sop.unique' => 'Nama SOP sudah ada',
-                'ket_sop.required' => 'Harap masukan keterangan SOP',
-                // 'image_sop.required' => 'Harap masukan foto SOP',
+                'tujuan_sop.required' => 'Harap masukan tujuan SOP',
+                'cara_penggunaan_sop.required' => 'Harap masukan cara penggunaan SOP',
+                'perawatan_peralatan_sop.required' => 'Harap masukan perawatan peralatan',
+                'keselamatan_kerja_sop.required' => 'Harap masukan keselamatan kerja',
+                'image_sop.required' => 'Harap masukan foto SOP',
                 'image_sop.mimes' => 'File yang anda masukan bukan file jpg,bmp,png,jpeg,svg',
-                'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
+                // 'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
             ]);
 
             // Inisialisasi $imageName sebagai null
@@ -65,7 +71,10 @@ class SopController extends Controller
             // Buat entri baru di database
             Sop::create([
                 'nama_sop' => $request->nama_sop,
-                'ket_sop' => $request->ket_sop,
+                'tujuan_sop' => $request->tujuan_sop,
+                'cara_penggunaan_sop' => $request->cara_penggunaan_sop,
+                'perawatan_peralatan_sop' => $request->perawatan_peralatan_sop,
+                'keselamatan_kerja_sop' => $request->keselamatan_kerja_sop,
                 'image_sop' => $imageName,
             ]);
 
@@ -91,8 +100,11 @@ class SopController extends Controller
 
             $rules = [
                 'nama_sop' => 'required',
-                'ket_sop' => 'required',
-                'image_sop' => $request->hasFile('image_sop') ? 'required|mimes:jpg,bmp,png,jpeg,svg|max:2048' : '',
+                'tujuan_sop' => 'required',
+                'cara_penggunaan_sop' => 'required',
+                'perawatan_peralatan_sop' => 'required',
+                'keselamatan_kerja_sop' => 'required',
+                'image_sop' => $request->hasFile('image_sop') ? 'required|mimes:jpg,bmp,png,jpeg,svg' : '',
             ];
 
             if($request->nama_sop !== $sop->nama_sop){
@@ -102,14 +114,19 @@ class SopController extends Controller
             $request->validate($rules,[
                 'nama_sop.required' => 'Harap masukan nama SOP',
                 'nama_sop.unique' => 'Nama SOP sudah ada',
-                'ket_sop.required' => 'Harap masukan keterangan SOP',
+                'tujuan_sop.required' => 'Harap masukan tujuan SOP',
+                'cara_penggunaan_sop.required' => 'Harap masukan cara penggunaan SOP',
+                'perawatan_peralatan_sop.required' => 'Harap masukan perawatan peralatan',
+                'keselamatan_kerja_sop.required' => 'Harap masukan keselamatan kerja',
                 'image_sop.required' => 'Harap masukan foto SOP',
                 'image_sop.mimes' => 'File yang anda masukan bukan file jpg,bmp,png,jpeg,svg',
-                'image_sop.max' => 'Ukuran file yang anda masukan melebihi 2MB',
             ]);
 
             $sop->nama_sop = $request->nama_sop;
-            $sop->ket_sop = $request->ket_sop;
+            $sop->tujuan_sop = $request->tujuan_sop;
+            $sop->cara_penggunaan_sop = $request->cara_penggunaan_sop;
+            $sop->perawatan_peralatan_sop = $request->perawatan_peralatan_sop;
+            $sop->keselamatan_kerja_sop = $request->keselamatan_kerja_sop;
 
             if($request->hasFile('image_sop')){
                 File::delete(public_path('images/sop/'.$sop->image_sop));

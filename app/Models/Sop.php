@@ -17,7 +17,10 @@ class Sop extends Model
     protected $keyType = 'string';
     protected $fillable=[
         'nama_sop',
-        'ket_sop',
+        'tujuan_sop',
+        'cara_penggunaan_sop',
+        'perawatan_peralatan_sop',
+        'keselamatan_kerja_sop',
         'image_sop',
     ];
 
