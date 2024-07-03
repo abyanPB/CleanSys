@@ -199,6 +199,11 @@ class PjkpController extends Controller
             return redirect()->route('showLaporanPjkpCleaner')->with('success', 'Berhasil Tambah Laporan Pjkp');
         }
 
+        public function getSop(Request $request){
+            $sop = Sop::findOrFail($request->id_sop);
+            return response()->json($sop->cara_penggunaan_sop);
+        }
+        
         /**
          * Show the form for editing the specified resource.
          */

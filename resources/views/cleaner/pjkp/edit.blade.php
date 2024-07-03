@@ -53,6 +53,10 @@
                     @endforeach
                 </select>
             </div>
+            <div id="caraPenggunaanContainer" class="form-group">
+                <label>Tata Cara SOP :</label>
+                <ul style="list-style-type:none;" id="caraPenggunaanList"></ul>
+            </div>
             <label>Status Pekerjaan<span class="text-danger">*</span></label>
             <div class="form-group">
                 <select class="js-example-basic-single w-100" id="status_lp" name="status_lp">
@@ -126,4 +130,63 @@
         tags: true
     });
   </script>
+  <script>
+    // Function to show submit button and photo preview after selecting photo
+    function showSubmitButtonAndPreview() {
+        var btnSubmit = document.getElementById("btnSubmit");
+        var photoPreview = document.getElementById("photoPreview");
+        btnSubmit.classList.remove("is-hidden");
+        photoPreview.classList.remove("is-hidden");
+
+        // Show preview of selected photo
+        var previewImage = document.getElementById("previewImage");
+        var photoInput = document.getElementById("photoInput");
+        var file = photoInput.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    // Event listener to show submit button and photo preview when photo is selected
+    var photoInput = document.getElementById("photoInput");
+    photoInput.addEventListener("change", showSubmitButtonAndPreview);
+
+    $('#id_sop').change(function() {
+            const sopId = $(this).val();
+            if (sopId) {
+                $.ajax({
+                    url: '{{ route("getSop") }}',
+                    method: 'GET',
+                    data: { id_sop: sopId },
+                    success: function(data) {
+                        if (data) {
+                            const caraPenggunaanList = data.split('\n');
+                            const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                            const caraPenggunaanUl = $('#caraPenggunaanList');
+                            caraPenggunaanUl.empty();
+                            caraPenggunaanList.forEach(item => {
+                                caraPenggunaanUl.append(`<li>${item}</li>`);
+                            });
+                            caraPenggunaanContainer.show();
+                        }
+                    },
+                    error: function() {
+                        const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                        const caraPenggunaanUl = $('#caraPenggunaanList');
+                        caraPenggunaanUl.empty();
+                    }
+                });
+            } else {
+                const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                const caraPenggunaanUl = $('#caraPenggunaanList');
+                caraPenggunaanUl.empty();
+            }
+        });
+        var initialSopId = $('#id_sop').val();
+        if (initialSopId) {
+            $('#id_sop').trigger('change');
+        }
+</script>
 @endpush

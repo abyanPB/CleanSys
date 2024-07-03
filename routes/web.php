@@ -76,6 +76,7 @@ use Illuminate\Validation\Rules;
                     Route::get('/Laporan-PJKP/Edit/{id_lp}',[PjkpController::class, 'editPjkpDailyReportCleaner'])->name('editLaporanPjkpCleaner');
                     Route::put('/Laporan-PJKP/Update/{id_lp}',[PjkpController::class, 'updatePjkpDailyReportCleaner'])->name('updateLaporanPjkpCleaner');
                     Route::delete('/Laporan-PJKP/{id_lp}',[PjkpController::class, 'destroyPjkpDailyReportCleaner'])->name('destroyLaporanPjkpCleaner');
+                    Route::get('/Laporan-PJKP/GetSop', [PjkpController::class, 'getSop'])->name('getSop');
 
                 //Route for Menampilkan Laporan Pelayanan
                     Route::get('/Laporan-Pelayanan', [GuestController::class, 'showPelayananCleaner'])->name('showPelayananCleaner');

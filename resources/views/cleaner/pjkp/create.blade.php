@@ -36,7 +36,7 @@
                 <select class="js-example-basic-single" id="id_area" name="id_area">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
-                    <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
+                    <option value="{{$area->id_area}}" {{ old('id_area') == $area->id_area ? 'selected' : '' }}>{{$area->nama_area}} {{$area->desc_area}}</option>
                     @endforeach
                 </select>
             </div>
@@ -45,9 +45,13 @@
                 <select class="js-example-basic-single" id="id_sop" name="id_sop">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
-                    <option value="{{$sop->id_sop}}">{{$sop->nama_sop}}</option>
+                    <option value="{{$sop->id_sop}}" {{ old('id_sop') == $sop->id_sop ? 'selected' : '' }}>{{$sop->nama_sop}}</option>
                     @endforeach
                 </select>
+            </div>
+            <div id="caraPenggunaanContainer" class="form-group">
+                <label>Tata Cara SOP :</label>
+                <ul style="list-style-type:none;" id="caraPenggunaanList"></ul>
             </div>
             <label>Status Pekerjaan<span class="text-danger">*</span></label>
             <div class="form-group">
@@ -120,5 +124,41 @@
     // Event listener to show submit button and photo preview when photo is selected
     var photoInput = document.getElementById("photoInput");
     photoInput.addEventListener("change", showSubmitButtonAndPreview);
+
+    $('#id_sop').change(function() {
+            const sopId = $(this).val();
+            if (sopId) {
+                $.ajax({
+                    url: '{{ route("getSop") }}',
+                    method: 'GET',
+                    data: { id_sop: sopId },
+                    success: function(data) {
+                        if (data) {
+                            const caraPenggunaanList = data.split('\n');
+                            const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                            const caraPenggunaanUl = $('#caraPenggunaanList');
+                            caraPenggunaanUl.empty();
+                            caraPenggunaanList.forEach(item => {
+                                caraPenggunaanUl.append(`<li>${item}</li>`);
+                            });
+                            caraPenggunaanContainer.show();
+                        }
+                    },
+                    error: function() {
+                        const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                        const caraPenggunaanUl = $('#caraPenggunaanList');
+                        caraPenggunaanUl.empty();
+                    }
+                });
+            } else {
+                const caraPenggunaanContainer = $('#caraPenggunaanContainer');
+                const caraPenggunaanUl = $('#caraPenggunaanList');
+                caraPenggunaanUl.empty();
+            }
+        });
+        var initialSopId = $('#id_sop').val();
+        if (initialSopId) {
+            $('#id_sop').trigger('change');
+        }
 </script>
 @endpush
