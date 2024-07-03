@@ -67,8 +67,8 @@
                 <td>{{$aGr->laporanGrooming->tgl_lg}}</td>
                 <td>{{$aGr->tgl_tg}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminGroomingReportDetail{{$aGr->lg_id}}">Info</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeleteGroomingReport{{$aGr->lg_id}}">Hapus</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminGroomingReportDetail{{$aGr->id_lg}}">Info</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adminDeleteGroomingReport{{$aGr->id_lg}}">Hapus</button>
 
                     <!-- Modal -->
                     @include('modals')

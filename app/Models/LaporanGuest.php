@@ -16,7 +16,7 @@ class LaporanGuest extends Model
     protected $primaryKey = 'id_guest';
     protected $keyType = 'string';
     protected $fillable = [
-        'area_id',
+        'id_area',
         'jenis_laporan',
         'nama_guest',
         'level_guest',
@@ -37,6 +37,6 @@ class LaporanGuest extends Model
     //Relasi ke Area
     public function area(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(Area::class, 'area_id', 'id_area');
+        return $this->belongsTo(Area::class, 'id_area', 'id_area');
     }
 }

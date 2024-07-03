@@ -86,7 +86,7 @@ class GroomingController extends Controller
                 //Cetak berdasarkan nama pekerja yang dipilih
                 else{
                     $printData = TanggapanGrooming::whereHas('laporanGrooming', function ($query) use ($selectedUsers){
-                        $query->whereIn('user_id', $selectedUsers);
+                        $query->whereIn('id_users', $selectedUsers);
                     })->whereBetween('tgl_tg', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
                 $title = 'Laporan Grooming Provice Group';
@@ -122,7 +122,7 @@ class GroomingController extends Controller
             // Emit an event with the supervisor's name
             $user = Auth::user();
             $laporanGrooming = LaporanGrooming::findOrFail($request->id_lg);
-            $laporanOwnerId = $laporanGrooming->user_id;
+            $laporanOwnerId = $laporanGrooming->id_users;
             if ($this->check_internet_connection()) {
                 event(new LaporanGroomingEvent($user->name, $laporanOwnerId));
             }
@@ -134,10 +134,10 @@ class GroomingController extends Controller
             ]);
             $currentDateTime = Carbon::now();//inisialisasi date
             TanggapanGrooming::create([
-                'lg_id' => $request->id_lg,
+                'id_lg' => $request->id_lg,
                 'tgl_tg' => $currentDateTime,
                 'tanggapan_grooming' => $request->tanggapan_grooming,
-                'user_id' => Auth::id(),
+                'id_users' => Auth::id(),
             ]);
             return redirect()->route('showTanggapanGrooming')->with('success', 'Berhasil Menanggapi Laporan Grooming');
         }
@@ -152,7 +152,7 @@ class GroomingController extends Controller
         {
             $user = Auth::user();
             $currentDate = now()->toDateString();
-            $cleanerGroomingReportToday = LaporanGrooming::where('user_id', $user->id_users)
+            $cleanerGroomingReportToday = LaporanGrooming::where('id_users', $user->id_users)
                                             ->whereDate('tgl_lg', $currentDate)
                                             ->orderBydesc('tgl_lg')
                                             ->get();
@@ -186,7 +186,7 @@ class GroomingController extends Controller
 
             $currentDateTime = Carbon::now();
             LaporanGrooming::create([
-                'user_id' => $request->user_id,
+                'id_users' => $request->id_users,
                 'tgl_lg' => $currentDateTime,
                 'image_lg' => $imageName,
             ]);

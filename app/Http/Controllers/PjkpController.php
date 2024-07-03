@@ -93,7 +93,7 @@ class PjkpController extends Controller
                 else{
                     $printData = TanggapanPJKP::whereHas('laporanPjkp', function ($query) use ($selectedUsers){
                         $query->where('status_lp', '=', 'hasil');
-                        $query->whereIn('user_id', $selectedUsers);
+                        $query->whereIn('id_users', $selectedUsers);
                     })->whereBetween('tgl_tp', [$request->start_date, now()->parse($request->end_date)->addDay()])->get();
                 }
                 $title = 'Laporan PJKP Provice Group';
@@ -121,7 +121,7 @@ class PjkpController extends Controller
             // Emit an event with the supervisor's name
             $user = Auth::user();
             $laporanPjkp = LaporanPJKP::findOrFail($request->id_lp);
-            $laporanOwnerId = $laporanPjkp->user_id;
+            $laporanOwnerId = $laporanPjkp->id_users;
             if($this->check_internet_connection()) {
                 event(new LaporanPjkpEvent($user->name, $laporanOwnerId));
             }
@@ -133,10 +133,10 @@ class PjkpController extends Controller
             ]);
             $currentDateTime = Carbon::now();
             TanggapanPJKP::create([
-                'lp_id' => $request->id_lp,
+                'id_lp' => $request->id_lp,
                 'tgl_tp' => $currentDateTime,
                 'tanggapan_pjkp' => $request->tanggapan_pjkp,
-                'user_id' => Auth::id(),
+                'id_users' => Auth::id(),
             ]);
             return redirect()->route('showTanggapanPjkp')->with('success', 'Berhasil Menanggapi Laporan Pjkp');
         }
@@ -147,7 +147,7 @@ class PjkpController extends Controller
         {
             $userId = Auth::user()->id_users;
             $currentDate = now()->toDateString();
-            $cleanerPjkpReportToday = LaporanPJKP::where('user_id', $userId)
+            $cleanerPjkpReportToday = LaporanPJKP::where('id_users', $userId)
                                             ->whereDate('tgl_lp', $currentDate)
                                             ->orderBydesc('tgl_lp')
                                             ->get();
@@ -172,13 +172,13 @@ class PjkpController extends Controller
             }
 
             $request->validate([
-                'area_id' =>'required',
-                'sop_id' =>'required',
+                'id_area' =>'required',
+                'id_sop' =>'required',
                 'status_lp' =>'required',
                 'image_lp' =>'required|image|mimes:jpeg,png,jpg,gif',
             ],[
-                'area_id.required' => 'Area kerja tidak boleh kosong',
-                'sop_id.required' => 'SOP kerja tidak boleh kosong',
+                'id_area.required' => 'Area kerja tidak boleh kosong',
+                'id_sop.required' => 'SOP kerja tidak boleh kosong',
                 'status_lp.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lp.required' => 'Foto pekerjaan tidak boleh kosong',
                 'image_lp.image' => 'File harus berupa gambar',
@@ -189,9 +189,9 @@ class PjkpController extends Controller
 
             $currentDateTime = Carbon::now();
             LaporanPJKP::create([
-                'user_id' => $request->user_id,
-                'area_id' => $request->area_id,
-                'sop_id' => $request->sop_id,
+                'id_users' => $request->id_users,
+                'id_area' => $request->id_area,
+                'id_sop' => $request->id_sop,
                 'tgl_lp' => $currentDateTime,
                 'image_lp' => $imageName,
                 'status_lp' => $request->status_lp,
@@ -219,20 +219,20 @@ class PjkpController extends Controller
             $lp = LaporanPJKP::findOrFail($id);
 
             $request->validate([
-                'area_id' =>'required',
-                'sop_id' =>'required',
+                'id_area' =>'required',
+                'id_sop' =>'required',
                 'status_lp' =>'required',
                 'image_lp' => $request->hasFile('image_lp') ? 'image|mimes:jpeg,png,jpg,gif' : '',
             ],[
-                'area_id.required' => 'Area kerja tidak boleh kosong',
-                'sop_id.required' => 'SOP kerja tidak boleh kosong',
+                'id_area.required' => 'Area kerja tidak boleh kosong',
+                'id_sop.required' => 'SOP kerja tidak boleh kosong',
                 'status_lp.required' => 'Status pekerjaan tidak boleh kosong',
                 'image_lp.image' => 'File harus berupa gambar',
                 'image_lp.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, atau gif',
             ]);
 
-            $lp->area_id = $request->area_id;
-            $lp->sop_id = $request->sop_id;
+            $lp->id_area = $request->id_area;
+            $lp->id_sop = $request->id_sop;
             $lp->status_lp = $request->status_lp;
 
             if($request->hasFile('image_lp')){

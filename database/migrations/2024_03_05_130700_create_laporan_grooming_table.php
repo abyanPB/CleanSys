@@ -27,14 +27,14 @@ return new class extends Migration
     {
         Schema::create('laporan_grooming', function (Blueprint $table) {
             $table->uuid('id_lg')->primary();
-            $table->uuid('user_id')->nullable();
+            $table->uuid('id_users')->nullable();
             $table->datetime('tgl_lg');
             $table->string('image_lg')->nullable();
             $table->timestamps();
         });
 
         Schema::table('laporan_grooming', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

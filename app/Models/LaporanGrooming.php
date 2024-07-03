@@ -17,7 +17,7 @@ class LaporanGrooming extends Model
     protected $primaryKey='id_lg';
     protected $keyType = 'string';
     protected $fillable=[
-        'user_id',
+        'id_users',
         'tgl_lg',
         'image_lg',
     ];
@@ -33,12 +33,12 @@ class LaporanGrooming extends Model
     //Relasi ke User
     public function user(): BelongsTo //BelongsTo (Foreign Key, Owner Key)
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_users');
+        return $this->belongsTo(User::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Tanggapan Grooming
     public function tanggapanGroomings(): HasMany //HasMany (Foreign Key, Local Key)
     {
-        return $this->hasMany(TanggapanGrooming::class, 'lg_id', 'id_lg');
+        return $this->hasMany(TanggapanGrooming::class, 'id_lg', 'id_lg');
     }
 }

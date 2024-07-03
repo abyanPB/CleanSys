@@ -44,10 +44,10 @@ class DashboardController extends Controller
         };
 
         // Mendapatkan id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh SPV yang sedang login
-        $areaIds = AreaResponsibility::whereHas('user', $SpvFilter)->pluck('area_id');
+        $areaIds = AreaResponsibility::whereHas('user', $SpvFilter)->pluck('id_area');
 
         // Menghitung jumlah laporan pengaduan berdasarkan id_area untuk hari ini
-        $laporanPengaduanTodaySpv = LaporanGuest::whereIn('area_id', $areaIds)
+        $laporanPengaduanTodaySpv = LaporanGuest::whereIn('id_area', $areaIds)
             ->whereDate('tgl_guest', $todayDate)
             ->count();
 
@@ -88,20 +88,20 @@ class DashboardController extends Controller
         };
 
         // Mendapatkan id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh Cleaner yang sedang login
-        $areaIds = AreaResponsibility::whereHas('user', $CleanerFilter)->pluck('area_id');
+        $areaIds = AreaResponsibility::whereHas('user', $CleanerFilter)->pluck('id_area');
 
         // Menghitung jumlah laporan pengaduan berdasarkan id_area untuk hari ini
-        $laporanPengaduanTodayCleaner = LaporanGuest::whereIn('area_id', $areaIds)
+        $laporanPengaduanTodayCleaner = LaporanGuest::whereIn('id_area', $areaIds)
             ->whereDate('tgl_guest', $todayDate)
             ->count();
 
         // Data Cleaner
         $dataCleaner = [
-            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('user_id', $user->id_users)
+            'laporanGroomingDitanggapiSpv' => LaporanGrooming::where('id_users', $user->id_users)
                 ->whereDate('tgl_lg', $todayDate)
                 ->whereDoesntHave('tanggapanGroomings')
                 ->count(),
-            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('user_id', $user->id_users)
+            'laporanPjkpDitanggapiSpv' => LaporanPJKP::where('id_users', $user->id_users)
                 ->whereDate('tgl_lp', $todayDate)
                 ->whereDoesntHave('tanggapanPjkps')
                 ->count(),

@@ -60,13 +60,13 @@
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Pilih Area<span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="js-example-basic-single" id="area_id" name="area_id">
+                            <select class="js-example-basic-single" id="id_area" name="id_area">
                                 <option value="">Tempat Yang Ingin Di Laporankan</option>
                                 @foreach ($areas as $area)
                                     <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
                                 @endforeach
                             </select>
-                            <span class="form-bar text-danger">@error('area_id'){{$message}}@enderror</span>
+                            <span class="form-bar text-danger">@error('id_area'){{$message}}@enderror</span>
                         </div>
                     </div>
                     <div class="row mb-3">

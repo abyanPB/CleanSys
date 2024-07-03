@@ -88,7 +88,7 @@ class AreaResponsibilityController extends Controller
         //Edit Penanggung Jawab Area Kerja
         public function editAreaResponsibilitiesAdmin(Request $request){
             $cleanersArea = User::findOrFail($request->id_users);
-            $assignedAreas = AreaResponsibility::where('user_id', '!=', $request->id_users)->pluck('area_id')->toArray();
+            $assignedAreas = AreaResponsibility::where('id_users', '!=', $request->id_users)->pluck('id_area')->toArray();
             $availableAreas = Area::whereNotIn('id_area', $assignedAreas)->get();
             $areas = Area::all();
             $title = 'Tambah Penanggung Jawab Area Kerja';
@@ -98,19 +98,19 @@ class AreaResponsibilityController extends Controller
         public function updateAreaResponsibilitiesAdmin(Request $request)
         {
             $request->validate([
-                'area_id' =>'required',
+                'id_area' =>'required',
             ]);
-            $user_id = $request->id_users;
-            $area_ids = $request->area_id;
+            $id_users = $request->id_users;
+            $area_ids = $request->id_area;
 
             // Delete existing area responsibilities for the user
-            AreaResponsibility::where('user_id', $user_id)->delete();
+            AreaResponsibility::where('id_users', $id_users)->delete();
 
             // Create new area responsibilities
-            foreach ($area_ids as $area_id) {
+            foreach ($area_ids as $id_area) {
                 AreaResponsibility::create([
-                    'user_id' => $user_id,
-                    'area_id' => $area_id,
+                    'id_users' => $id_users,
+                    'id_area' => $id_area,
                 ]);
             }
             return redirect()->route('Penanggung-Jawab-Area.index')->with('success', 'Penanggung Jawab Area berhasil ditambahkan');

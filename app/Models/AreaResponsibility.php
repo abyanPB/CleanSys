@@ -17,8 +17,8 @@ class AreaResponsibility extends Model
     protected $primaryKey='id_ar';
     protected $keyType = 'string';
     protected $fillable=[
-        'user_id',
-        'area_id',
+        'id_users',
+        'id_area',
     ];
 
     protected static function boot()
@@ -32,12 +32,12 @@ class AreaResponsibility extends Model
     //Relasi ke User
     public function user(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_users');
+        return $this->belongsTo(User::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Area
     public function area(): BelongsTo
     {
-        return $this->belongsTo(Area::class, 'area_id', 'id_area');
+        return $this->belongsTo(Area::class, 'id_area', 'id_area');
     }
 }

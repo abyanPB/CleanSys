@@ -30,10 +30,10 @@
         <h6 class="card-title">Tambah Laporan Pjkp Pekerjaan Cleaning Service</h6>
         <form id="take" class="forms-sample" action="{{route('storeLaporanPjkpCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
+            <input type="hidden" name="id_users" value="{{ auth()->user()->id_users }}">
             <label>Area Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
-                <select class="js-example-basic-single" id="area_id" name="area_id">
+                <select class="js-example-basic-single" id="id_area" name="id_area">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
                     <option value="{{$area->id_area}}">{{$area->nama_area}} {{$area->desc_area}}</option>
@@ -42,7 +42,7 @@
             </div>
             <label>Sop Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
-                <select class="js-example-basic-single" id="sop_id" name="sop_id">
+                <select class="js-example-basic-single" id="id_sop" name="id_sop">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
                     <option value="{{$sop->id_sop}}">{{$sop->nama_sop}}</option>

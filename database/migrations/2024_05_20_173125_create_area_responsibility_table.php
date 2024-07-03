@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('area_responsibility', function (Blueprint $table) {
             $table->uuid('id_ar')->primary();
-            $table->uuid('user_id');
-            $table->uuid('area_id');
+            $table->uuid('id_users');
+            $table->uuid('id_area');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade');
-            $table->foreign('area_id')->references('id_area')->on('area')->onDelete('cascade');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade');
+            $table->foreign('id_area')->references('id_area')->on('area')->onDelete('cascade');
         });
     }
 

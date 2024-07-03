@@ -33,21 +33,21 @@
           @csrf
           @method('PUT')
           <div class="form-group">
-            <label for="user_id">Nama Pekerja</label>
-            <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Nama Lengkap" value="{{ $cleanersArea->name }}" disabled>
-            <span class="form-bar text-danger">@error('user_id'){{ $message }}@enderror</span>
+            <label for="id_users">Nama Pekerja</label>
+            <input type="text" class="form-control" id="id_users" name="id_users" placeholder="Nama Lengkap" value="{{ $cleanersArea->name }}" disabled>
+            <span class="form-bar text-danger">@error('id_users'){{ $message }}@enderror</span>
           </div>
           <div class="form-group">
-            <label for="area_id">Area Tanggungan<span class="text-danger">*</span></label>
-            <select class="js-example-basic-multiple" style="width: 100%" name="area_id[]" id="area_id" multiple>
+            <label for="id_area">Area Tanggungan<span class="text-danger">*</span></label>
+            <select class="js-example-basic-multiple" style="width: 100%" name="id_area[]" id="id_area" multiple>
                 <option value="">Pilih Area Tanggungan</option>
                 @foreach ($availableAreas as $area)
-                    <option value="{{ $area->id_area }}" {{ $cleanersArea->areaResponsibilities->contains('area_id', $area->id_area) ? 'selected' : '' }}>
+                    <option value="{{ $area->id_area }}" {{ $cleanersArea->areaResponsibilities->contains('id_area', $area->id_area) ? 'selected' : '' }}>
                         {{ $area->nama_area }} - {{ $area->desc_area }}
                     </option>
                 @endforeach
             </select>
-            <span class="form-bar text-danger">@error('area_id'){{ $message }}@enderror</span>
+            <span class="form-bar text-danger">@error('id_area'){{ $message }}@enderror</span>
           </div>
           <button type="submit" class="btn btn-primary mr-2">Update</button>
           <a href="{{route('Penanggung-Jawab-Area.index')}}" class="btn btn-light">Cancel</a>

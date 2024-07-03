@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('laporan_guest', function (Blueprint $table) {
             $table->uuid('id_guest')->primary();
-            $table->uuid('area_id')->nullable();
+            $table->uuid('id_area')->nullable();
             $table->enum('jenis_laporan', ['pengaduan', 'pelayanan']);
             $table->string('nama_guest');
             $table->string('level_guest')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
         });
 
         Schema::table('laporan_guest', function (Blueprint $table) {
-            $table->foreign('area_id')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_area')->references('id_area')->on('area')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

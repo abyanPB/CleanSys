@@ -47,11 +47,11 @@
             {{-- End Cetak Pdf --}}
             @foreach ($adminGroomingReport as $aGr)
             {{-- Modal Detail --}}
-                <div class="modal fade" id="adminGroomingReportDetail{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->lg_id}}" aria-hidden="true">
+                <div class="modal fade" id="adminGroomingReportDetail{{$aGr->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="adminGroomingReportDetail{{$aGr->id_lg}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->lg_id}}">Detail Laporan Grooming</h5>
+                        <h5 class="modal-title" id="adminGroomingReportDetail{{$aGr->id_lg}}">Detail Laporan Grooming</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -79,11 +79,11 @@
             {{-- End Modal Detail --}}
 
             {{-- Modal Hapus --}}
-                <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->lg_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->lg_id}}" aria-hidden="true">
+                <div class="modal fade" id="adminDeleteGroomingReport{{$aGr->id_lg}}" tabindex="-1" role="dialog" aria-labelledby="adminDeleteGroomingReport{{$aGr->id_lg}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->lg_id}}">Konfirmasi</h5>
+                        <h5 class="modal-title" id="adminDeleteGroomingReport{{$aGr->id_lg}}">Konfirmasi</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <form action="{{route('laporan-grooming.destroy',$aGr->lg_id)}}" method="POST">
+                        <form action="{{route('laporan-grooming.destroy',$aGr->id_lg)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
@@ -156,11 +156,11 @@
 
             @foreach ($adminPjkpReport as $aPr)
             {{-- Modal Detail --}}
-                <div class="modal fade" id="adminPjkpReportDetail{{$aPr->lp_id}}" tabindex="-1" role="dialog" aria-labelledby="adminPjkpReportDetail{{$aPr->lp_id}}" aria-hidden="true">
+                <div class="modal fade" id="adminPjkpReportDetail{{$aPr->id_lp}}" tabindex="-1" role="dialog" aria-labelledby="adminPjkpReportDetail{{$aPr->id_lp}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="adminPjkpReportDetail{{$aPr->lp_id}}">Detail Laporan Pjkp</h5>
+                                <h5 class="modal-title" id="adminPjkpReportDetail{{$aPr->id_lp}}">Detail Laporan Pjkp</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -194,11 +194,11 @@
             {{-- End Modal Detail --}}
 
             {{-- Modal Hapus --}}
-                <div class="modal fade" id="adminDeletePjkpReport{{$aPr->lp_id}}" tabindex="-1" role="dialog" aria-labelledby="adminDeletePjkpReport{{$aPr->lp_id}}" aria-hidden="true">
+                <div class="modal fade" id="adminDeletePjkpReport{{$aPr->id_lp}}" tabindex="-1" role="dialog" aria-labelledby="adminDeletePjkpReport{{$aPr->id_lp}}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="adminDeletePjkpReport{{$aPr->lp_id}}">Konfirmasi</h5>
+                                <h5 class="modal-title" id="adminDeletePjkpReport{{$aPr->id_lp}}">Konfirmasi</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -208,7 +208,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <form action="{{route('laporan-pjkp.destroy',$aPr->lp_id)}}" method="POST">
+                                <form action="{{route('laporan-pjkp.destroy',$aPr->id_lp)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>

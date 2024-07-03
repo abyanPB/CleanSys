@@ -116,14 +116,14 @@ class GuestController extends Controller
         {
             $request->validate([
                 'jenis_laporan' => 'required',
-                'area_id' => 'required',
+                'id_area' => 'required',
                 'nama_guest' => 'required|string',
                 'ket_guest' => 'required|string',
                 'image_guest' =>'required|image|mimes:jpeg,png,jpg,gif',
                 'g-recaptcha-response' => 'required|captcha',
             ],[
                 'jenis_laporan.required' => 'Jenis Laporan tidak boleh kosong',
-                'area_id.required' => 'Area kerja tidak boleh kosong',
+                'id_area.required' => 'Area kerja tidak boleh kosong',
                 'nama_guest.required' => 'Nama guest tidak boleh kosong',
                 'nama_guest.string' => 'Nama guest harus berupa string',
                 'ket_guest.required' => 'Keterangan guest tidak boleh kosong',
@@ -137,7 +137,7 @@ class GuestController extends Controller
             // Periksa apakah ada laporan lain dari area yang sama dalam 1 jam atau 30 Menit terakhir
             $oneHourAgo = Carbon::now()->subHour(); //Kalau 1 Jam
             // $halfHourAgo = Carbon::now()->subMinutes(30); //Kalau 30 Menit
-            $existingReport = LaporanGuest::where('area_id', $request->area_id)
+            $existingReport = LaporanGuest::where('id_area', $request->id_area)
                                         ->where('tgl_guest', '>=', $oneHourAgo)
                                         ->first();
 
@@ -156,7 +156,7 @@ class GuestController extends Controller
 
             // Mengambil user dengan tanggung jawab di area yang dipilih
             $Users = User::whereHas('areaResponsibilities', function ($query) use ($request) {
-                $query->where('area_id', $request->area_id);
+                $query->where('id_area', $request->id_area);
             })->get();
 
             // Ambil id supervisor dan cleaner pertama
@@ -177,7 +177,7 @@ class GuestController extends Controller
             $currentDateTime = Carbon::now();
             LaporanGuest::create([
                 'jenis_laporan' => $request->jenis_laporan,
-                'area_id' => $request->area_id,
+                'id_area' => $request->id_area,
                 'nama_guest' => $request->nama_guest,
                 'level_guest' => $request->filled('level_guest')? $request->level_guest : null,
                 'image_guest' => $imageName,
@@ -199,10 +199,10 @@ class GuestController extends Controller
             // Dapatkan semua id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh SPV yang sedang login
             $areaIds = AreaResponsibility::whereHas('user', function ($query) use ($user) {
                 $query->where('supervisor_id', $user->id_users);
-            })->pluck('area_id');
+            })->pluck('id_area');
 
             // Dapatkan semua laporan pengaduan berdasarkan id_area
-            $laporanGuestSpv = LaporanGuest::whereIn('area_id', $areaIds)
+            $laporanGuestSpv = LaporanGuest::whereIn('id_area', $areaIds)
                                         ->whereDate('tgl_guest', $currentDate)
                                         ->orderByDesc('tgl_guest')
                                         ->get();
@@ -221,10 +221,10 @@ class GuestController extends Controller
             // Dapatkan semua id_area dari area_responsibilities yang dihubungkan dengan user yang diawasi oleh SPV yang sedang login
             $areaIds = AreaResponsibility::whereHas('user', function ($query) use ($user) {
                 $query->where('id_users', $user->id_users);
-            })->pluck('area_id');
+            })->pluck('id_area');
 
             // Dapatkan semua laporan pengaduan berdasarkan id_area
-            $laporanGuestCleaner = LaporanGuest::whereIn('area_id', $areaIds)
+            $laporanGuestCleaner = LaporanGuest::whereIn('id_area', $areaIds)
                                         ->whereDate('tgl_guest', $currentDate)
                                         ->orderByDesc('tgl_guest')
                                         ->where('jenis_laporan', 'pelayanan')

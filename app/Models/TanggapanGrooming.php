@@ -16,10 +16,10 @@ class TanggapanGrooming extends Model
     protected $primaryKey='id_tg';
     protected $keyType = 'string';
     protected $fillable=[
-        'lg_id',
+        'id_lg',
         'tgl_tg',
         'tanggapan_grooming',
-        'user_id'
+        'id_users'
     ];
 
     protected static function boot()
@@ -33,12 +33,12 @@ class TanggapanGrooming extends Model
     //Relasi ke Laporan Grooming
     public function laporanGrooming(): BelongsTo //BelongsTo (Foreign Key, OwnerKey)
     {
-        return $this->belongsTo(LaporanGrooming::class, 'lg_id', 'id_lg');
+        return $this->belongsTo(LaporanGrooming::class, 'id_lg', 'id_lg');
     }
 
     //Relasi ke User
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_users');
+        return $this->belongsTo(User::class, 'id_users', 'id_users');
     }
 }

@@ -25,16 +25,16 @@ return new class extends Migration
     {
         Schema::create('tanggapan_pjkp', function (Blueprint $table) {
             $table->uuid('id_tp')->primary();
-            $table->uuid('lp_id')->nullable();
+            $table->uuid('id_lp')->nullable();
             $table->datetime('tgl_tp');
             $table->text('tanggapan_pjkp');
-            $table->uuid('user_id')->nullable();
+            $table->uuid('id_users')->nullable();
             $table->timestamps();
         });
 
         Schema::table('tanggapan_pjkp', function (Blueprint $table) {
-            $table->foreign('lp_id')->references('id_lp')->on('laporan_pjkp')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_lp')->references('id_lp')->on('laporan_pjkp')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -66,31 +66,31 @@ class User extends Authenticatable
     //Relasi ke Laporan Grooming
     public function laporanGroomings(): HasMany
     {
-        return $this->hasMany(LaporanGrooming::class, 'user_id', 'id_users');
+        return $this->hasMany(LaporanGrooming::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Laporan Pjkp
     public function laporanPjkps(): HasMany
     {
-        return $this->hasMany(LaporanPjkp::class, 'user_id', 'id_users');
+        return $this->hasMany(LaporanPjkp::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Tanggapan Grooming
     public function tanggapanGroomings(): HasMany
     {
-        return $this->hasMany(TanggapanGrooming::class, 'user_id', 'id_users');
+        return $this->hasMany(TanggapanGrooming::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Tanggapan Pjkp
     public function tanggapanPjkps(): HasMany
     {
-        return $this->hasMany(TanggapanPjkp::class, 'user_id', 'id_users');
+        return $this->hasMany(TanggapanPjkp::class, 'id_users', 'id_users');
     }
 
     //Relasi ke Area Responsibility
     public function areaResponsibilities(): HasMany
     {
-        return $this->hasMany(AreaResponsibility::class, 'user_id', 'id_users');
+        return $this->hasMany(AreaResponsibility::class, 'id_users', 'id_users');
     }
 
     /**

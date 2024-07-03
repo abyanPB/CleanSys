@@ -33,10 +33,10 @@
             @method('PUT')
             <label>Area Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
-                <select class="js-example-basic-single w-100" id="area_id" name="area_id">
+                <select class="js-example-basic-single w-100" id="id_area" name="id_area">
                     <option value="">Pilih Area Kerja</option>
                     @foreach ($areas as $area)
-                    <option value="{{ $area->id_area }}" {{ $area->id_area == $lp->area_id ? 'selected' : '' }}>
+                    <option value="{{ $area->id_area }}" {{ $area->id_area == $lp->id_area ? 'selected' : '' }}>
                         {{ $area->nama_area }}
                     </option>
                     @endforeach
@@ -44,10 +44,10 @@
             </div>
             <label>Sop Kerja<span class="text-danger">*</span></label>
             <div class="form-group">
-                <select class="js-example-basic-single w-100" id="sop_id" name="sop_id">
+                <select class="js-example-basic-single w-100" id="id_sop" name="id_sop">
                     <option value="">Pilih Sop Kerja</option>
                     @foreach ($sops as $sop)
-                    <option value="{{ $sop->id_sop }}" {{ $sop->id_sop == $lp->sop_id ? 'selected' : '' }}>
+                    <option value="{{ $sop->id_sop }}" {{ $sop->id_sop == $lp->id_sop ? 'selected' : '' }}>
                         {{ $sop->nama_sop }}</option>
                     </option>
                     @endforeach

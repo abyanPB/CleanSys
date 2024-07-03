@@ -30,7 +30,7 @@
         <h6 class="card-title">Tambah Laporan Grooming</h6>
         <form id="take" class="forms-sample" action="{{route('storeLaporanGroomingCleaner')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id_users }}">
+            <input type="hidden" name="id_users" value="{{ auth()->user()->id_users }}">
             <div class="form-group">
                 <label>Foto Diri<span class="text-danger">*</span></label>
                 <input type="file" accept="image/*" capture="camera" id="photoInput" name="image_lg" class="file-upload-default">
