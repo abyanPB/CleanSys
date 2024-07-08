@@ -47,10 +47,11 @@
               <tr>
                 <th>No</th>
                 <th>Status Tanggapan</th>
+                <th>Aksi</th>
+                <th>Area Kerja</th>
                 <th>Nama Petugas</th>
                 <th>Waktu Laporan Masuk</th>
                 <th>Status Pekerjaan</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -71,6 +72,7 @@
                     @include('modals')
 
                 </td>
+                <td>{{$sPrt->area->nama_area}}</td>
                 <td>{{$sPrt->user->name}}</td>
                 <td>{{$sPrt->tgl_lp}}</td>
                 <td>{{$sPrt->status_lp}}</td>

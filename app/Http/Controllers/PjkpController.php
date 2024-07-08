@@ -203,7 +203,7 @@ class PjkpController extends Controller
             $sop = Sop::findOrFail($request->id_sop);
             return response()->json($sop->cara_penggunaan_sop);
         }
-        
+
         /**
          * Show the form for editing the specified resource.
          */
