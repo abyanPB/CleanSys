@@ -36,7 +36,7 @@
                 <th>Aksi</th>
                 <th>Foto</th>
                 <th>Nama</th>
-                <th>Keterangan</th>
+                <th>Tujuan</th>
               </tr>
             </thead>
             <tbody>

@@ -859,8 +859,6 @@
                             <hr>
                             Jenis Kelamin : {{$cSpv->jk ?? '-'}}
                             <hr>
-                            Jabatan : {{$cSpv->level}}
-                            <hr>
                             @if ($cSpv->level == 'cleaner' && $cSpv->supervisor)
                                 <p>Supervisor: {{ $cSpv->supervisor->name }}</p>
                             @else
@@ -998,8 +996,6 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-danger">Kirim</button>
-                        </form>
                         </div>
                     </div>
                     </div>
